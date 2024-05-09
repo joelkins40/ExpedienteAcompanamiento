@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ExpedienteAcompanamiento.Controllers
 {
-    public class HomeController : Controller
+    public class DatosAdministrativosController : Controller
     {
         public ActionResult Index()
         {

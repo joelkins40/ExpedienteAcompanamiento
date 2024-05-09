@@ -1,0 +1,13 @@
+:root {
+  --primary-color: #6572cd;
+  --secondary-color: #ffffff;
+
+  --background-color: #dfe7e9;
+  --card-background-color: #fff;
+
+  --border-color: #737070;
+  --border-radius: 5px;
+
+  --font-color: #535252;
+  --font-secondary-color: #ffffff;
+}

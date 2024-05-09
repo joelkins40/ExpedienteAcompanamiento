@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace ExpedienteAcompanamiento.Controllers
 {
-    public class HomeController : Controller
+    public class DatosAcademicosController : Controller
     {
         public ActionResult Index()
         {
             return View();
-        }      
+        }       
     }
 }

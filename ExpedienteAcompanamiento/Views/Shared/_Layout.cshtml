@@ -6,38 +6,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")    
+    <link rel="stylesheet" href="~/Content/components.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/details.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />    
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="container">
+        <section class="container_left">
+            <div class="details">
+                <div class="details_image-container">
+                    <img id="details-imagen" alt="User"/>
+                    <div class="details_image-container-button">
+                        <button class="btn">Cargar Imagen</button>
+                    </div>
+                </div>
+                <div class="details_title row">    
+                    <div class="column">
+                        <h1 id="details-nombre"></h1>
+                        <div style="display:flex; flex-direction: row;">
+                            <p id="details-tipo" style="flex:1"></p>
+                            <p id="details-otraCarrera" style="flex:1"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="details_details">
+                    <div class="row">
+                        <div class="horizontal-column">
+                            <p>Matricula:</p>                        
+                            <strong style="margin-left: 0.5rem;" id="details-matricula"></strong>                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p>Fecha nacimiento</p>
+                            <strong style="margin-top: 0.3rem;" id="details-fechaNacimiento"></strong>
+                        </div>
+                        <div class="column">
+                            <p>Ciudad origen</p>
+                            <strong style="margin-top: 0.3rem;" id="details-ciudadOrigen"></strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p>Plan</p>
+                            <strong style="margin-top: 0.3rem;" id="details-plan"></strong>
+                        </div>
+                        <div class="column">
+                            <p>Semestre</p>
+                            <strong style="margin-top: 0.3rem;" id="details-semestre"></strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p>Nacionalidad</p>
+                            <strong style="margin-top: 0.3rem;" id="details-nacionalidad"></strong>
+                        </div>
+                        <div class="column">
+                            <p>Estado</p>
+                            <strong style="margin-top: 0.3rem;" id="details-estado"></strong>
+                        </div>
+                    </div>
+                </div>       
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
+        </section>
+        <section class="container_right">
+            <div class="tabs">
+                <a class="tablinks" href="@Url.Action("Index", "Home")" id="tab-informacion">Información general</a>
+                <a class="tablinks" href="@Url.Action("Index", "DatosAdministrativos")" id="tab-administrativos">Datos administrativos</a>
+                <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">Datos académicos</a>
             </div>
-        </div>
+            <div>
+                @RenderBody()        
+            </div>
+        </section>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+    @Scripts.Render("~/bundles/jquery")    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/services/initialSettings.service.js"></script>
+    <script>        
+
+        function setActiveMenu(){
+            const controller = window.location.pathname;
+            if(controller === "/"){
+                $("#tab-informacion").addClass("active");
+                return;
+            }
+
+            if(controller === "/DatosAdministrativos"){
+                $("#tab-administrativos").addClass("active");
+                return;
+            }
+
+            if(controller === "/DatosAcademicos"){
+                $("#tab-academicos").addClass("active");
+                return;
+            }            
+        }
+
+        function domIsReady(){
+            (async function() {
+                const initialSettings = await getInitialSettings();
+                for (let key in initialSettings) {
+                    if (key === "imagen") {
+                        $(`#details-${key}`).attr("src", initialSettings[key]);
+                    }
+                    $(`#details-${key}`).html(initialSettings[key]);
+                }
+            })();
+        }
+
+        setActiveMenu();
+        $(document).ready(domIsReady);
+    </script>
 </body>
 </html>

@@ -2,30 +2,128 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+@section scripts {
+    <script src="~/Scripts/services/generalInformation.service.js"></script>
+    <script>
+        function domIsReadyGeneralInfo(){
+            (async function() {
+                const initialSettings = await getGeneralInformation();                
+                for (let key in initialSettings){
+                    $(`#general-${key}`).val(initialSettings[key]);
+                }
+            })();
+        }
+        
+        $(document).ready(domIsReadyGeneralInfo);
+    </script>
+}
+
+<style>
+
+
+
+</style>
+
+<div class="card general-info">
+    <div class="card-header">
+        <h3>Datos del contacto<h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="column">
+                <label>Teléfono celular:</label>
+                <input type="text" id="general-telefono" disabled/>
+            </div>
+            <div class="column">
+                <label>Domicilio Permanente:</label>
+                <input type="text" id="general-domicilioPermanente" disabled/>
+            </div>  
+            <div class="column">
+                <label>Domicilio Local:</label>
+                <input type="text" id="general-domicilioLocal" disabled/>
+            </div>          
+        </div>        
+        <div class="row">
+            <div class="column">
+                <label>Correo Personal:</label>
+                <input type="text" id="general-correo" disabled/>
+            </div>
+            <div class="column">
+                <label>Correo UDEM:</label>
+                <input type="text" id="general-correoUDEM" disabled/>
+            </div>            
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="card general-info">
+    <div class="card-header">
+        <h3>Datos de padres o tutor<h3>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="card-body">
+        <div class="row">
+            <div class="column">
+                <label>Nombre padre:</label>
+                <input type="text" id="genera-nombrePadre" disabled/>
+            </div>
+            <div class="column">
+                <label>Nombre madre:</label>
+                <input type="text" id="general-nombreMadre" disabled/>
+            </div>                 
+        </div>        
+        <div class="row">
+            <div class="column">
+                <label>Teléfono celular padre:</label>
+                <input type="text" id="general-telefonoPadre" disabled/>
+            </div>
+            <div class="column">
+                <label>Teléfono celular madre:</label>
+                <input type="text" id="general-telefonoMadre" disabled/>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="column">
+                <label>Correo padre:</label>
+                <input type="text" id="general-correoPadre" disabled/>
+            </div>
+            <div class="column">
+                <label>Correo madre:</label>
+                <input type="text" id="general-correoMadre" disabled/>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="column">
+                <label>Nombre Tutor:</label>
+                <input type="text" id="general-nombreTutor" disabled/>
+            </div>                     
+        </div>
+        <div class="row">
+            <div class="column">
+                <label>Teléfono celular tutor:</label>
+                <input type="text" id="general-telefonoTutor" disabled/>
+            </div>
+            <div class="column">
+                <label>Correo tutor:</label>
+                <input type="text" id="general-correoTutor" disabled/>
+            </div>            
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</div>
+
+<div class="card general-info">
+    <div class="card-header">
+        <h3>Datos Contacto Emergencia<h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="column">
+                <label>Nombre:</label>
+                <input type="text" id="general-emergenciaNombre" disabled/>
+            </div>
+            <div class="column">
+                <label>Telefono:</label>
+                <input type="text" id="general-emergenciaTelefono" disabled/>
+            </div>                   
+        </div>               
     </div>
 </div>
