@@ -16,190 +16,48 @@ namespace ExpedienteAcompanamiento.Models.Services
     {
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["BANNER"].ConnectionString;
 
-
-        public static  Personales getPersonales2(int pidm)
+        public static Personales getPersonales(int pidm)
         {
             Personales personales = new Personales();
             try
             {
-                using (OracleConnection db = new OracleConnection(_conString))
-                {
-                    db.Open();
-
-                    OracleCommand com = new OracleCommand();
-                    com.Connection = db;
-                    com.CommandText = "GZ_BGSEXPE.F_GET_DATOS_PERSONALES";
-                    com.CommandType = CommandType.StoredProcedure;
-                    com.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int16)
-                    {
-                        Value = pidm,
-                        Direction = System.Data.ParameterDirection.Input
-                    });
-
-                    com.Parameters.Add(new OracleParameter("datos_personales", OracleDbType.RefCursor,ParameterDirection.Output));
-                   
-                    com.ExecuteNonQuery();
-
-                    OracleDataReader lector = ((OracleRefCursor)com.Parameters["datos_personales"].Value).GetDataReader();
-
-                    while (lector.Read())
-                    {
-                        personales = new Personales()
-                        {
-                            matricula = lector["matricula"]?.ToString(),
-                            nombreCompleto = lector["nombreCompleto"]?.ToString(),
-                            fechaNacimiento = lector["fechaNac"]?.ToString(),
-                            ciudadOrigen = lector["ciudadOrigen"]?.ToString(),
-                            estadoOrigen = lector["direccionMetropolitana"]?.ToString(),
-                            domicilioPermanente = lector["direccion"]?.ToString(),
-                            telefono = lector["telefono"]?.ToString(),
-                            domicilioZona = lector["nivel"]?.ToString(),
-                            carreraEstudia = lector["carrera"]?.ToString(),
-                            carrerasInscrito = lector["carrerasAnt"]?.ToString(),
-                            dobleTitulacion = lector["dobleTit"]?.ToString(),
-                            dobleGrado = lector["correoPref"]?.ToString(),
-                            correoPreferente = lector["correoPref"]?.ToString(),
-                            correoPersonal = lector["correoPers"]?.ToString(),
-                            correoUDEM = lector["correoUDEM"]?.ToString(),
-                            seguroGMMUDEM = lector["sgmmUDEM"]?.ToString(),
-                            seguroGMMParticular = lector["sgmmParti"]?.ToString(),
-                            localForaneo = lector["localForaneo"]?.ToString(),
-                            genero = lector["genero"]?.ToString(),
-                            periodoActual = lector["periodoActual"]?.ToString(),
-                            semestre = lector["semestre"]?.ToString(),
-                        };
-                        break;
-                    }
-                    db.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                personales = null;
-                var error = ex;
-            }
-            return personales;
-        }
-
-        public static Personales ObtenerPersonales(int pidm)
-        {
-            Personales personales = null;
-
-            using (OracleConnection cnx = new OracleConnection(_conString))
-            {
-                cnx.Open();
-
-                // Preparamos la consulta de los datos personales
-                OracleCommand comando = new OracleCommand();
-                comando.Connection = cnx;
-                comando.CommandText = @"GZ_BGSEXPE.F_GET_DATOS_PERSONALES";
-                comando.CommandType = System.Data.CommandType.StoredProcedure;
-
-                comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2)
-                {
-                    Size = 200,
-                    Direction = System.Data.ParameterDirection.ReturnValue
-                });
-
-                comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int16)
-                {
-                    Value = pidm,
-                    Size = 9
-                });
-
-                comando.Parameters.Add(new OracleParameter("datos_personales", OracleDbType.RefCursor)
-                {
-                    Direction = System.Data.ParameterDirection.Output
-                });
-
-                comando.ExecuteNonQuery();
-
-                // Revisamos si se pudo ejecutar la consulta
-                if (comando.Parameters["salida"].Value?.ToString() == "OP_EXITOSA")
-                {
-                    // Inicializamos la variable de salida
-                    personales = new Personales();
-
-                    OracleDataReader lector = ((OracleRefCursor)comando.Parameters["datos_personales"].Value).GetDataReader();
-
-                    // Revisamos cada contacto
-                    while (lector.Read())
-                    {
-                        personales = new Personales()
-                        {
-                            matricula = lector["matricula"]?.ToString(),
-                            nombreCompleto = lector["nombreCompleto"]?.ToString(),
-                            fechaNacimiento = lector["fechaNac"]?.ToString(),
-                            ciudadOrigen = lector["ciudadOrigen"]?.ToString(),
-                            estadoOrigen = lector["direccionMetropolitana"]?.ToString(),
-                            domicilioPermanente = lector["direccion"]?.ToString(),
-                            telefono = lector["telefono"]?.ToString(),
-                            domicilioZona = lector["nivel"]?.ToString(),
-                            carreraEstudia = lector["carrera"]?.ToString(),
-                            carrerasInscrito = lector["carrerasAnt"]?.ToString(),
-                            dobleTitulacion = lector["dobleTit"]?.ToString(),
-                            dobleGrado = lector["correoPref"]?.ToString(),
-                            correoPreferente = lector["correoPref"]?.ToString(),
-                            correoPersonal = lector["correoPers"]?.ToString(),
-                            correoUDEM = lector["correoUDEM"]?.ToString(),
-                            seguroGMMUDEM = lector["sgmmUDEM"]?.ToString(),
-                            seguroGMMParticular = lector["sgmmParti"]?.ToString(),
-                            localForaneo = lector["localForaneo"]?.ToString(),
-                            genero = lector["genero"]?.ToString(),
-                            periodoActual = lector["periodoActual"]?.ToString(),
-                            semestre = lector["semestre"]?.ToString(),
-                        };
-
-                    }
-                }
-
-                cnx.Close();
-
-               
-            }
-
-            return personales;
-        }
-        public static async Task<Personales> getPersonales(int pidm)
-        {
-            Personales Personales = new Personales();
-            try
-            {
                 using (OracleConnection cnx = new OracleConnection(_conString))
                 {
+
                     using (OracleCommand comando = new OracleCommand())
                     {
-                        cnx.Open();
                         comando.Connection = cnx;
-                        comando.CommandText = @"GZ_BGSEXPE.F_GET_DATOS_PERSONALES";
+                        comando.CommandText = "GZ_BGSEXPE.F_GET_DATOS_PERSONALES_AUX";
                         comando.CommandType = System.Data.CommandType.StoredProcedure;
                         comando.BindByName = true;
-
-
-                       
-                        comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2,200)
+                        comando.Parameters.Add(new OracleParameter("salida", OracleDbType.RefCursor)
                         {
-                            Direction = System.Data.ParameterDirection.ReturnValue
+                            Direction = ParameterDirection.ReturnValue
                         });
-                        comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int32)
+
+                        comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int16)
                         {
                             Value = pidm,
-                           
+                            Direction = System.Data.ParameterDirection.Input
                         });
-                        comando.Parameters.Add(new OracleParameter("datos_personales", OracleDbType.RefCursor)
-                        {
-                            Direction = System.Data.ParameterDirection.Output
-                        });
-                        comando.ExecuteNonQuery();
 
-                        OracleDataReader lector = ((OracleRefCursor)comando.Parameters["datos_personales"].Value).GetDataReader();
 
-                       
+                        // Revisamos si se pudo ejecutar la consulta
+                        cnx.Open();
+
                         try
                         {
+
+                            OracleDataReader lector = comando.ExecuteReader();
+
+                            // Revisamos cada contacto
+
                             while (lector.Read())
                             {
-                                Personales = new Personales()
+
+
+
+                                personales = new Personales()
                                 {
                                     matricula = lector["matricula"]?.ToString(),
                                     nombreCompleto = lector["nombreCompleto"]?.ToString(),
@@ -220,62 +78,38 @@ namespace ExpedienteAcompanamiento.Models.Services
                                     seguroGMMParticular = lector["sgmmParti"]?.ToString(),
                                     localForaneo = lector["localForaneo"]?.ToString(),
                                     genero = lector["genero"]?.ToString(),
-                                    periodoActual= lector["periodoActual"]?.ToString(),
+                                    periodoActual = lector["periodoActual"]?.ToString(),
                                     semestre = lector["semestre"]?.ToString(),
                                 };
-                                break;
+
+
+
+
                             }
+
+
                         }
                         finally
                         {
+
                             cnx.Close();
                         }
+
                     }
+
+                    //cnx.Close();
                 }
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine(ex.Message);
+
             }
-            return Personales;
+            return personales;
 
         }
-        public static  string getPersonales1(int pidm)
-        {
-            string valor = "";
 
-            using (OracleConnection connection = new OracleConnection(_conString))
-            {
-                using (OracleCommand command = new OracleCommand("GZ_BGSEXPE.F_GET_DATOS_PERSONALES", connection)
-                {
-                    CommandType = CommandType.StoredProcedure,
-                    BindByName = true
-                })
-                {
-
-                    command.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int32)
-                    {
-                        Value = pidm,
-                        Direction = ParameterDirection.Input
-                    });
-                  
-
-                    connection.Open();
-
-                    int ejecucion = command.ExecuteNonQuery();
-                    OracleDataReader lector = ((OracleRefCursor)command.Parameters["datos_personales"].Value).GetDataReader();
-
-                    try
-                    {
-                        valor = command.Parameters["V_VALUE"]?.Value.ToString();
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
-                };
-            }
-            return valor;
-        }
+    
     }
 }

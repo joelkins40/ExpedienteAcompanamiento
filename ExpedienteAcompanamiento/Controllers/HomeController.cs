@@ -11,7 +11,7 @@ namespace ExpedienteAcompanamiento.Controllers
     {
         public ActionResult Index()
         {
-            var isEmployee = PersonalesService.ObtenerPersonales(510830);
+            var isEmployee = PersonalesService.getPersonales(510830);
             return View();
         }      
         
