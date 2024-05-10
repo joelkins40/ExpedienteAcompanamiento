@@ -16,7 +16,7 @@ namespace ExpedienteAcompanamiento.Controllers
         public string Get(string id)
         {
 
-            Personales personales = PersonalesService.getPersonales(510830);
+            Personales personales = PersonalesService.ObtenerPersonales(510830);
             string jsonData = JsonConvert.SerializeObject(personales);
             return jsonData;
         }

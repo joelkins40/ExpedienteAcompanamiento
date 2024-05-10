@@ -29,6 +29,10 @@ namespace ExpedienteAcompanamiento.Models.Entity
 
         public string periodoActual { get; set; }
         public string semestre { get; set; }
+        public string prepaProcedencia { get; set; }
+        public string nivel { get; set; }
+
+        
 
     }
 }
