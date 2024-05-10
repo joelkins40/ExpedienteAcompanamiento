@@ -26,4 +26,9 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string seguroGMMParticular { get; set; }
         public string localForaneo { get; set; }
         public string genero { get; set; }
+
+        public string periodoActual { get; set; }
+        public string semestre { get; set; }
+
     }
+}

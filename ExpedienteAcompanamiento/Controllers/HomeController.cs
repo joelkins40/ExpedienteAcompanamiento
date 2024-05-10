@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpedienteAcompanamiento.Models.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,12 @@ namespace ExpedienteAcompanamiento.Controllers
     {
         public ActionResult Index()
         {
+            var isEmployee = PersonalesService.ObtenerPersonales(510830);
             return View();
         }      
+        
+
+    
     }
+
 }
