@@ -7,16 +7,12 @@ namespace ExpedienteAcompanamiento.Models.Entity
 {
     public class Personales
     {
-        public string matricula { get; set; }
-        public string nombreCompleto { get; set; }
-        public string fechaNacimiento { get; set; }
-        public string ciudadOrigen { get; set; }
-        public string estadoOrigen { get; set; }
+
+         
         public string domicilioPermanente { get; set; }
         public string telefono { get; set; }
         public string domicilioZona { get; set; }
-        public string carreraEstudia { get; set; }
-        public string carrerasInscrito { get; set; }
+       
         public string dobleTitulacion { get; set; }
         public string dobleGrado { get; set; }
         public string correoPreferente { get; set; }
@@ -28,7 +24,6 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string genero { get; set; }
 
         public string periodoActual { get; set; }
-        public string semestre { get; set; }
         public string prepaProcedencia { get; set; }
         public string nivel { get; set; }
 

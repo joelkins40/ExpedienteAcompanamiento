@@ -181,6 +181,7 @@
     <Compile Include="Models\Entity\DesempenoAcademico.cs" />
     <Compile Include="Models\Entity\ExpedienteCentroSaludIntegral.cs" />
     <Compile Include="Models\Entity\Internacionalizacion.cs" />
+    <Compile Include="Models\Entity\DatosInicio.cs" />
     <Compile Include="Models\Entity\Personales.cs" />
     <Compile Include="Models\Entity\ResidenciasGeneral.cs" />
     <Compile Include="Models\Entity\ResidenciasSalud.cs" />
