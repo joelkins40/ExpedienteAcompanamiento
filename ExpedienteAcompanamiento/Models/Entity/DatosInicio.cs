@@ -12,9 +12,15 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string fechaNacimiento { get; set; }
         public string ciudadOrigen { get; set; }
         public string estadoOrigen { get; set; }
-        public string carreraEstudia { get; set; }
-        public string carrerasInscrito { get; set; }
+        public string nivel { get; set; }
+        public string carrera { get; set; }
+        public string carreraAnterior { get; set; }
+        public string dobleTitulacion { get; set; }
+        public string etnia { get; set; }
+        public string genero { get; set; }
+        public string periodoActual { get; set; }
         public string semestre { get; set; }
+        public string preparatoriaProcedencia { get; set; }
         public string nacionalidad { get; set; }
 
     }

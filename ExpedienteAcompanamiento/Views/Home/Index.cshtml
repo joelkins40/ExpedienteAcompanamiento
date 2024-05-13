@@ -3,15 +3,21 @@
 }
 
 @section scripts {
-    <script src="~/Scripts/services/generalInformation.service.js"></script>
+    <script src="~/Scripts/services/contacto.service.js"></script>
     <script>
         function domIsReadyGeneralInfo(){
             (async function() {
-                const initialSettings = await getGeneralInformation();                
+                const initialSettings = await getContactosInformation();
                 for (let key in initialSettings){
                     $(`#general-${key}`).val(initialSettings[key]);
                 }
+                toggleGeneralLoader();
             })();
+        }
+
+        function toggleGeneralLoader(){
+            $(`#general`).attr("style", "display: block");
+            $(`#general-skeleton`).attr("style", "display: none");
         }
         
         $(document).ready(domIsReadyGeneralInfo);
@@ -24,106 +30,199 @@
 
 </style>
 
-<div class="card general-info">
-    <div class="card-header">
-        <h3>Datos del contacto<h3>
+<div id="general" style="display:none;">
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos del contacto<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Teléfono celular:</label>
+                    <input type="text" id="general-telefono" disabled/>
+                </div>
+                <div class="column">
+                    <label>Domicilio Permanente:</label>
+                    <input type="text" id="general-domicilioPermanente" disabled/>
+                </div>  
+                <div class="column">
+                    <label>Domicilio Local:</label>
+                    <input type="text" id="general-domicilioLocal" disabled/>
+                </div>          
+            </div>        
+            <div class="row">
+                <div class="column">
+                    <label>Correo Personal:</label>
+                    <input type="text" id="general-correo" disabled/>
+                </div>
+                <div class="column">
+                    <label>Correo UDEM:</label>
+                    <input type="text" id="general-correoUDEM" disabled/>
+                </div>            
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="column">
-                <label>Teléfono celular:</label>
-                <input type="text" id="general-telefono" disabled/>
+
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos de padres o tutor<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Nombre padre:</label>
+                    <input type="text" id="general-nombrePadre" disabled/>
+                </div>
+                <div class="column">
+                    <label>Nombre madre:</label>
+                    <input type="text" id="general-nombreMadre" disabled/>
+                </div>                 
+            </div>        
+            <div class="row">
+                <div class="column">
+                    <label>Teléfono celular padre:</label>
+                    <input type="text" id="general-telefonoPadre" disabled/>
+                </div>
+                <div class="column">
+                    <label>Teléfono celular madre:</label>
+                    <input type="text" id="general-telefonoMadre" disabled/>
+                </div>            
             </div>
-            <div class="column">
-                <label>Domicilio Permanente:</label>
-                <input type="text" id="general-domicilioPermanente" disabled/>
-            </div>  
-            <div class="column">
-                <label>Domicilio Local:</label>
-                <input type="text" id="general-domicilioLocal" disabled/>
-            </div>          
-        </div>        
-        <div class="row">
-            <div class="column">
-                <label>Correo Personal:</label>
-                <input type="text" id="general-correo" disabled/>
+            <div class="row">
+                <div class="column">
+                    <label>Correo padre:</label>
+                    <input type="text" id="general-correoPadre" disabled/>
+                </div>
+                <div class="column">
+                    <label>Correo madre:</label>
+                    <input type="text" id="general-correoMadre" disabled/>
+                </div>            
             </div>
-            <div class="column">
-                <label>Correo UDEM:</label>
-                <input type="text" id="general-correoUDEM" disabled/>
-            </div>            
+            <div class="row">
+                <div class="column">
+                    <label>Nombre Tutor:</label>
+                    <input type="text" id="general-nombreTutor" disabled/>
+                </div>                     
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label>Teléfono celular tutor:</label>
+                    <input type="text" id="general-telefonoTutor" disabled/>
+                </div>
+                <div class="column">
+                    <label>Correo tutor:</label>
+                    <input type="text" id="general-correoTutor" disabled/>
+                </div>            
+            </div>
+        </div>
+    </div>
+
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos Contacto Emergencia<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Nombre:</label>
+                    <input type="text" id="general-emergenciaNombre" disabled/>
+                </div>
+                <div class="column">
+                    <label>Telefono:</label>
+                    <input type="text" id="general-emergenciaTelefono" disabled/>
+                </div>                   
+            </div>               
         </div>
     </div>
 </div>
 
-<div class="card general-info">
-    <div class="card-header">
-        <h3>Datos de padres o tutor<h3>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="column">
-                <label>Nombre padre:</label>
-                <input type="text" id="genera-nombrePadre" disabled/>
-            </div>
-            <div class="column">
-                <label>Nombre madre:</label>
-                <input type="text" id="general-nombreMadre" disabled/>
-            </div>                 
-        </div>        
-        <div class="row">
-            <div class="column">
-                <label>Teléfono celular padre:</label>
-                <input type="text" id="general-telefonoPadre" disabled/>
-            </div>
-            <div class="column">
-                <label>Teléfono celular madre:</label>
-                <input type="text" id="general-telefonoMadre" disabled/>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="column">
-                <label>Correo padre:</label>
-                <input type="text" id="general-correoPadre" disabled/>
-            </div>
-            <div class="column">
-                <label>Correo madre:</label>
-                <input type="text" id="general-correoMadre" disabled/>
-            </div>            
-        </div>
-        <div class="row">
-            <div class="column">
-                <label>Nombre Tutor:</label>
-                <input type="text" id="general-nombreTutor" disabled/>
-            </div>                     
-        </div>
-        <div class="row">
-            <div class="column">
-                <label>Teléfono celular tutor:</label>
-                <input type="text" id="general-telefonoTutor" disabled/>
-            </div>
-            <div class="column">
-                <label>Correo tutor:</label>
-                <input type="text" id="general-correoTutor" disabled/>
-            </div>            
-        </div>
-    </div>
-</div>
 
-<div class="card general-info">
-    <div class="card-header">
-        <h3>Datos Contacto Emergencia<h3>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="column">
-                <label>Nombre:</label>
-                <input type="text" id="general-emergenciaNombre" disabled/>
+<div id="general-skeleton">
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos del contacto<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>  
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>          
+            </div>        
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>            
             </div>
-            <div class="column">
-                <label>Telefono:</label>
-                <input type="text" id="general-emergenciaTelefono" disabled/>
-            </div>                   
-        </div>               
+        </div>
+    </div>
+
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos de padres o tutor<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                   <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>                 
+            </div>        
+            <div class="row">
+                <div class="column">
+                   <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>            
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>            
+            </div>
+            <div class="row">
+                <div class="column">
+                   <div class="skeleton skeleton-text"></div>
+                </div>                     
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>            
+            </div>
+        </div>
+    </div>
+
+    <div class="card general-info">
+        <div class="card-header">
+            <h3>Datos Contacto Emergencia<h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>                   
+            </div>               
+        </div>
     </div>
 </div>

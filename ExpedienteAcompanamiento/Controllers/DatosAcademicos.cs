@@ -1,5 +1,6 @@
 ﻿using ExpedienteAcompanamiento.Models.Entity;
 using ExpedienteAcompanamiento.Models.Services;
+using ExpedienteAcompanamiento.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,17 @@ namespace ExpedienteAcompanamiento.Controllers
 {
     public class DatosAcademicosController : Controller
     {
-        [HttpGet]
-        [ActionName("GetAllPersonales")]
-        public string Get(string id)
-        {
-
-            Personales personales = PersonalesService.ObtenerPersonales(510830);
-            string jsonData = JsonConvert.SerializeObject(personales);
-            return jsonData;
-        }
-            public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
-        }       
+        }
+
+        [HttpGet]
+        [ActionName("ObtenerInformacionContactos")]
+        public string Get(string id)
+        {
+            ResultObject response = PersonalesService.ObtenerInformacionContactos(510830);
+            return JsonConvert.SerializeObject(response);            
+        }            
     }
 }
