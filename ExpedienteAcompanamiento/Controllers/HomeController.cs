@@ -14,18 +14,17 @@ namespace ExpedienteAcompanamiento.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string token)
         {
-           string matricula= await  AccesoService.obtenerMatriculaToken();
-
-            FormsAuthenticationTicket sesionTicket = new FormsAuthenticationTicket(1, matricula, DateTime.Now, DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes), true, String.Join(";", "sesion.Roles"));
-            string encryptedTicket = FormsAuthentication.Encrypt(sesionTicket);
-            HttpCookie galletaSesion = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            Response.Cookies.Add(galletaSesion);
-
-            // Guardamos el token de sesión en una galleta
-            Response.Cookies["_token"].Value = "sesion.Token";
-            Response.Cookies["_token"].Expires = galletaSesion.Expires;
+            
+            if (token != null)
+            {
+                string pidm = await AccesoService.obtenerMatriculaToken(token);
+                Session["pidm"] = pidm;
+            }
+            
+           
+             
             return View();
         }
 
@@ -33,8 +32,8 @@ namespace ExpedienteAcompanamiento.Controllers
         [ActionName("ObtenerInformacionPersonal")]
         public string Get(string id)
         {
-
-            ResultObject response = PersonalesService.ObtenerInformacionPersonal(510830);
+            int valor = Convert.ToInt32(Session["pidm"]);
+            ResultObject response = PersonalesService.ObtenerInformacionPersonal(valor);
             return JsonConvert.SerializeObject(response);
         }
     }    

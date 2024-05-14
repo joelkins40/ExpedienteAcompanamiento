@@ -188,6 +188,7 @@
     <Compile Include="Models\Entity\Tutores.cs" />
     <Compile Include="Models\Entity\VidaUniversitaria.cs" />
     <Compile Include="Models\Services\AcompanamientoService.cs" />
+    <Compile Include="Models\Services\AccesoService.cs" />
     <Compile Include="Models\Services\AdmisionesService.cs" />
     <Compile Include="Models\Services\BecaService.cs" />
     <Compile Include="Models\Services\BienestarSaludService.cs" />

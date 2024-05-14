@@ -21,7 +21,8 @@ namespace ExpedienteAcompanamiento.Controllers
         [ActionName("ObtenerInformacionContactos")]
         public string Get(string id)
         {
-            ResultObject response = PersonalesService.ObtenerInformacionContactos(510830);
+            int PDIM = Convert.ToInt32(Session["pidm"]);
+            ResultObject response = PersonalesService.ObtenerInformacionContactos(PDIM);
             return JsonConvert.SerializeObject(response);            
         }            
     }

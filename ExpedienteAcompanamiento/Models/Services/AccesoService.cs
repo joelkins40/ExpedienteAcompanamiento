@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,55 +15,37 @@ namespace ExpedienteAcompanamiento.Models.Services
     {
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["BANNER"].ConnectionString;
 
-        public static async Task<string> obtenerMatriculaToken()
+        public static async Task<string> obtenerMatriculaToken(string token)
         {
-            string token = HttpContext.Current.Request["token"];
+    
             string tokenAbierto = Encoding.UTF8.GetString(Convert.FromBase64String(token));
             NameValueCollection parsedValues = HttpUtility.ParseQueryString(tokenAbierto);
-            string matricula =  parsedValues["matricula"];
-            string pin       =  parsedValues["pin"];
+            return await ObtenerPIDM(parsedValues["matricula"]);
 
-            bool valida = await ValidaCredenciales(matricula, pin);
-
-            if (valida)
-            {
-                return matricula;
-            }
-            else
-            {
-                return null;
-            }
+           
            
         }
-        public async static Task<bool> ValidaCredenciales(string matricula, string pin)
+        public static async Task<string> ObtenerPIDM(string pidm)
         {
-            bool validas = false;
+            string matricula = "";
             try
             {
-
-
                 using (var connection = new OracleConnection(_conString))
                 {
-                    OracleCommand command = new OracleCommand("SZ_BFQ_KARDEXBA.f_validar_credenciales", connection)
+                    OracleCommand command = new OracleCommand("F_UDEM_STU_PIDM", connection)
                     {
                         CommandType = System.Data.CommandType.StoredProcedure,
                         BindByName = true
                     };
 
-                    command.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2, 1)
+                    command.Parameters.Add(new OracleParameter("salida", OracleDbType.Int16)
                     {
-                        Direction = System.Data.ParameterDirection.ReturnValue
+                        Direction = ParameterDirection.ReturnValue
                     });
-                    command.Parameters.Add(new OracleParameter("p_matricula", OracleDbType.Varchar2, 200)
+                    command.Parameters.Add(new OracleParameter("cMatricula", OracleDbType.Varchar2)
                     {
-                        Value = matricula,
-                        Direction = System.Data.ParameterDirection.Input
-                    });
-
-                    command.Parameters.Add(new OracleParameter("p_pin", OracleDbType.Varchar2, 200)
-                    {
-                        Value = pin,
-                        Direction = System.Data.ParameterDirection.Input
+                        Value = pidm,
+                        Direction = ParameterDirection.Input
                     });
 
                     connection.Open();
@@ -71,10 +54,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     try
                     {
-                        if (Convert.ToString(command.Parameters["salida"]?.Value) == "Y")
-                        {
-                            validas = true;
-                        }
+                        matricula = Convert.ToString(command.Parameters["salida"]?.Value);
                     }
                     finally
                     {
@@ -86,7 +66,9 @@ namespace ExpedienteAcompanamiento.Models.Services
             {
                 var error = ex;
             }
-            return validas;
+
+            return matricula;
         }
+
     }
 }
