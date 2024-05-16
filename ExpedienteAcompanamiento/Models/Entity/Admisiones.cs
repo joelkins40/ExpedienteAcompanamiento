@@ -13,6 +13,6 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string Puntaje_Matematicas { get; set; }
         public string Promedio_Ingreso_Prepa { get; set; }
         public string Admision_Condicionada { get; set; }
-             
+        public List<Admisiones> admisiones { get; set; }
     }
 }

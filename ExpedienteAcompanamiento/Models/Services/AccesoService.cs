@@ -20,12 +20,12 @@ namespace ExpedienteAcompanamiento.Models.Services
     
             string tokenAbierto = Encoding.UTF8.GetString(Convert.FromBase64String(token));
             NameValueCollection parsedValues = HttpUtility.ParseQueryString(tokenAbierto);
-            return await ObtenerPIDM(parsedValues["matricula"]);
+            return  ObtenerPIDM(parsedValues["matricula"]);
 
            
            
         }
-        public static async Task<string> ObtenerPIDM(string pidm)
+        public static string ObtenerPIDM(string pidm)
         {
             string matricula = "";
             try
@@ -50,7 +50,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     connection.Open();
 
-                    int ejecucion = await command.ExecuteNonQueryAsync();
+                    int ejecucion = command.ExecuteNonQuery();
 
                     try
                     {

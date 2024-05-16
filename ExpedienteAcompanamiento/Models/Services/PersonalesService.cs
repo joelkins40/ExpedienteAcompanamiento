@@ -110,6 +110,116 @@ namespace ExpedienteAcompanamiento.Models.Services
                 };
             }
         }
+        public static ResultObject ObtenerInformacionDatosAdministrativos(int pidm)
+        {
+            ResultObject result = new ResultObject();
+            DatosAdministrativos datosAdministrativos = new DatosAdministrativos();
+            try
+            {
+
+                using (OracleConnection cnx = new OracleConnection(_conString))
+                {
+                    cnx.Open();
+
+                    OracleCommand comando = new OracleCommand();
+                    comando.Connection = cnx;
+                    comando.CommandText = @"GZ_BGSEXPE.F_DATOS_ADMINISTRATIVOS";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.BindByName = true;
+
+                    comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2)
+                    {
+                        Size = 300,
+                        Direction = ParameterDirection.ReturnValue
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int32)
+                    {
+                        Value = pidm,
+                        Size = 9
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("c_becasPeriodo", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("c_datos_administrativos", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+
+                   
+
+                    comando.ExecuteNonQuery();
+
+                    // Revisamos si se pudo ejecutar la consulta
+                    if (comando.Parameters["salida"].Value?.ToString() == "OP_EXITOSA")
+                    {
+                        OracleDataReader lector1 = ((OracleRefCursor)comando.Parameters["c_becasPeriodo"].Value).GetDataReader();
+                        while (lector1.Read())
+                        {
+                          datosAdministrativos.becasPeriodos.Add(new BecasPeriodos()
+                            {
+                                BECA_NOMBRE = lector1["BECA_NOMBRE"]?.ToString(),
+                                BECA_PORCENTAJE = lector1["BECA_PORCENTAJE"]?.ToString(),
+                            });
+                        }
+                        OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["c_datos_administrativos"].Value).GetDataReader();
+                        while (lector2.Read())
+                        {
+                            datosAdministrativos.datosAdministrativos.Add(new Administrativos()
+                            {
+                                SEGURO_UDEM = lector2["SEGURO_UDEM"]?.ToString(),
+                                SEGURO_PART = lector2["SEGURO_PART"]?.ToString(),
+                                BLOQUEO = lector2["BLOQUEO"]?.ToString(),
+                                TERMINOS_COND = lector2["TERMINOS_COND"]?.ToString(),
+                                TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
+                                PROG_BECARIO = lector2["PROG_BECARIO"]?.ToString(),
+                                ESTATUS_BECA = lector2["ESTATUS_BECA"]?.ToString(),
+                                NUM_PERIODO = lector2["NUM_PERIODO"]?.ToString(),
+                                HORAS_BECA = lector2["HORAS_BECA"]?.ToString(),
+                                CREDITO_EDUCATIVO = lector2["CREDITO_EDUCATIVO"]?.ToString(),
+                                FORMADOR_NOMBRE = lector2["FORMADOR_NOMBRE"]?.ToString(),
+                                FORMADOR_PUESTO = lector2["FORMADOR_PUESTO"]?.ToString(),
+                                FORMADOR_CORREO = lector2["FORMADOR_CORREO"]?.ToString(),
+                            });
+                        }
+                        
+                        result = new ResultObject()
+                        {
+
+                            Success = true,
+                            Status = 200,
+                            Value = datosAdministrativos
+                        };
+                    }
+                    else
+                    {
+                        result = new ResultObject()
+                        {
+                            Success = false,
+                            Status = 700,
+                            Message = comando.Parameters["salida"].Value?.ToString(),
+                            uiMessage = "Ocurrio un error inesperado!"
+                        };
+                    }
+                    cnx.Close();
+                }
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new ResultObject()
+                {
+                    Success = false,
+                    Status = 500,
+                    Message = ex.Message,
+                    uiMessage = "Ocurrio un error inesperado!"
+                };
+            }
+        }
 
         public static ResultObject ObtenerInformacionDatosAdmision(int pidm)
         {            

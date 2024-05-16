@@ -24,6 +24,16 @@ namespace ExpedienteAcompanamiento.Controllers
             int PDIM = Convert.ToInt32(Session["pidm"]);
             ResultObject response = PersonalesService.ObtenerInformacionDatosAdmision(PDIM);
             return JsonConvert.SerializeObject(response);            
-        }            
+        }
+        [HttpGet]
+        [ActionName("ObtenerInformacionAdmisionByPidm")]
+        public string GetPidm(string matricula)
+        {
+
+            string pidm = AccesoService.ObtenerPIDM(matricula);
+            Session["pidm"] = pidm;
+            ResultObject response = PersonalesService.ObtenerInformacionDatosAdmision(Convert.ToInt32(pidm));
+            return JsonConvert.SerializeObject(response);
+        }
     }
 }
