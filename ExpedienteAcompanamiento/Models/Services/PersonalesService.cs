@@ -111,7 +111,7 @@ namespace ExpedienteAcompanamiento.Models.Services
             }
         }
 
-        public static ResultObject ObtenerInformacionContactos(int pidm)
+        public static ResultObject ObtenerInformacionDatosAdmision(int pidm)
         {            
             ResultObject result = new ResultObject();
             try
@@ -121,6 +121,90 @@ namespace ExpedienteAcompanamiento.Models.Services
                 {
                     cnx.Open();
                     
+                    OracleCommand comando = new OracleCommand();
+                    comando.Connection = cnx;
+                    comando.CommandText = @"GZ_BGSEXPE.F_DATOS_ADMISION";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.BindByName = true;
+
+                    comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2)
+                    {
+                        Size = 300,
+                        Direction = ParameterDirection.ReturnValue
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int32)
+                    {
+                        Value = pidm,
+                        Size = 9
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("c_datos_admision", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+
+                    comando.ExecuteNonQuery();
+
+                    // Revisamos si se pudo ejecutar la consulta
+                    if (comando.Parameters["salida"].Value?.ToString() == "OP_EXITOSA")
+                    {
+                        OracleDataReader lector = ((OracleRefCursor)comando.Parameters["c_datos_admision"].Value).GetDataReader();
+                        while (lector.Read())
+                        {
+                            result = new ResultObject()
+                            {
+                                Success = true,
+                                Status = 200,
+                                Value = new Admisiones()
+                                {
+                                    Periodo_Inicio = lector["Periodo_Inicio"]?.ToString(),
+                                    PAA = lector["PAA"]?.ToString(),
+                                    Puntaje_Verbal = lector["Puntaje_Verbal"]?.ToString(),
+                                    Puntaje_Matematicas = lector["Puntaje_Matematicas"]?.ToString(),
+                                    Promedio_Ingreso_Prepa = lector["Promedio_Ingreso_Prepa"]?.ToString(),
+                                    Admision_Condicionada = lector["Admision_Condicionada"]?.ToString(),
+
+                                }
+                                
+                            };
+                        }
+                    }
+                    else
+                    {
+                        result = new ResultObject()
+                        {
+                            Success = false,
+                            Status = 700,
+                            Message = comando.Parameters["salida"].Value?.ToString(),
+                            uiMessage = "Ocurrio un error inesperado!"
+                        };
+                    }
+                    cnx.Close();
+                }
+                return result;
+
+            }catch(Exception ex)
+            {
+                return new ResultObject()
+                {
+                    Success = false,
+                    Status = 500,
+                    Message = ex.Message,
+                    uiMessage = "Ocurrio un error inesperado!"
+                };
+            }
+        }
+        public static ResultObject ObtenerInformacionContactos(int pidm)
+        {
+            ResultObject result = new ResultObject();
+            try
+            {
+
+                using (OracleConnection cnx = new OracleConnection(_conString))
+                {
+                    cnx.Open();
+
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
                     comando.CommandText = @"GZ_BGSEXPE.F_GET_DATOS_CONTACTOS";
@@ -154,6 +238,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                             result = new ResultObject()
                             {
+   
                                 Success = true,
                                 Status = 200,
                                 Value = new InformacionGeneral()
@@ -196,7 +281,8 @@ namespace ExpedienteAcompanamiento.Models.Services
                 }
                 return result;
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new ResultObject()
                 {
