@@ -7,10 +7,9 @@ namespace ExpedienteAcompanamiento.Models.Entity
 {
     public class DatosAdministrativos
     {
-        public List<BecasPeriodos> becasPeriodos { get; set; }
-        public List<DocumentosEntregados> DocumentosEntregados { get; set; }
-        public List<Administrativos> datosAdministrativos { get; set; }
-
+        public List<BecasPeriodos> becasPeriodos = new List<BecasPeriodos>();
+        public List<DocumentosEntregados> DocumentosEntregados = new List<DocumentosEntregados>();
+        public List<Administrativos> datosAdministrativos = new List<Administrativos>();
     }
     public class BecasPeriodos
     {

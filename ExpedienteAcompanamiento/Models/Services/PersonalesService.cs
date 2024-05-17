@@ -149,7 +149,10 @@ namespace ExpedienteAcompanamiento.Models.Services
                         Direction = ParameterDirection.Output
                     });
 
-                   
+                    comando.Parameters.Add(new OracleParameter("c_documentosEntregados", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
 
                     comando.ExecuteNonQuery();
 
@@ -170,22 +173,27 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                             datosAdministrativos.datosAdministrativos.Add(new Administrativos()
                             {
+
                                 SEGURO_UDEM = lector2["SEGURO_UDEM"]?.ToString(),
                                 SEGURO_PART = lector2["SEGURO_PART"]?.ToString(),
                                 BLOQUEO = lector2["BLOQUEO"]?.ToString(),
                                 TERMINOS_COND = lector2["TERMINOS_COND"]?.ToString(),
                                 TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
-                                PROG_BECARIO = lector2["PROG_BECARIO"]?.ToString(),
-                                ESTATUS_BECA = lector2["ESTATUS_BECA"]?.ToString(),
-                                NUM_PERIODO = lector2["NUM_PERIODO"]?.ToString(),
-                                HORAS_BECA = lector2["HORAS_BECA"]?.ToString(),
-                                CREDITO_EDUCATIVO = lector2["CREDITO_EDUCATIVO"]?.ToString(),
                                 FORMADOR_NOMBRE = lector2["FORMADOR_NOMBRE"]?.ToString(),
-                                FORMADOR_PUESTO = lector2["FORMADOR_PUESTO"]?.ToString(),
                                 FORMADOR_CORREO = lector2["FORMADOR_CORREO"]?.ToString(),
                             });
                         }
-                        
+                        OracleDataReader lector3 = ((OracleRefCursor)comando.Parameters["c_documentosEntregados"].Value).GetDataReader();
+                        while (lector3.Read())
+                        {
+                            datosAdministrativos.DocumentosEntregados.Add(new DocumentosEntregados()
+                            {
+                                CODIGO =    lector3["CODIGO"]?.ToString(),
+                                DESCRIPCION = lector3["DESCRIPCION"]?.ToString(),
+                                ORIGEN = lector3["ORIGEN"]?.ToString(),
+
+                            });
+                        }
                         result = new ResultObject()
                         {
 
