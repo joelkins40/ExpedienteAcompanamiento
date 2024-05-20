@@ -6,7 +6,8 @@
     <script src="~/Scripts/services/contacto.service.js"></script>
     <script>
         function domIsReadyGeneralInfo(){
-            (async function() {
+            (async function () {
+                toggleGeneralLoader();
                 const initialSettings = await getContactosInformation();
                 for (let key in initialSettings){
                     $(`#general-${key}`).val(initialSettings[key]);
@@ -15,9 +16,15 @@
             })();
         }
 
-        function toggleGeneralLoader(){
-            $(`#general`).attr("style", "display: block");
-            $(`#general-skeleton`).attr("style", "display: none");
+        function toggleGeneralLoader(){            
+            if ($("#general:hidden").length === 1) {
+                $(`#general`).attr("style", "display: block");
+                $(`#general-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#general-skeleton`).attr("style", "display: block");
+            $(`#general`).attr("style", "display: none");
         }
         
         $(document).ready(domIsReadyGeneralInfo);
@@ -30,7 +37,7 @@
 
 </style>
 
-<div id="general" style="display:none;">
+<div id="general">
     <div class="card general-info">
         <div class="card-header">
             <h3>Datos del contacto<h3>
@@ -137,7 +144,7 @@
 </div>
 
 
-<div id="general-skeleton">
+<div id="general-skeleton" style="display:none">
     <div class="card general-info">
         <div class="card-header">
             <h3>Datos del contacto<h3>

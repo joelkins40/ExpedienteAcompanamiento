@@ -6,10 +6,13 @@
     <script src="~/Scripts/services/administrativos.service.js"></script>
     <script>
         function domIsReadyAdministrativeInfo(){
-            (async function() {
+            (async function () {
+                toggleAdministrativeLoader();
                 const administrativeResponse = await getAdministrativeInformation();
 
-                if (!administrativeResponse) {                    
+                if (!administrativeResponse) {        
+                    toggleAdministrativeLoader();
+                    console.error("Ocurrio un error inesperado")
                     return;
                 }
 
@@ -46,16 +49,22 @@
             })();
         }
 
-        function toggleAdministrativeLoader(){
-            $(`#administrativos`).attr("style", "display: block");
-            $(`#administrativos-skeleton`).attr("style", "display: none");
+        function toggleAdministrativeLoader(){  
+            if ($("#administrativos:hidden").length === 1) {
+                $(`#administrativos`).attr("style", "display: block");
+                $(`#administrativos-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#administrativos-skeleton`).attr("style", "display: block");
+            $(`#administrativos`).attr("style", "display: none");
         }
         
         $(document).ready(domIsReadyAdministrativeInfo);
     </script>
 }
 
-<div id="administrativos" style="display:none">
+<div id="administrativos">
     <div class="card">
         <div class="card-header">
             <h3>Seguro Gastos Medicos</h3>
@@ -178,7 +187,7 @@
 </div>
 
 
-<div id="administrativos-skeleton">
+<div id="administrativos-skeleton" style="display:none">
     <div class="card">
         <div class="card-header">
             <h3>Seguro Gastos Medicos</h3>

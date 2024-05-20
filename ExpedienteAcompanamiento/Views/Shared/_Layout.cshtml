@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="details" id="details" style="display:none">
+            <div class="details" id="details">
                 <div class="details_image-container">
                     <img id="details-imagen" alt="User"/>                    
                     @*<div class="details_image-container-button">
@@ -73,7 +73,7 @@
                     </div>
                 </div>       
             </div>   
-            <div class="details" id="details-skeleton">
+            <div class="details" id="details-skeleton" style="display:none">
                 <div class="details_image-container">
                     <div class="skeleton skeleton-image"></div>             
                 </div>
@@ -149,7 +149,7 @@
         }
 
         function setPidm() {
-            (async function () {
+            (async function () {                
                 const pidm = $("#pidm").val();
 
                 if (!pidm) {
@@ -163,7 +163,7 @@
                 }
 
                 const controller = window.location.pathname;
-                if (controller === "/") {
+                if (controller === "/") {                    
                     domIsReadyGeneralInfo();
                 }
 
@@ -179,10 +179,12 @@
         }
 
         function domIsReady(){
-            (async function() {
+            (async function () {
+                toggleDetailsLoader(); 
                 const initialSettings = await getPersonalInformation();
 
-                if(!initialSettings){
+                if (!initialSettings) {
+                    toggleDetailsLoader();  
                     console.error("Ocurrio un error inesperado.");
                     return;
                 }
@@ -198,9 +200,15 @@
             })();
         }
 
-        function toggleDetailsLoader(){
-            $(`#details`).attr("style", "display: block");
-            $(`#details-skeleton`).attr("style", "display: none");
+        function toggleDetailsLoader() {
+            if ($("#details:hidden").length === 1) {
+                $(`#details`).attr("style", "display: block");
+                $(`#details-skeleton`).attr("style", "display: none");
+                return;
+            }            
+
+            $(`#details-skeleton`).attr("style", "display: block");
+            $(`#details`).attr("style", "display: none");
         }
 
         setActiveMenu();
