@@ -26,6 +26,7 @@
                     $(`#administrativos-${key}`).val(datosAdministrativos[key]);
                 }
 
+                $("#administrativos-body-beca").empty();
                 for (let row of becasPeriodos) {
                     $("#administrativos-body-beca").append(`
                     <tr>
@@ -35,6 +36,7 @@
                     `)
                 }
 
+                $("#administrativos-body-documentos").empty();
                 for (let row of documentosEntregados) {
                     $("#administrativos-body-documentos").append(`
                     <tr>
