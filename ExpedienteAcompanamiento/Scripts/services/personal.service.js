@@ -38,6 +38,6 @@ const getPersonalInformation = async () => {
 
 
 const getPidm = async (pidm) => {
-    const response = await axios.get(`Home/ObtenerPidm?pidm=${pidm}`);
+    const response = await axios.get(`Home/ObtenerPidm?matricula=${pidm}`);
     return { success: response.data };
 }

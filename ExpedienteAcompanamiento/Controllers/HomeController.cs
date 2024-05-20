@@ -39,12 +39,12 @@ namespace ExpedienteAcompanamiento.Controllers
 
         [HttpGet]
         [ActionName("ObtenerPidm")]
-        public  string GetPidm(string pidm)
+        public  string GetPidm(string matricula)
         {
 
-            string response =  AccesoService.ObtenerPIDM(pidm);
+            string pidm =  AccesoService.ObtenerPIDM(matricula);
             Session["pidm"] = pidm;            
-            return JsonConvert.SerializeObject(new {success = Convert.ToInt32(response) > 0 ? true : false});
+            return JsonConvert.SerializeObject(new {success = Convert.ToInt32(pidm) > 0 ? true : false});
         }
     }    
 }

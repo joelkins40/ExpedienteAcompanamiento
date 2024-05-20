@@ -25,9 +25,9 @@ namespace ExpedienteAcompanamiento.Models.Services
            
            
         }
-        public static string ObtenerPIDM(string pidm)
+        public static string ObtenerPIDM(string matricula)
         {
-            string matricula = "";
+            string pidm = "";
             try
             {
                 using (var connection = new OracleConnection(_conString))
@@ -44,7 +44,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                     });
                     command.Parameters.Add(new OracleParameter("cMatricula", OracleDbType.Varchar2)
                     {
-                        Value = pidm,
+                        Value = matricula,
                         Direction = ParameterDirection.Input
                     });
 
@@ -54,7 +54,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     try
                     {
-                        matricula = Convert.ToString(command.Parameters["salida"]?.Value);
+                        pidm = Convert.ToString(command.Parameters["salida"]?.Value);
                     }
                     finally
                     {
@@ -67,7 +67,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                 var error = ex;
             }
 
-            return matricula;
+            return pidm;
         }
 
     }

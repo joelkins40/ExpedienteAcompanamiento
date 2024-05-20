@@ -17,8 +17,8 @@
             <div class="details">
                 <div class="row">
                     <div class="horizontal-column">
-                        <input id="pidm" placeholder="Pidm"/>
-                        <button class="btn btn-small" id="pidm-btn">Buscar</button>
+                        <input id="matricula" placeholder="Matricula"/>
+                        <button class="btn btn-small" id="matricula-btn">Buscar</button>
                     </div>
                 </div>
             </div>
@@ -150,13 +150,13 @@
 
         function setPidm() {
             (async function () {                
-                const pidm = $("#pidm").val();
+                const matricula = $("#matricula").val();
 
-                if (!pidm) {
+                if (!matricula) {
                     return;
                 }
 
-                const response = await getPidm(pidm);
+                const response = await getPidm(matricula);
                 if (!response) {
                     console.error("ocurrio un error");
                     return;
@@ -210,7 +210,7 @@
 
         setActiveMenu();
         $(document).ready(domIsReady);
-        $("#pidm-btn").click(setPidm);
+        $("#matricula-btn").click(setPidm);
     </script>
 </body>
 </html>
