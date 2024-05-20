@@ -35,3 +35,9 @@ const getPersonalInformation = async () => {
     return undefined;
   }
 };
+
+
+const getPidm = async (pidm) => {
+    const response = await axios.get(`Home/ObtenerPidm?pidm=${pidm}`);
+    return { success: response.data };
+}

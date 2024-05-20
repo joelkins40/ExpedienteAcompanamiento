@@ -38,14 +38,13 @@ namespace ExpedienteAcompanamiento.Controllers
         }
 
         [HttpGet]
-        [ActionName("ObtenerInformacionPersonalByPidm")]
-        public  string GetPidm(string matricula)
+        [ActionName("ObtenerPidm")]
+        public  string GetPidm(string pidm)
         {
 
-            string pidm =  AccesoService.ObtenerPIDM(matricula);
-            Session["pidm"] = pidm;
-            ResultObject response = PersonalesService.ObtenerInformacionPersonal(Convert.ToInt32(pidm));
-            return JsonConvert.SerializeObject(response);
+            string response =  AccesoService.ObtenerPIDM(pidm);
+            Session["pidm"] = pidm;            
+            return JsonConvert.SerializeObject(new {success = Convert.ToInt32(response) > 0 ? true : false});
         }
     }    
 }

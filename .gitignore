@@ -31,3 +31,6 @@
 *.db
 .vs/
 Publish/
+Properties/
+obj/
+ExpedienteAcompanamiento.csproj.user
