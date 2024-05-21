@@ -30,7 +30,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
-                    comando.CommandText = @"GZ_BGSEXPE.F_GET_DATOS_PERSONALES";
+                    comando.CommandText = @"SZ_BGS_EXPE.F_GET_DATOS_PERSONALES";
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.BindByName = true;
 
@@ -123,7 +123,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
-                    comando.CommandText = @"GZ_BGSEXPE.F_DATOS_ADMINISTRATIVOS";
+                    comando.CommandText = @"SZ_BGS_EXPE.F_DATOS_ADMINISTRATIVOS";
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.BindByName = true;
 
@@ -241,7 +241,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                     
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
-                    comando.CommandText = @"GZ_BGSEXPE.F_DATOS_ADMISION";
+                    comando.CommandText = @"SZ_BGS_EXPE.F_DATOS_ADMISION";
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.BindByName = true;
 
@@ -325,7 +325,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
-                    comando.CommandText = @"GZ_BGSEXPE.F_GET_DATOS_CONTACTOS";
+                    comando.CommandText = @"SZ_BGS_EXPE.F_GET_DATOS_CONTACTOS";
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.BindByName = true;
 
