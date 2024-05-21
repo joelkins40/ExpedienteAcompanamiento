@@ -20,8 +20,8 @@ const getAdministrativeInformation = async () => {
             horasBeca: datosAdministrativos[0].HORAS_BECA,
             numPeriodo: datosAdministrativos[0].NUM_PERIODO,
             progBecario: datosAdministrativos[0].PROG_BECARIO,            
-            seguroUdem: !datosAdministrativos[0].SEGURO_UDEM || datosAdministrativos[0].SEGURO_UDEM === "N" ? datosAdministrativos[0].SEGURO_PART : datosAdministrativos[0].SEGURO_UDEM,
-            terminosCond: datosAdministrativos[0].TERMINOS_COND === "S" ? "Si" : "No",
+            seguroUdem: datosAdministrativos[0].SEGURO_UDEM,
+            terminosCond: datosAdministrativos[0].TERMINOS_COND,
             terminosFecha: datosAdministrativos[0].TERMINOS_FECHA,
         }
     };
