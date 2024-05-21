@@ -174,8 +174,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                             datosAdministrativos.datosAdministrativos.Add(new Administrativos()
                             {
 
-                                SEGURO_UDEM = lector2["SEGURO_UDEM"]?.ToString(),
-                                SEGURO_PART = lector2["SEGURO_PART"]?.ToString(),
+                                SEGURO_UDEM = lector2["SGMM"]?.ToString(),
                                 BLOQUEO = lector2["BLOQUEO"]?.ToString(),
                                 TERMINOS_COND = lector2["TERMINOS_COND"]?.ToString(),
                                 TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
@@ -367,8 +366,6 @@ namespace ExpedienteAcompanamiento.Models.Services
                                     Correo_Preferencia = lector["Correo_Preferencia"]?.ToString(),
                                     Correo_Personal = lector["Correo_Personal"]?.ToString(),
                                     Correo_UDEM = lector["Correo_UDEM"]?.ToString(),
-                                    SGMM_UDEM = lector["SGMM_UDEM"]?.ToString(),
-                                    SGMM_Particular = lector["SGMM_Particular"]?.ToString(),
                                     Nombre_Del_Padre = lector["Nombre_Del_Padre"]?.ToString(),
                                     Nombre_De_Madre = lector["Nombre_De_Madre"]?.ToString(),
                                     Nombre_Del_Tutor = lector["Nombre_Del_Tutor"]?.ToString(),
