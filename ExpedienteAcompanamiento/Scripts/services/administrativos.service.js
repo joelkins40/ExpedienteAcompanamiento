@@ -4,15 +4,16 @@ const getAdministrativeInformation = async () => {
      const {
          DocumentosEntregados,
          becasPeriodos,
-         datosAdministrativos
+         datosAdministrativos,
+         bloqueos
       } = response.data.Value;      
 
       const dateAux = datosAdministrativos[0].TERMINOS_FECHA ? moment(datosAdministrativos[0].TERMINOS_FECHA).format("DD/MMMM/YYYY") : "";
     return {
         documentosEntregados: DocumentosEntregados,
         becasPeriodos,
-        datosAdministrativos: {
-            bloqueo: datosAdministrativos[0].BLOQUEO,
+        bloqueos: bloqueos,
+        datosAdministrativos: {            
             creditoEducativo: datosAdministrativos[0].CREDITO_EDUCATIVO,
             estatusBeca: datosAdministrativos[0].ESTATUS_BECA,
             formadorCorreo: datosAdministrativos[0].FORMADOR_CORREO,

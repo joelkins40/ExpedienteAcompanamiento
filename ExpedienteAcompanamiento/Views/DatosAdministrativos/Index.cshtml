@@ -19,7 +19,8 @@
                 const {
                     documentosEntregados,
                     becasPeriodos,
-                    datosAdministrativos
+                    datosAdministrativos,
+                    bloqueos
                 } = administrativeResponse;
 
                 for (let key in datosAdministrativos){
@@ -44,6 +45,13 @@
                         <td>${row.DESCRIPCION}</td>
                         <td>${row.ORIGEN}</td>
                     </tr>
+                    `)
+                }
+
+                $("#administrativos-bloqueos").empty();
+                for (let row of bloqueos) {
+                    $("#administrativos-bloqueos").append(`
+                        <li>${row.stvhldd_desc}</li>
                     `)
                 }
 
@@ -129,8 +137,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <label>Tipo de bloqueos:</label>
-                    <input type="text" id="administrativos-bloqueo" disabled/>
+                    <label>Tipo de bloqueos:</label>                    
+                    <ul id="administrativos-bloqueos"></ul>
                 </div>
             </div>
         </div>
