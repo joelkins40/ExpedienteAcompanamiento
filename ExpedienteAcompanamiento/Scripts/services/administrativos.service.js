@@ -5,8 +5,9 @@ const getAdministrativeInformation = async () => {
          DocumentosEntregados,
          becasPeriodos,
          datosAdministrativos
-     } = response.data.Value;
+      } = response.data.Value;      
 
+      const dateAux = datosAdministrativos[0].TERMINOS_FECHA ? moment(datosAdministrativos[0].TERMINOS_FECHA).format("DD/MMMM/YYYY") : "";
     return {
         documentosEntregados: DocumentosEntregados,
         becasPeriodos,
@@ -22,7 +23,7 @@ const getAdministrativeInformation = async () => {
             progBecario: datosAdministrativos[0].PROG_BECARIO,            
             seguroUdem: datosAdministrativos[0].SEGURO_UDEM,
             terminosCond: datosAdministrativos[0].TERMINOS_COND,
-            terminosFecha: datosAdministrativos[0].TERMINOS_FECHA,
+            terminosFecha: dateAux,
         }
     };
   } catch (err) {

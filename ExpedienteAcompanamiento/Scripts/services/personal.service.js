@@ -13,17 +13,14 @@ const getPersonalInformation = async () => {
       semestre,
     } = response.data.Value;
 
-    const fechahelper = new Date(fechaNacimiento);
-    const fechaNacimientoAux = `${fechahelper.getDay()}/${
-      fechahelper.getMonth() + 1
-    }/${fechahelper.getFullYear()}`;
+      const dateAux = fechaNacimiento ? moment(fechaNacimiento).format("DD/MMMM/YYYY") : "";
 
     return {
       nombre: nombreCompleto,
       carrera: carrera,
       otraCarrera: carrerasAnterior,
       matricula: matricula,
-      fechaNacimiento: fechaNacimientoAux,
+      fechaNacimiento: dateAux,
       ciudadOrigen: ciudadOrigen,
       semestre: semestre,
       nacionalidad: nacionalidad,
