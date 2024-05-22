@@ -197,6 +197,17 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                             });
                         }
+
+                        OracleDataReader lector4 = ((OracleRefCursor)comando.Parameters["C_BLOQUEOS"].Value).GetDataReader();
+                        while (lector4.Read())
+                        {
+                            datosAdministrativos.bloqueos.Add(new Bloqueos()
+                            {
+                                stvhldd_desc = lector4["stvhldd_desc"]?.ToString(),
+                              
+
+                            });
+                        }
                         result = new ResultObject()
                         {
 

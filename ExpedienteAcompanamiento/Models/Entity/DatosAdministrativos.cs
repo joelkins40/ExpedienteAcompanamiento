@@ -10,11 +10,19 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public List<BecasPeriodos> becasPeriodos = new List<BecasPeriodos>();
         public List<DocumentosEntregados> DocumentosEntregados = new List<DocumentosEntregados>();
         public List<Administrativos> datosAdministrativos = new List<Administrativos>();
+        public List<Bloqueos> bloqueos = new List<Bloqueos>();
     }
     public class BecasPeriodos
     {
         public string BECA_NOMBRE { get; set; }
         public string BECA_PORCENTAJE { get; set; }
+
+
+    }
+
+    public class Bloqueos
+    {
+        public string stvhldd_desc { get; set; }
 
 
     }
