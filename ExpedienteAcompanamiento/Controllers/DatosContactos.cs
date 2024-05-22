@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace ExpedienteAcompanamiento.Controllers
 {
-    public class DatosAcademicosController : Controller
+    public class DatosContactosController : Controller
     {
         public ActionResult Index()
         {
@@ -18,14 +18,12 @@ namespace ExpedienteAcompanamiento.Controllers
         }
 
         [HttpGet]
-        [ActionName("ObtenerInformacionDatosAcademicos")]
+        [ActionName("ObtenerInformacionContactos")]
         public string Get(string id)
         {
             int PDIM = Convert.ToInt32(Session["pidm"]);
-            ResultObject response = PersonalesService.ObtenerInformacionDatosAcademicos(PDIM);
+            ResultObject response = PersonalesService.ObtenerInformacionContactos(PDIM);
             return JsonConvert.SerializeObject(response);            
         }
-
-        
     }
 }

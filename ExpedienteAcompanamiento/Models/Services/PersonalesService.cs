@@ -244,6 +244,127 @@ namespace ExpedienteAcompanamiento.Models.Services
             }
         }
 
+        public static ResultObject ObtenerInformacionDatosAcademicos(int pidm)
+        {
+            ResultObject result = new ResultObject();
+            DatosAcademicos datosAdministrativos = new DatosAcademicos();
+            try
+            {
+
+                using (OracleConnection cnx = new OracleConnection(_conString))
+                {
+                    cnx.Open();
+
+                    OracleCommand comando = new OracleCommand();
+                    comando.Connection = cnx;
+                    comando.CommandText = @"SZ_BGS_EXPE.F_DATOS_ACADEMICOS";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.BindByName = true;
+
+                    comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2)
+                    {
+                        Size = 300,
+                        Direction = ParameterDirection.ReturnValue
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("PIDM", OracleDbType.Int32)
+                    {
+                        Value = pidm,
+                        Size = 9
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("c_datos_academicos", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("C_ESTATUSALUMNO", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+
+                    comando.Parameters.Add(new OracleParameter("C_TOEFL", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+                    
+                    comando.ExecuteNonQuery();
+
+                    // Revisamos si se pudo ejecutar la consulta
+                    if (comando.Parameters["salida"].Value?.ToString() == "OP_EXITOSA")
+                    {
+                        OracleDataReader lector1 = ((OracleRefCursor)comando.Parameters["c_datos_academicos"].Value).GetDataReader();
+                        while (lector1.Read())
+                        {
+                            datosAdministrativos.datosAcademicos.Add(new Academicos()
+                            {
+                                CREDITOS_REQUERIDOS = lector1["CREDITOS_REQUERIDOS"]?.ToString(),
+                                CREDITOS_APROBADOS = lector1["CREDITOS_APROBADOS"]?.ToString(),
+                                PROGRAMA = lector1["PROGRAMA"]?.ToString(),
+                                TOEFL_IND = lector1["TOEFL_IND"]?.ToString(),
+                                SERV_SOCIAL = lector1["SERV_SOCIAL"]?.ToString(),
+                                MATERIAS_BAJA = lector1["MATERIAS_BAJA"]?.ToString(),
+                            });
+                        }
+                        OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["C_ESTATUSALUMNO"].Value).GetDataReader();
+                        while (lector2.Read())
+                        {
+                            datosAdministrativos.estatusAlumno.Add(new EstatusAlumno()
+                            {
+
+                                ESTATUS = lector2["ESTATUS"]?.ToString(),
+                             
+                            });
+                        }
+                        OracleDataReader lector3 = ((OracleRefCursor)comando.Parameters["C_TOEFL"].Value).GetDataReader();
+                        while (lector3.Read())
+                        {
+
+                            datosAdministrativos.toefl.Add(new TOEFL()
+                            {
+                                SORTEST_TESC_CODE = (lector3.IsDBNull(0) ? "" : lector3.GetString(0)),
+                                STVTESC_DESC = (lector3.IsDBNull(1) ? "" : lector3.GetString(1)),
+                                SORTEST_TEST_DATE = (lector3.IsDBNull(2) ? "" : lector3.GetString(2)),
+                                SORTEST_TEST_SCORE = (lector3.IsDBNull(3) ? "" : lector3.GetString(3)),
+
+                            });
+                        }
+
+                    
+                        result = new ResultObject()
+                        {
+
+                            Success = true,
+                            Status = 200,
+                            Value = datosAdministrativos
+                        };
+                    }
+                    else
+                    {
+                        result = new ResultObject()
+                        {
+                            Success = false,
+                            Status = 700,
+                            Message = comando.Parameters["salida"].Value?.ToString(),
+                            uiMessage = "Ocurrio un error inesperado!"
+                        };
+                    }
+                    cnx.Close();
+                }
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return new ResultObject()
+                {
+                    Success = false,
+                    Status = 500,
+                    Message = ex.Message,
+                    uiMessage = "Ocurrio un error inesperado!"
+                };
+            }
+        }
         public static ResultObject ObtenerInformacionDatosAdmision(int pidm)
         {            
             ResultObject result = new ResultObject();

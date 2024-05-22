@@ -164,6 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DatosContactos.cs" />
     <Compile Include="Controllers\DatosAdmision.cs" />
     <Compile Include="Controllers\ExpedienteController.cs" />
     <Compile Include="Controllers\DatosAcademicos.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\Entity\BienestarSalud.cs" />
     <Compile Include="Models\Entity\ConductaIntegridadAcademica.cs" />
     <Compile Include="Models\Entity\CreditoLegadoAdeudosCobertura.cs" />
+    <Compile Include="Models\Entity\DatosAcademicos.cs" />
     <Compile Include="Models\Entity\DatosAdministrativos.cs" />
     <Compile Include="Models\Entity\DesempenoAcademico.cs" />
     <Compile Include="Models\Entity\ExpedienteCentroSaludIntegral.cs" />
