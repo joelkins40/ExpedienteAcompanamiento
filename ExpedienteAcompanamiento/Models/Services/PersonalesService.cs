@@ -203,7 +203,8 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                             datosAdministrativos.bloqueos.Add(new Bloqueos()
                             {
-                                stvhldd_desc = lector4["stvhldd_desc"]?.ToString(),
+                                stvhldd_desc = (lector4.IsDBNull(0) ? "0" : lector4.GetString(0)),
+                               
                               
 
                             });
