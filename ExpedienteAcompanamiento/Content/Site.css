@@ -1,5 +1,6 @@
 ﻿* {
-  color: var(--font-color);
+    color: var(--font-color);
+    font-family: var(--font-family-montserrat);
 }
 
 body {

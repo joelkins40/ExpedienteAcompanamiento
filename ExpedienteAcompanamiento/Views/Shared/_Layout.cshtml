@@ -17,32 +17,40 @@
             <div class="details">
                 <div class="row">
                     <div class="horizontal-column">
-                        <input id="matricula" placeholder="Matricula"/>
+                        <input id="matricula" placeholder="Matricula" />
                         <button class="btn btn-small" id="matricula-btn">Buscar</button>
                     </div>
                 </div>
             </div>
             <div class="details" id="details">
                 <div class="details_image-container">
-                    <img id="details-imagen" alt="User"/>                    
+                    <img id="details-imagen" alt="User" />
                     @*<div class="details_image-container-button">
-                        <button class="btn">Cargar Imagen</button>
-                    </div>*@
+                            <button class="btn">Cargar Imagen</button>
+                        </div>*@
                 </div>
-                <div class="details_title row">    
-                    <div class="column">
-                        <h1 id="details-nombre"></h1>
-                        <div style="display:flex; flex-direction: row;">
-                            <p id="details-carrera" style="flex:1"></p>
-                            <p id="details-otraCarrera" style="flex:1"></p>
+                <div class="details_title">
+                    <div class="row">
+                        <div class="column">
+                            <h1 id="details-nombre"></h1>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="column">
+                            <p id="details-carrera"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p id="details-otraCarrera"></p>
+                        </div>
+                    </div>
+                </div>               
                 <div class="details_details">
                     <div class="row">
                         <div class="horizontal-column">
-                            <p>Matricula:</p>                        
-                            <strong style="margin-left: 0.5rem;" id="details-matricula"></strong>                        
+                            <p>Matricula:</p>
+                            <strong style="margin-left: 0.5rem;" id="details-matricula"></strong>
                         </div>
                     </div>
                     <div class="row">
@@ -55,7 +63,7 @@
                             <strong style="margin-top: 0.3rem;" id="details-ciudadOrigen"></strong>
                         </div>
                     </div>
-                    <div class="row">                       
+                    <div class="row">
                         <div class="column">
                             <p>Semestre</p>
                             <strong style="margin-top: 0.3rem;" id="details-semestre"></strong>
@@ -65,19 +73,19 @@
                             <strong style="margin-top: 0.3rem;" id="details-nacionalidad"></strong>
                         </div>
                     </div>
-                    <div class="row">                        
+                    <div class="row">
                         <div class="column">
                             <p>Estado</p>
                             <strong style="margin-top: 0.3rem;" id="details-estado"></strong>
                         </div>
                     </div>
-                </div>       
-            </div>   
+                </div>
+            </div>
             <div class="details" id="details-skeleton" style="display:none">
                 <div class="details_image-container">
-                    <div class="skeleton skeleton-image"></div>             
+                    <div class="skeleton skeleton-image"></div>
                 </div>
-                <div class="details_title row">    
+                <div class="details_title row">
                     <div class="column">
                         <div class="skeleton skeleton-text"></div>
                     </div>
@@ -85,7 +93,7 @@
                 <div class="details_details">
                     <div class="row">
                         <div class="horizontal-column">
-                            <div class="skeleton skeleton-text"></div>                   
+                            <div class="skeleton skeleton-text"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -96,7 +104,7 @@
                             <div class="skeleton skeleton-text"></div>
                         </div>
                     </div>
-                    <div class="row">                       
+                    <div class="row">
                         <div class="column">
                             <div class="skeleton skeleton-text"></div>
                         </div>
@@ -104,13 +112,13 @@
                             <div class="skeleton skeleton-text"></div>
                         </div>
                     </div>
-                    <div class="row">                        
+                    <div class="row">
                         <div class="column">
                             <div class="skeleton skeleton-text"></div>
                         </div>
                     </div>
-                </div>       
-            </div>  
+                </div>
+            </div>
         </section>
         <section class="container_right">
             <div class="tabs">
@@ -119,37 +127,47 @@
                 <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">Datos académicos</a>
             </div>
             <div>
-                @RenderBody()        
+                @RenderBody()
             </div>
         </section>
     </div>
-    
-    @Scripts.Render("~/bundles/jquery")    
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/services/personal.service.js"></script>
-    <script>        
+    <script>
 
-        function setActiveMenu(){
+        moment.lang('es', {
+            months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+            monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+            weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+            weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+            weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+        }
+        );
+
+        function setActiveMenu() {
             const controller = window.location.pathname;
-            if(controller === "/"){
+            if (controller === "/") {
                 $("#tab-informacion").addClass("active");
                 return;
             }
 
-            if(controller === "/DatosAdministrativos"){
+            if (controller === "/DatosAdministrativos") {
                 $("#tab-administrativos").addClass("active");
                 return;
             }
 
-            if(controller === "/DatosAcademicos"){
+            if (controller === "/DatosAcademicos") {
                 $("#tab-academicos").addClass("active");
                 return;
-            }            
+            }
         }
 
         function setPidm() {
-            (async function () {                
+            (async function () {
                 const matricula = $("#matricula").val();
 
                 if (!matricula) {
@@ -163,7 +181,7 @@
                 }
 
                 const controller = window.location.pathname;
-                if (controller === "/") {                    
+                if (controller === "/") {
                     domIsReadyGeneralInfo();
                 }
 
@@ -175,13 +193,13 @@
             })();
         }
 
-        function domIsReady(){
+        function domIsReady() {
             (async function () {
-                toggleDetailsLoader(); 
+                toggleDetailsLoader();
                 const initialSettings = await getPersonalInformation();
 
                 if (!initialSettings) {
-                    toggleDetailsLoader();  
+                    toggleDetailsLoader();
                     console.error("Ocurrio un error inesperado.");
                     return;
                 }
@@ -193,7 +211,7 @@
                     $(`#details-${key}`).html(initialSettings[key]);
                 }
 
-                toggleDetailsLoader();            
+                toggleDetailsLoader();
             })();
         }
 
@@ -202,7 +220,7 @@
                 $(`#details`).attr("style", "display: block");
                 $(`#details-skeleton`).attr("style", "display: none");
                 return;
-            }            
+            }
 
             $(`#details-skeleton`).attr("style", "display: block");
             $(`#details`).attr("style", "display: none");
