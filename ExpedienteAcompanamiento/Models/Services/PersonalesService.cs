@@ -153,7 +153,11 @@ namespace ExpedienteAcompanamiento.Models.Services
                     {
                         Direction = ParameterDirection.Output
                     });
-
+                    comando.Parameters.Add(new OracleParameter("C_BLOQUEOS", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
+                    
                     comando.ExecuteNonQuery();
 
                     // Revisamos si se pudo ejecutar la consulta
