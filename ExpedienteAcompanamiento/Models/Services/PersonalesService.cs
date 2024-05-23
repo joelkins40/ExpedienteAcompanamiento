@@ -255,7 +255,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                 using (OracleConnection cnx = new OracleConnection(_conString))
                 {
-                    cnx.Open();
+                      cnx.Open();
                     var si = cnx.GetSessionInfo();
                     si.DateFormat = "DD/MM/RRRR HH24:MI:SS"; // for English or ARABIC for Arabic
                     si.TimeStampFormat = "DD/MM/RRRR HH24:MI:SSXFF";
