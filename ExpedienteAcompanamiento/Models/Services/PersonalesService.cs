@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Linq.Expressions;
@@ -168,9 +169,10 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                           datosAdministrativos.becasPeriodos.Add(new BecasPeriodos()
                             {
-                                BECA_NOMBRE = lector1["BECA_NOMBRE"]?.ToString(),
-                                BECA_PORCENTAJE = lector1["BECA_PORCENTAJE"]?.ToString(),
-                            });
+                              BECA_NOMBRE = lector1["BECA_NOMBRE"]?.ToString(),
+                              BECA_PORCENTAJE = lector1["BECA_PORCENTAJE"]?.ToString(),
+                              BECA_PERIODO  = lector1["BECA_PERIODO"]?.ToString(),
+                          });
                         }
                         OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["c_datos_administrativos"].Value).GetDataReader();
                         while (lector2.Read())
@@ -254,6 +256,13 @@ namespace ExpedienteAcompanamiento.Models.Services
                 using (OracleConnection cnx = new OracleConnection(_conString))
                 {
                     cnx.Open();
+                    var si = cnx.GetSessionInfo();
+                    si.DateFormat = "DD/MM/RRRR HH24:MI:SS"; // for English or ARABIC for Arabic
+                    si.TimeStampFormat = "DD/MM/RRRR HH24:MI:SSXFF";
+                    si.TimeStampTZFormat = "DD/MM/RRRR HH24:MI:SSXFF TZR";
+                    cnx.SetSessionInfo(si);
+
+                  
 
                     OracleCommand comando = new OracleCommand();
                     comando.Connection = cnx;
@@ -263,7 +272,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                     comando.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2)
                     {
-                        Size = 300,
+                        Size = 200,
                         Direction = ParameterDirection.ReturnValue
                     });
 

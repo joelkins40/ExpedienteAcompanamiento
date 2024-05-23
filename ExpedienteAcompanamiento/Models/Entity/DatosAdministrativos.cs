@@ -17,6 +17,8 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string BECA_NOMBRE { get; set; }
         public string BECA_PORCENTAJE { get; set; }
 
+        public string BECA_PERIODO { get; set; }
+
 
     }
 
