@@ -2,6 +2,165 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
-hola soy informacion general
+@section scripts {
+    <script src="~/Scripts/services/academicos.service.js"></script>
+    <script>
+        function domIsReadyAdministrativeInfo(){
+            (async function () {
+                toggleAcademicLoader();
+                const academicResponse = await getAcademicInformation();
+
+                if (!academicResponse) {
+                    toggleAcademicLoader();
+                    console.error("Ocurrio un error inesperado")
+                    return;
+                }
+
+                const {
+                    documentosEntregados,
+                    becasPeriodos,
+                    datosAdministrativos,
+                    bloqueos
+                } = academicResponse;
+
+                //for (let key in datosAdministrativos){
+                //    $(`#administrativos-${key}`).val(datosAdministrativos[key]);
+                //}
+
+                //$("#administrativos-body-beca").empty();
+                //for (let row of becasPeriodos) {
+                //    $("#administrativos-body-beca").append(`
+                //    <tr>
+                //        <td>${row.BECA_NOMBRE}</td>
+                //        <td>${row.BECA_PORCENTAJE}</td>
+                //    </tr>
+                //    `)
+                //}
+
+                //$("#administrativos-body-documentos").empty();
+                //for (let row of documentosEntregados) {
+                //    $("#administrativos-body-documentos").append(`
+                //    <tr>
+                //        <td>${row.CODIGO}</td>
+                //        <td>${row.DESCRIPCION}</td>
+                //        <td>${row.ORIGEN}</td>
+                //    </tr>
+                //    `)
+                //}
+
+                //$("#administrativos-bloqueos").empty();
+                //for (let row of bloqueos) {
+                //    $("#administrativos-bloqueos").append(`
+                //        <li>${row.stvhldd_desc}</li>
+                //    `)
+                //}
+
+                toggleAcademicLoader();
+            })();
+        }
+
+        function toggleAcademicLoader(){
+            if ($("#administrativos:hidden").length === 1) {
+                $(`#administrativos`).attr("style", "display: block");
+                $(`#administrativos-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#administrativos-skeleton`).attr("style", "display: block");
+            $(`#administrativos`).attr("style", "display: none");
+        }
+
+        $(document).ready(domIsReadyAdministrativeInfo);
+    </script>
+}
+
+<div id="academicos">
+    <div class="card">
+        <div class="card-header">
+            <h3>Resumen ejecutov academico</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Creditos academicos requeridos</label>
+                </div>
+                <div class="column">
+                    <label>Creditos academicos aprobados</label>
+                </div>
+                <div class="column">
+                    <label>Programa</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Manejo del idioma Ingles</label>
+                </div>
+                <div class="column">
+                    <label>NO ACREDITADO</label>
+                </div>
+                <div class="column">
+                    <label>Servicio Social</label>
+                </div>
+                <div class="column">
+                    <label>NO ACREDITADO</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Estatus Academico</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <label>Regular</label>
+                </div>
+                <div class="column">
+                    <label>Cantidad de materias que ha dado de baja el estudiante: 0</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Resultado examenes de ubicacion</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de examen</th>
+                                <th>Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="administrativos-body-documentos">
+                        <tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Historial de resultados del examen TOEFL</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <a>Ir al historial de resultado del examen TOEFL</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

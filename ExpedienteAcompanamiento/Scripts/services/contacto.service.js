@@ -1,7 +1,7 @@
 const getContactosInformation = async () => {
   try {
     const response = await axios.get(
-      "/DatosAcademicos/ObtenerInformacionContactos"
+      "/DatosContactos/ObtenerInformacionContactos"
     );    
     const {
       Contacto_Emergencia,
