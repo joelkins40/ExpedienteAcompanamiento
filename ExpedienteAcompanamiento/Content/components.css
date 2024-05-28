@@ -75,3 +75,14 @@
 .column > * {
   margin: 0.2rem 0;
 }
+
+.column-card {
+    background-color: var(--card-background-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);   
+    cursor: pointer;
+}
+
+.column-card > strong {
+    color: var(--primary-color);
+}

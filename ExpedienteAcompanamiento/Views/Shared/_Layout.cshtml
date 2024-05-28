@@ -79,6 +79,12 @@
                             <strong style="margin-top: 0.3rem;" id="details-estado"></strong>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="column">
+                            <p>Escuela de procedencia</p>
+                            <strong style="margin-top: 0.3rem;" id="details-preparatoriaProcedencia"></strong>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="details" id="details-skeleton" style="display:none">
@@ -145,8 +151,8 @@
             weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
             weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
             weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
-        }
-        );
+        });
+        
 
         function setActiveMenu() {
             const controller = window.location.pathname;

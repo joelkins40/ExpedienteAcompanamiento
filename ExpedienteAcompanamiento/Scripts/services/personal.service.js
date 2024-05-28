@@ -10,10 +10,13 @@ const getPersonalInformation = async () => {
       matricula,
       nacionalidad,
       nombreCompleto,
+      preparatoriaProcedencia,
       semestre,
     } = response.data.Value;
 
-      const dateAux = fechaNacimiento ? moment(fechaNacimiento).format("DD/MMMM/YYYY") : "";
+    const dateAux = fechaNacimiento
+      ? moment(fechaNacimiento).format("DD/MMMM/YYYY")
+      : "";
 
     return {
       nombre: nombreCompleto,
@@ -25,6 +28,7 @@ const getPersonalInformation = async () => {
       semestre: semestre,
       nacionalidad: nacionalidad,
       estado: estadoOrigen,
+      preparatoriaProcedencia,
       imagen:
         "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png",
     };
@@ -33,8 +37,7 @@ const getPersonalInformation = async () => {
   }
 };
 
-
 const getPidm = async (pidm) => {
-    const response = await axios.get(`Home/ObtenerPidm?matricula=${pidm}`);
-    return { success: response.data };
-}
+  const response = await axios.get(`Home/ObtenerPidm?matricula=${pidm}`);
+  return { success: response.data };
+};
