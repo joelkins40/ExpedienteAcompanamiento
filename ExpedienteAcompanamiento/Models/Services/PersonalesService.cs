@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 
 namespace ExpedienteAcompanamiento.Models.Services
 {
@@ -246,8 +247,9 @@ namespace ExpedienteAcompanamiento.Models.Services
             }
         }
 
-        public static ResultObject ObtenerInformacionDatosAcademicos(int pidm)
+        public static ResultObject ObtenerInformacionDatosAcademicos(int pidm,string token)
         {
+
             ResultObject result = new ResultObject();
             DatosAcademicos datosAdministrativos = new DatosAcademicos();
             try
@@ -339,7 +341,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                             });
                         }
 
-                    
+                        datosAdministrativos.UrlHorarios = obtenerUrlHorarios(token);
                         result = new ResultObject()
                         {
 
@@ -373,6 +375,14 @@ namespace ExpedienteAcompanamiento.Models.Services
                     uiMessage = "Ocurrio un error inesperado!"
                 };
             }
+        }
+        public static string  obtenerUrlHorarios(string token)
+        {
+            string server = WebConfigurationManager.AppSettings["URLHorarios"];
+            string Url = server + "/Login/Message" + "?token=HO" + token;
+
+            return Url;
+
         }
         public static ResultObject ObtenerInformacionDatosAdmision(int pidm)
         {            

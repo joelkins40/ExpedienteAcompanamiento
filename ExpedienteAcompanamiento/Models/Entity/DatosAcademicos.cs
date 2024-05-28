@@ -10,7 +10,7 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public List<Academicos> datosAcademicos = new List<Academicos>();
         public List<EstatusAlumno> estatusAlumno = new List<EstatusAlumno>();
         public List<TOEFL> toefl = new List<TOEFL>();
-       
+       public string UrlHorarios { get; set; }
     }
     public class Academicos
     {

@@ -22,7 +22,7 @@ namespace ExpedienteAcompanamiento.Controllers
         public string Get(string id)
         {
             int PDIM = Convert.ToInt32(Session["pidm"]);
-            ResultObject response = PersonalesService.ObtenerInformacionDatosAcademicos(PDIM);
+            ResultObject response = PersonalesService.ObtenerInformacionDatosAcademicos(PDIM, Convert.ToString(Session["token"]));
             return JsonConvert.SerializeObject(response);            
         }
 

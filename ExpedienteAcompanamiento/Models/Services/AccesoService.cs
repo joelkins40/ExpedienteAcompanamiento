@@ -20,11 +20,81 @@ namespace ExpedienteAcompanamiento.Models.Services
     
             string tokenAbierto = Encoding.UTF8.GetString(Convert.FromBase64String(token));
             NameValueCollection parsedValues = HttpUtility.ParseQueryString(tokenAbierto);
-            return  ObtenerPIDM(parsedValues["matricula"]);
+
+            string matricula = parsedValues["matricula"];
+            string pin = parsedValues["pin"];
+
+          
+              if(ValidaCredenciales(matricula, pin))
+            {
+
+                return ObtenerPIDM(parsedValues["matricula"]);
+            }
+            else
+            {
+                return null;
+            }
+
+          
 
            
            
         }
+        public static bool ValidaCredenciales(string matricula, string pin)
+        {
+            bool validas = false;
+            try
+            {
+
+
+                using (var connection = new OracleConnection(_conString))
+                {
+                    OracleCommand command = new OracleCommand("SZ_BFQ_REGISTRATION.f_validar_credenciales", connection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure,
+                        BindByName = true
+                    };
+
+                    command.Parameters.Add(new OracleParameter("salida", OracleDbType.Varchar2, 1)
+                    {
+                        Direction = System.Data.ParameterDirection.ReturnValue
+                    });
+                    command.Parameters.Add(new OracleParameter("p_matricula", OracleDbType.Varchar2, 200)
+                    {
+                        Value = matricula,
+                        Direction = System.Data.ParameterDirection.Input
+                    });
+
+                    command.Parameters.Add(new OracleParameter("p_pin", OracleDbType.Varchar2, 200)
+                    {
+                        Value = pin,
+                        Direction = System.Data.ParameterDirection.Input
+                    });
+
+                    connection.Open();
+
+                    int ejecucion = command.ExecuteNonQuery();
+
+                    try
+                    {
+                        if (Convert.ToString(command.Parameters["salida"]?.Value) == "Y")
+                        {
+                            validas = true;
+                        }
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex;
+            }
+            return validas;
+        }
+
         public static string ObtenerPIDM(string matricula)
         {
             string pidm = "";

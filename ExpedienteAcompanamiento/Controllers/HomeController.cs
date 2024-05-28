@@ -20,11 +20,13 @@ namespace ExpedienteAcompanamiento.Controllers
             if (token != null)
             {
                 string pidm = await AccesoService.obtenerMatriculaToken(token);
-                Session["pidm"] = pidm;
-            }
-            
-           
-             
+                if(pidm != null)
+                {
+                    Session["pidm"] = pidm;
+                    Session["token"] = token;
+                }
+               
+            }            
             return View();
         }
 
