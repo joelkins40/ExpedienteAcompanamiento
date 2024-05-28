@@ -17,15 +17,17 @@
                 }
 
                 const {
-                    documentosEntregados,
-                    becasPeriodos,
-                    datosAdministrativos,
-                    bloqueos
+                    datosAcademicos,
+                    estatusAlumno,                   
                 } = academicResponse;
 
-                //for (let key in datosAdministrativos){
-                //    $(`#administrativos-${key}`).val(datosAdministrativos[key]);
-                //}
+                for (let key in datosAcademicos){
+                    if(key === "toeflTestScore" || key === "toeflTestDate"){
+                        $(`#academicos-${key}`).val(datosAcademicos[key]);
+                        continue;
+                    }
+                   $(`#academicos-${key}`).text(datosAcademicos[key]);
+                }
 
                 //$("#administrativos-body-beca").empty();
                 //for (let row of becasPeriodos) {
@@ -77,18 +79,21 @@
 <div id="academicos">
     <div class="card">
         <div class="card-header">
-            <h3>Resumen ejecutov academico</h3>
+            <h3>Resumen ejecutivo académico</h3>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <label>Creditos academicos requeridos</label>
+                    <strong>Créditos académicos requeridos</strong>                    
+                    <span id="academicos-creditosRequeridos"></span>
                 </div>
                 <div class="column">
-                    <label>Creditos academicos aprobados</label>
+                    <strong>Créditos académicos aprobados</strong>                    
+                    <span id="academicos-creditosAprobados"></span>
                 </div>
                 <div class="column">
-                    <label>Programa</label>
+                    <strong>Programa</strong>                    
+                    <span id="academicos-programa"></span>
                 </div>
             </div>
         </div>
@@ -98,16 +103,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <label>Manejo del idioma Ingles</label>
+                    <strong>Manejo del idioma Inglés</strong>
                 </div>
                 <div class="column">
-                    <label>NO ACREDITADO</label>
+                    <span id="academicos-toeflInd"></span>
                 </div>
                 <div class="column">
-                    <label>Servicio Social</label>
+                    <strong>Servicio Social</strong>
                 </div>
                 <div class="column">
-                    <label>NO ACREDITADO</label>
+                    <span id="academicos-servicioSocial"></span>
                 </div>
             </div>
         </div>
@@ -115,7 +120,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Estatus Academico</h3>
+            <h3>Estatus Académico</h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -123,7 +128,8 @@
                     <label>Regular</label>
                 </div>
                 <div class="column">
-                    <label>Cantidad de materias que ha dado de baja el estudiante: 0</label>
+                    <label>Cantidad de materias que ha dado de baja el estudiante:</label>
+                    <span id="academicos-materiasBajas"></span>
                 </div>
             </div>
         </div>
@@ -131,7 +137,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Resultado examenes de ubicacion</h3>
+            <h3>Resultado exámenes de ubicación</h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -155,10 +161,15 @@
         <div class="card-header">
             <h3>Historial de resultados del examen TOEFL</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body">            
             <div class="row">
                 <div class="column">
-                    <a>Ir al historial de resultado del examen TOEFL</a>
+                    <label>Fecha:</label>
+                    <input type="text" id="academicos-toeflTestDate" disabled />
+                </div>
+                 <div class="column">
+                    <label>Score:</label>
+                    <input type="text" id="academicos-toeflTestScore" disabled />
                 </div>
             </div>
         </div>
