@@ -7,7 +7,7 @@ const getAdministrativeInformation = async () => {
          datosAdministrativos,
          bloqueos
       } = response.data.Value;      
-
+      
       const dateAux = datosAdministrativos[0].TERMINOS_FECHA ? moment(datosAdministrativos[0].TERMINOS_FECHA).format("DD/MMMM/YYYY") : "";
     return {
         documentosEntregados: DocumentosEntregados,

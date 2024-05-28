@@ -5,6 +5,7 @@ const getAcademicInformation = async () => {
     );
     const { datosAcademicos, estatusAlumno, toefl } = response.data.Value;
 
+      const dateAux = toefl[0].SORTEST_TEST_DATE ? moment(toefl[0].SORTEST_TEST_DATE).format("DD/MMMM/YYYY") : "";
     return {
       datosAcademicos: {
         creditosAprobados: datosAcademicos[0].CREDITOS_APROBADOS,
@@ -14,7 +15,7 @@ const getAcademicInformation = async () => {
         servicioSocial: datosAcademicos[0].SERV_SOCIAL,
         toeflInd: datosAcademicos[0].TOEFL_IND,
         toeflCode: toefl[0].SORTEST_TESC_CODE,
-        toeflTestDate: toefl[0].SORTEST_TEST_DATE,
+        toeflTestDate: dateAux,
         toeflTestScore: toefl[0].SORTEST_TEST_SCORE,
         toeflTestDesc: toefl[0].STVTESC_DESC,
       },
