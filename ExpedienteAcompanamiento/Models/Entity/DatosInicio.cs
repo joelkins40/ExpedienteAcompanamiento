@@ -22,6 +22,7 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string semestre { get; set; }
         public string preparatoriaProcedencia { get; set; }
         public string nacionalidad { get; set; }
+        public string Foto { get; set; }
 
     }
 }

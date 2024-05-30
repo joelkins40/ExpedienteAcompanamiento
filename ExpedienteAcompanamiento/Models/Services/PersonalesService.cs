@@ -82,6 +82,8 @@ namespace ExpedienteAcompanamiento.Models.Services
                                     semestre = lector["Semestre"]?.ToString(),
                                     preparatoriaProcedencia = lector["Preparatoria_Procedencia"]?.ToString(),
                                     nacionalidad = lector["Nacionalidad"]?.ToString(),
+                                    Foto = lector["Foto"]?.ToString(),
+
                                 }
                             };
                         }

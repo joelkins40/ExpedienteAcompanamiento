@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -26,7 +27,9 @@ namespace ExpedienteAcompanamiento.Controllers
                     Session["token"] = token;
                 }
                
-            }            
+            }
+          
+            ViewBag.Server = WebConfigurationManager.AppSettings["SERVER"];
             return View();
         }
 
