@@ -189,6 +189,9 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
                                 FORMADOR_NOMBRE = lector2["FORMADOR_NOMBRE"]?.ToString(),
                                 FORMADOR_CORREO = lector2["FORMADOR_CORREO"]?.ToString(),
+                                FORMADOR_PERIODO = lector2["FORMADOR_PERIODO"]?.ToString(),
+                                FORMADOR_PUESTO = lector2["FORMADOR_PUESTO"]?.ToString(),
+                               
                             });
                         }
                         OracleDataReader lector3 = ((OracleRefCursor)comando.Parameters["c_documentosEntregados"].Value).GetDataReader();
