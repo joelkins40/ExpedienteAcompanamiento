@@ -1,30 +1,38 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")    
+    @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/Content/components.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/details.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />    
+    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />
+    @RenderSection("css", required: false)
 </head>
 <body>
     <div class="container">
         <section class="container_left">
-            <div class="details">
+            <!-- <div class="details">
                 <div class="row">
                     <div class="horizontal-column">
                         <input id="matricula" placeholder="Matricula" />
                         <button class="btn btn-small" id="matricula-btn">Buscar</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="details" id="details">
+                <div>
+                    <div class="row">
+                        <div class="column">
+                            <h1>Mi perfil</h1>
+                        </div>
+                    </div>
+                </div>
                 <div class="details_image-container">
-                    <img id="details-imagen" alt="User" />
+                    <img src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png" alt="User" />
                     @*<div class="details_image-container-button">
                             <button class="btn">Cargar Imagen</button>
                         </div>*@
@@ -32,105 +40,51 @@
                 <div class="details_title">
                     <div class="row">
                         <div class="column">
-                            <h1 id="details-nombre"></h1>
+                            <h2 id="details-nombre">Alicia Canton</h2>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                            <p id="details-carrera"></p>
+                            <p id="details-carrera">Ing. en Gestion Empresarial</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="column">
-                            <p id="details-otraCarrera"></p>
-                        </div>
-                    </div>
-                </div>               
-                <div class="details_details">
                     <div class="row">
                         <div class="horizontal-column">
                             <p>Matricula:</p>
-                            <strong style="margin-left: 0.5rem;" id="details-matricula"></strong>
+                            <strong style="margin-left: 0.5rem;" id="details-matricula">123456789</strong>
                         </div>
                     </div>
+                </div>               
+                <div class="details_details">               
                     <div class="row">
                         <div class="column">
-                            <p>Fecha nacimiento</p>
-                            <strong style="margin-top: 0.3rem;" id="details-fechaNacimiento"></strong>
+                            <p>Plan</p>
+                            <strong style="margin-top: 0.3rem;" id="details-fechaNacimiento">Plan Estudio</strong>
                         </div>
-                        <div class="column">
-                            <p>Ciudad origen</p>
-                            <strong style="margin-top: 0.3rem;" id="details-ciudadOrigen"></strong>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="column">
                             <p>Semestre</p>
-                            <strong style="margin-top: 0.3rem;" id="details-semestre"></strong>
+                            <strong style="margin-top: 0.3rem;" id="details-ciudadOrigen">3</strong>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="column">
                             <p>Nacionalidad</p>
-                            <strong style="margin-top: 0.3rem;" id="details-nacionalidad"></strong>
+                            <strong style="margin-top: 0.3rem;" id="details-semestre">MX</strong>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="column">
                             <p>Estado</p>
-                            <strong style="margin-top: 0.3rem;" id="details-estado"></strong>
+                            <strong style="margin-top: 0.3rem;" id="details-nacionalidad">Nuevo Leon</strong>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <p>Escuela de procedencia</p>
-                            <strong style="margin-top: 0.3rem;" id="details-preparatoriaProcedencia"></strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="details" id="details-skeleton" style="display:none">
-                <div class="details_image-container">
-                    <div class="skeleton skeleton-image"></div>
-                </div>
-                <div class="details_title row">
-                    <div class="column">
-                        <div class="skeleton skeleton-text"></div>
-                    </div>
-                </div>
-                <div class="details_details">
-                    <div class="row">
-                        <div class="horizontal-column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                        <div class="column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                        <div class="column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="skeleton skeleton-text"></div>
-                        </div>
-                    </div>
+                    </div>                  
                 </div>
             </div>
         </section>
         <section class="container_right">
             <div class="tabs">
-                <a class="tablinks" href="@Url.Action("Index", "Home")" id="tab-informacion">Información general</a>
-                <a class="tablinks" href="@Url.Action("Index", "DatosAdministrativos")" id="tab-administrativos">Datos administrativos</a>
-                <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">Datos académicos</a>
+                <a class="tablinks" href="@Url.Action("Index", "Home")" id="tab-informacion">Personales</a>
+                <a class="tablinks" href="@Url.Action("Index", "DatosAdministrativos")" id="tab-administrativos">De Padres, tutories y obligado</a>
+                <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">De Admisiones</a>
+                <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">De Beca</a>
             </div>
             <div>
                 @RenderBody()
@@ -222,14 +176,14 @@
         }
 
         function toggleDetailsLoader() {
-            if ($("#details:hidden").length === 1) {
-                $(`#details`).attr("style", "display: block");
-                $(`#details-skeleton`).attr("style", "display: none");
-                return;
-            }
+            // if ($("#details:hidden").length === 1) {
+            //     $(`#details`).attr("style", "display: block");
+            //     $(`#details-skeleton`).attr("style", "display: none");
+            //     return;
+            // }
 
-            $(`#details-skeleton`).attr("style", "display: block");
-            $(`#details`).attr("style", "display: none");
+            // $(`#details-skeleton`).attr("style", "display: block");
+            // $(`#details`).attr("style", "display: none");
         }
 
         setActiveMenu();

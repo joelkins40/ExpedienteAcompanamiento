@@ -2,234 +2,129 @@
     ViewBag.Title = "Home Page";
 }
 
+@section css {
+    <link rel="stylesheet" href="~/Content/personal.css" type="text/css" />
+}
+
 @section scripts {
     <script src="~/Scripts/services/contacto.service.js"></script>
     <script>
-        function domIsReadyGeneralInfo(){
+        function domIsReadyGeneralInfo() {
             (async function () {
                 toggleGeneralLoader();
                 const initialSettings = await getContactosInformation();
-                for (let key in initialSettings){
+                for (let key in initialSettings) {
                     $(`#general-${key}`).val(initialSettings[key]);
                 }
                 toggleGeneralLoader();
             })();
         }
 
-        function toggleGeneralLoader(){            
-            if ($("#general:hidden").length === 1) {
-                $(`#general`).attr("style", "display: block");
-                $(`#general-skeleton`).attr("style", "display: none");
-                return;
-            }
+        function toggleGeneralLoader() {
+            // if ($("#general:hidden").length === 1) {
+            //     $(`#general`).attr("style", "display: block");
+            //     $(`#general-skeleton`).attr("style", "display: none");
+            //     return;
+            // }
 
-            $(`#general-skeleton`).attr("style", "display: block");
-            $(`#general`).attr("style", "display: none");
+            // $(`#general-skeleton`).attr("style", "display: block");
+            // $(`#general`).attr("style", "display: none");
         }
-        
+
         $(document).ready(domIsReadyGeneralInfo);
     </script>
 }
 
-<style>
-
-
-
-</style>
-
-<div id="general">
-    <div class="card general-info">
-        <div class="card-header">
-            <h3>Datos del contacto<h3>
+<div id="personal" class="personal">
+    <div class="row">
+        <div class="column">
+            <div>
+                <strong>Matricula:</strong>
+                <p>0014251125</p>
+            </div>   
+            <div>
+                <strong>Nombre completo:</strong>
+                <p>Alicia Canton</p>
+            </div>  
+            <div>
+                <strong>Fecha de nacimiento:</strong>
+                <p>01/01/1980</p>
+            </div>  
+            <div>
+                <strong>Estado de origen:</strong>
+                <p>Sinaloa</p>
+            </div>  
+            <div>
+                <strong>Domicilio permanente:</strong>
+                <p>San Pedro Garza, Gaia.</p>
+            </div>  
+            <div>
+                <strong>Telefono celular:</strong>
+                <p>+520818352452</p>
+            </div>  
+            <div>
+                <strong>Plan</strong>
+                <p>Plan Estudio</p>
+            </div>  
+            <div>
+                <strong>Domicilio en la zona metropolitana:</strong>
+                <p>Monterrey, N.L.</p>
+            </div>  
+            <div>
+                <strong>Correo electronico Preferente:</strong>
+                <p>alicia.canton@gmail.com</p>
+            </div>           
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <label>Teléfono celular:</label>
-                    <input type="text" id="general-telefono" disabled/>
-                </div>
-                <div class="column">
-                    <label>Domicilio Permanente:</label>
-                    <input type="text" id="general-domicilioPermanente" disabled/>
-                </div>  
-                <div class="column">
-                    <label>Domicilio Local:</label>
-                    <input type="text" id="general-domicilioLocal" disabled/>
-                </div>          
-            </div>        
-            <div class="row">
-                <div class="column">
-                    <label>Correo Personal:</label>
-                    <input type="text" id="general-correo" disabled/>
-                </div>
-                <div class="column">
-                    <label>Correo UDEM:</label>
-                    <input type="text" id="general-correoUDEM" disabled/>
-                </div>            
-            </div>
-        </div>
-    </div>
-
-    <div class="card general-info">
-        <div class="card-header">
-            <h3>Datos de padres o tutor<h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <label>Nombre padre:</label>
-                    <input type="text" id="general-nombrePadre" disabled/>
-                </div>
-                <div class="column">
-                    <label>Nombre madre:</label>
-                    <input type="text" id="general-nombreMadre" disabled/>
-                </div>                 
-            </div>        
-            <div class="row">
-                <div class="column">
-                    <label>Teléfono celular padre:</label>
-                    <input type="text" id="general-telefonoPadre" disabled/>
-                </div>
-                <div class="column">
-                    <label>Teléfono celular madre:</label>
-                    <input type="text" id="general-telefonoMadre" disabled/>
-                </div>            
-            </div>
-            <div class="row">
-                <div class="column">
-                    <label>Correo padre:</label>
-                    <input type="text" id="general-correoPadre" disabled/>
-                </div>
-                <div class="column">
-                    <label>Correo madre:</label>
-                    <input type="text" id="general-correoMadre" disabled/>
-                </div>            
-            </div>
-            <div class="row">
-                <div class="column">
-                    <label>Nombre Tutor:</label>
-                    <input type="text" id="general-nombreTutor" disabled/>
-                </div>                     
-            </div>
-            <div class="row">
-                <div class="column">
-                    <label>Teléfono celular tutor:</label>
-                    <input type="text" id="general-telefonoTutor" disabled/>
-                </div>
-                <div class="column">
-                    <label>Correo tutor:</label>
-                    <input type="text" id="general-correoTutor" disabled/>
-                </div>            
-            </div>
+        <div class="column">
+           <div>
+                <strong>Carrera que estudia</strong>
+                <p>Ingenieria</p>
+            </div>   
+            <div>
+                <strong>Carreras en las que ha estado</strong>
+                <p>Licenciatura</p>
+            </div>  
+            <div>
+                <strong>Doble titulacion:</strong>
+                <p>01/01/1980</p>
+            </div>  
+            <div>
+                <strong>Doble grado:</strong>
+                <p>01/01/1980</p>
+            </div>  
+            <div>
+                <strong>Correo electronico Personal:</strong>
+                <p>alicia.canton@udem.edu.mx</p>
+            </div>  
+            <div>
+                <strong>Correo electronico UDEM</strong>
+                <p>alicia.canton@udem.edu.mx</p>
+            </div>  
+            <div>
+                <strong>Seguro de Gastos Medicos</strong>
+                <p>Si</p>
+            </div>  
+            <div>
+                <strong>Local o foraneo</strong>
+                <p>No</p>
+            </div>  
+            <div>
+                <strong>Genero</strong>
+                <p>Femenino</p>
+            </div>  
         </div>
     </div>
-
-    <div class="card general-info">
+    <div class="card personal_talento">
         <div class="card-header">
-            <h3>Datos Contacto Emergencia<h3>
+            <h3>Programa de talento Becario</h3>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <label>Nombre:</label>
-                    <input type="text" id="general-emergenciaNombre" disabled/>
-                </div>
-                <div class="column">
-                    <label>Telefono:</label>
-                    <input type="text" id="general-emergenciaTelefono" disabled/>
-                </div>                   
-            </div>               
-        </div>
-    </div>
-</div>
-
-
-<div id="general-skeleton" style="display:none">
-    <div class="card general-info">
-        <div class="card-header">
-            <h3>Datos del contacto<h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>  
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>          
-            </div>        
-            <div class="row">
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>            
+                    <strong>Créditos académicos requeridos</strong>                    
+                    <span id="academicos-creditosRequeridos"></span>
+                </div>                
             </div>
-        </div>
-    </div>
-
-    <div class="card general-info">
-        <div class="card-header">
-            <h3>Datos de padres o tutor<h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                   <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>                 
-            </div>        
-            <div class="row">
-                <div class="column">
-                   <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>            
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>            
-            </div>
-            <div class="row">
-                <div class="column">
-                   <div class="skeleton skeleton-text"></div>
-                </div>                     
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>            
-            </div>
-        </div>
-    </div>
-
-    <div class="card general-info">
-        <div class="card-header">
-            <h3>Datos Contacto Emergencia<h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>
-                <div class="column">
-                    <div class="skeleton skeleton-text"></div>
-                </div>                   
-            </div>               
         </div>
     </div>
 </div>

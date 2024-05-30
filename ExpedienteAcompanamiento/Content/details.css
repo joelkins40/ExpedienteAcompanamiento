@@ -4,9 +4,7 @@
   justify-content: space-between;
   max-width: 22rem;
   min-width: 22rem;
-  background-color: var(--secondary-color);
   padding: 1rem 0;
-  border-radius: var(--border-radius);
 }
 
 .details_image-container {
@@ -24,8 +22,20 @@
   height: 5rem;
 }
 
+.details_title {
+  margin: 0 2rem;
+}
+
 .details_details {
-  margin-top: 1rem;
+  margin: 0 2rem;
+}
+
+.details_details > .row {
+  margin: 1.5rem 0.5rem;
+}
+
+.details_details > .row > .column:first-child {
+  border-right: 1px solid var(--border-color);
 }
 
 .details_details-row {

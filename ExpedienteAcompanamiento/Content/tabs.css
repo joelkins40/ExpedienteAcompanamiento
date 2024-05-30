@@ -2,6 +2,7 @@
 .tabs {
   overflow: hidden;
   background-color: transparent;
+  border-bottom: 1px solid var(--border-color);
 }
 
 /* Style the buttons inside the tab */
@@ -17,6 +18,7 @@
   border-top-left-radius: var(--border-radius);
   border-top-right-radius: var(--border-radius);
   text-decoration: none;
+  font-weight: bold;
 }
 
 /* Change background color of buttons on hover */
@@ -27,8 +29,8 @@
 
 /* Create an active/current tablink class */
 .tabs a.active {
-  background-color: var(--primary-color);
-  color: #fff;
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* Style the tab content */
