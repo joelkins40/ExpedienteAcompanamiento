@@ -53,7 +53,7 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string FORMADOR_NOMBRE { get; set; }
         public string FORMADOR_PUESTO { get; set; }
         public string FORMADOR_CORREO { get; set; }
-        public string FORMADOR_PERIODO { get; set; }
+        public string FORMADOR_PIDM { get; set; }
 
         
 

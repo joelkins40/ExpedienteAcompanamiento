@@ -19,6 +19,7 @@ namespace ExpedienteAcompanamiento.Models.Services
     public class PersonalesService
     {
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["BANNER"].ConnectionString;
+        private static readonly string _conPeopleSoftString = ConfigurationManager.ConnectionStrings["PeopleSoft"].ConnectionString;
 
         public static ResultObject ObtenerInformacionPersonal(int pidm)
         {
@@ -189,8 +190,9 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
                                 FORMADOR_NOMBRE = lector2["FORMADOR_NOMBRE"]?.ToString(),
                                 FORMADOR_CORREO = lector2["FORMADOR_CORREO"]?.ToString(),
-                                FORMADOR_PERIODO = lector2["FORMADOR_PERIODO"]?.ToString(),
-                                FORMADOR_PUESTO = lector2["FORMADOR_PUESTO"]?.ToString(),
+                                FORMADOR_PIDM = lector2["FORMADOR_MAT"]?.ToString(),
+
+                                FORMADOR_PUESTO = ConsultarFormadorDatos(lector2["FORMADOR_MAT"]?.ToString()),
                                
                             });
                         }
@@ -569,5 +571,41 @@ namespace ExpedienteAcompanamiento.Models.Services
                 };
             }
         }
+        public static String ConsultarFormadorDatos(String formador)
+        {
+            Dictionary<string, dynamic> user = new Dictionary<string, dynamic>();
+            String PuestoFormador = "";
+            using (var conn = new OracleConnection(_conPeopleSoftString))
+            {
+                var command = new OracleCommand("SELECT * FROM sysadm.PS_UDEM_RHPS_VW WHERE ALTER_EMPLID = '" + formador + "'", conn);
+                //command.Parameters.Add("@Matricula", matricula);
+
+                conn.Open();
+                try
+                {
+                    command.ExecuteNonQuery();
+
+                    var lector = command.ExecuteReader();
+
+                    while (lector.Read())
+                    {
+                      
+                        PuestoFormador = lector.IsDBNull(17) ? " " : lector.GetString(17);
+
+                    }
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return PuestoFormador;
+        }
+
     }
 }
