@@ -322,18 +322,11 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 TOEFL_IND = lector1["TOEFL_IND"]?.ToString(),
                                 SERV_SOCIAL = lector1["SERV_SOCIAL"]?.ToString(),
                                 MATERIAS_BAJA = lector1["MATERIAS_BAJA"]?.ToString(),
-                            });
-                        }
-                        OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["C_ESTATUSALUMNO"].Value).GetDataReader();
-                        while (lector2.Read())
-                        {
-                            datosAdministrativos.estatusAlumno.Add(new EstatusAlumno()
-                            {
+                                ESTATUS = lector1["ESTATUS"]?.ToString()
 
-                                ESTATUS = lector2["ESTATUS"]?.ToString(),
-                             
                             });
                         }
+                    
                         OracleDataReader lector3 = ((OracleRefCursor)comando.Parameters["C_TOEFL"].Value).GetDataReader();
                         while (lector3.Read())
                         {

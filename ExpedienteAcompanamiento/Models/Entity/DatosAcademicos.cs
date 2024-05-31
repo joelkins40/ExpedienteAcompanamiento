@@ -8,7 +8,6 @@ namespace ExpedienteAcompanamiento.Models.Entity
     public class DatosAcademicos
     {
         public List<Academicos> datosAcademicos = new List<Academicos>();
-        public List<EstatusAlumno> estatusAlumno = new List<EstatusAlumno>();
         public List<TOEFL> toefl = new List<TOEFL>();
        public string UrlHorarios { get; set; }
     }
@@ -20,15 +19,11 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string TOEFL_IND { get; set; }
         public string SERV_SOCIAL { get; set; }
         public string MATERIAS_BAJA { get; set; }
-
-    }
-
-    public class EstatusAlumno
-    {
         public string ESTATUS { get; set; }
 
-
     }
+
+  
     public class TOEFL
     {
         public string SORTEST_TESC_CODE { get; set; }
