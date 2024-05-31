@@ -27,6 +27,7 @@
             <div class="details" id="details">
                 <div class="details_image-container">
                     <img id="details-imagen" alt="User" />
+                    <p id="details-imagen-noImage" style="display:none">Sin foto<p>
                     @*<div class="details_image-container-button">
                             <button class="btn">Cargar Imagen</button>
                         </div>*@
@@ -51,7 +52,7 @@
                 <div class="details_details">
                     <div class="row">
                         <div class="horizontal-column">
-                            <p>Matricula:</p>
+                            <p>Matrícula:</p>
                             <strong style="margin-left: 0.5rem;" id="details-matricula"></strong>
                         </div>
                     </div>
@@ -214,6 +215,11 @@
 
                 for (let key in initialSettings) {
                     if (key === "imagen") {
+                        if(initialSettings[key] === "----"){
+                            $("#details-imagen").attr("style", "display:none");
+                            $("#details-imagen-noImage").attr("style", "display:block");
+                            continue;
+                        }                        
                         $(`#details-${key}`).attr("src", initialSettings[key]);
                     }
                     $(`#details-${key}`).html(initialSettings[key]);
