@@ -10,13 +10,13 @@
 }
 
 .btn-small {
-    border: 1px solid var(--border-color);
-    color: var(--border-color);
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
-    line-height: 1;
-    background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  color: var(--border-color);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  line-height: 1;
+  background-color: var(--secondary-color);
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -77,12 +77,12 @@
 }
 
 .column-card {
-    background-color: var(--card-background-color);
-    padding: 1.5rem;
-    border-radius: var(--border-radius);   
-    cursor: pointer;
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
 }
 
 .column-card > strong {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }

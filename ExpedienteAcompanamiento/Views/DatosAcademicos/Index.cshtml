@@ -5,6 +5,7 @@
 @section scripts {
     <script src="~/Scripts/services/academicos.service.js"></script>
     <script>
+        let auxuUrlHorarios= "";
         function domIsReadyAdministrativeInfo(){
             (async function () {
                 toggleAcademicLoader();
@@ -18,8 +19,11 @@
 
                 const {
                     datosAcademicos,
-                    estatusAlumno,                   
+                    estatusAlumno,   
+                    urlHorarios                
                 } = academicResponse;
+
+                auxuUrlHorarios = urlHorarios;
 
                 for (let key in datosAcademicos){
                     if(key === "toeflTestScore" || key === "toeflTestDate"){
@@ -27,35 +31,7 @@
                         continue;
                     }
                    $(`#academicos-${key}`).text(datosAcademicos[key]);
-                }
-
-                //$("#administrativos-body-beca").empty();
-                //for (let row of becasPeriodos) {
-                //    $("#administrativos-body-beca").append(`
-                //    <tr>
-                //        <td>${row.BECA_NOMBRE}</td>
-                //        <td>${row.BECA_PORCENTAJE}</td>
-                //    </tr>
-                //    `)
-                //}
-
-                //$("#administrativos-body-documentos").empty();
-                //for (let row of documentosEntregados) {
-                //    $("#administrativos-body-documentos").append(`
-                //    <tr>
-                //        <td>${row.CODIGO}</td>
-                //        <td>${row.DESCRIPCION}</td>
-                //        <td>${row.ORIGEN}</td>
-                //    </tr>
-                //    `)
-                //}
-
-                //$("#administrativos-bloqueos").empty();
-                //for (let row of bloqueos) {
-                //    $("#administrativos-bloqueos").append(`
-                //        <li>${row.stvhldd_desc}</li>
-                //    `)
-                //}
+                }            
 
                 toggleAcademicLoader();
             })();
@@ -72,30 +48,34 @@
             $(`#administrativos`).attr("style", "display: none");
         }
 
+        function handleClickMapaCurricular(){
+            window.open("https://udemsnprod.service-now.com/ventana_amarilla?id=vtna2_kb_knowledge&kb_category=b72ec87e1b25e5107532baebcc4bcb28", '_blank').focus();
+        }
+
+        function handleClickHorario(){            
+            window.open(auxuUrlHorarios, '_blank').focus();
+        }
+
         $(document).ready(domIsReadyAdministrativeInfo);
+        $("#academicos-mapaCurricular").click(handleClickMapaCurricular)
+        $("#academicos-horario").click(handleClickHorario)
     </script>
 }
 
 <div id="academicos">
     
-    <div class="row">
-        <div class="column-card">
-            <strong>Avance academico</strong>
-        </div>
-        <div class="column-card">
-            <strong>Kardex</strong>
-        </div>
-        <div class="column-card">
+    <div class="row">      
+        <div class="column-card" id="academicos-mapaCurricular">
             <strong>Mapa Curricular</strong>
         </div>
-        <div class="column-card">
+        <div class="column-card" id="academicos-horario">
             <strong>Horario de Clases</strong>
         </div>
     </div>            
 
     <div class="card">
         <div class="card-header">
-            <h3>Puntaje TOEFL</h3>
+            <h3>Avance académico</h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -110,25 +90,6 @@
                 <div class="column">
                     <strong>Programa</strong>                    
                     <span id="academicos-programa"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <strong>Manejo del idioma Inglés</strong>
-                </div>
-                <div class="column">
-                    <span id="academicos-toeflInd"></span>
-                </div>
-                <div class="column">
-                    <strong>Servicio Social</strong>
-                </div>
-                <div class="column">
-                    <span id="academicos-servicioSocial"></span>
                 </div>
             </div>
         </div>
@@ -151,33 +112,25 @@
         </div>
     </div>
 
-    @*<div class="card">
-        <div class="card-header">
-            <h3>Resultado exámenes de ubicación</h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="column">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tipo de examen</th>
-                                <th>Resultado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="administrativos-body-documentos">
-                        <tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
     <div class="card">
         <div class="card-header">
-            <h3>Historial de resultados del examen TOEFL</h3>
+            <h3>TOEFL</h3>
         </div>
-        <div class="card-body">            
+        <div class="card-body">     
+        <div class="row">
+                <div class="column">
+                    <strong>Manejo del idioma Inglés</strong>
+                </div>
+                <div class="column">
+                    <span id="academicos-toeflInd"></span>
+                </div>
+                <div class="column">
+                    <strong>Servicio Social</strong>
+                </div>
+                <div class="column">
+                    <span id="academicos-servicioSocial"></span>
+                </div>
+            </div>       
             <div class="row">
                 <div class="column">
                     <label>Fecha:</label>

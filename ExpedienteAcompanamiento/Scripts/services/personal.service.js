@@ -12,6 +12,7 @@ const getPersonalInformation = async () => {
       nombreCompleto,
       preparatoriaProcedencia,
       semestre,
+      Foto,
     } = response.data.Value;
 
     const dateAux = fechaNacimiento
@@ -29,8 +30,7 @@ const getPersonalInformation = async () => {
       nacionalidad: nacionalidad,
       estado: estadoOrigen,
       preparatoriaProcedencia,
-      imagen:
-        "https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png",
+      imagen: Foto,
     };
   } catch (err) {
     return undefined;
