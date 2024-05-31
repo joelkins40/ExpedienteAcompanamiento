@@ -296,10 +296,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                         Direction = ParameterDirection.Output
                     });
 
-                    comando.Parameters.Add(new OracleParameter("C_ESTATUSALUMNO", OracleDbType.RefCursor)
-                    {
-                        Direction = ParameterDirection.Output
-                    });
+                  
 
                     comando.Parameters.Add(new OracleParameter("C_TOEFL", OracleDbType.RefCursor)
                     {
