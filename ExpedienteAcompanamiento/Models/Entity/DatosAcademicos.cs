@@ -9,16 +9,19 @@ namespace ExpedienteAcompanamiento.Models.Entity
     {
         public List<Academicos> datosAcademicos = new List<Academicos>();
         public List<TOEFL> toefl = new List<TOEFL>();
-       public string UrlHorarios { get; set; }
+        public List<HISTORICO> historico = new List<HISTORICO>();
+        public string UrlHorarios { get; set; }
     }
     public class Academicos
     {
         public string CREDITOS_REQUERIDOS { get; set; }
         public string CREDITOS_APROBADOS { get; set; }
+        public string CREDITOS_PORCENTAJE { get; set; }
         public string PROGRAMA { get; set; }
         public string TOEFL_IND { get; set; }
         public string SERV_SOCIAL { get; set; }
         public string MATERIAS_BAJA { get; set; }
+        public string PROM_INTEGRADO { get; set; }
         public string ESTATUS { get; set; }
 
     }
@@ -33,5 +36,11 @@ namespace ExpedienteAcompanamiento.Models.Entity
 
 
     }
+    public class HISTORICO
+    {
+        public string GPA { get; set; }
+        public string PERIODO { get; set; }
 
+
+    }
 }

@@ -302,7 +302,11 @@ namespace ExpedienteAcompanamiento.Models.Services
                     {
                         Direction = ParameterDirection.Output
                     });
-                    
+
+                    comando.Parameters.Add(new OracleParameter("C_PROM_HIST", OracleDbType.RefCursor)
+                    {
+                        Direction = ParameterDirection.Output
+                    });
                     comando.ExecuteNonQuery();
 
                     // Revisamos si se pudo ejecutar la consulta
@@ -315,12 +319,15 @@ namespace ExpedienteAcompanamiento.Models.Services
                             {
                                 CREDITOS_REQUERIDOS = lector1["CREDITOS_REQUERIDOS"]?.ToString(),
                                 CREDITOS_APROBADOS = lector1["CREDITOS_APROBADOS"]?.ToString(),
+                                CREDITOS_PORCENTAJE = lector1["CREDITOS_PORCENTAJE"]?.ToString(),
                                 PROGRAMA = lector1["PROGRAMA"]?.ToString(),
                                 TOEFL_IND = lector1["TOEFL_IND"]?.ToString(),
                                 SERV_SOCIAL = lector1["SERV_SOCIAL"]?.ToString(),
                                 MATERIAS_BAJA = lector1["MATERIAS_BAJA"]?.ToString(),
-                                ESTATUS = lector1["ESTATUS"]?.ToString()
+                                PROM_INTEGRADO = lector1["PROM_INTEGRADO"]?.ToString(),
+                                ESTATUS = lector1["ESTATUS"]?.ToString(),
 
+                                
                             });
                         }
                     
@@ -338,6 +345,17 @@ namespace ExpedienteAcompanamiento.Models.Services
                             });
                         }
 
+                        OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["C_PROM_HIST"].Value).GetDataReader();
+                        while (lector2.Read())
+                        {
+
+                            datosAdministrativos.historico.Add(new HISTORICO()
+                            {
+                                GPA = (lector2.IsDBNull(0) ? "" : Convert.ToString(lector2.GetDouble(0))),
+                                PERIODO = (lector2.IsDBNull(1) ? "" : lector2.GetString(1)),
+                              
+                            });
+                        }
                         datosAdministrativos.UrlHorarios = obtenerUrlHorarios(token);
                         result = new ResultObject()
                         {
