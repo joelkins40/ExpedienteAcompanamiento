@@ -1,0 +1,8 @@
+.sub-header {
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+}
+
+.sub-header > .column-card:not(:first-child) {
+  margin-left: 2rem;
+}

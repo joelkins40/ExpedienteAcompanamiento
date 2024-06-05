@@ -1,6 +1,6 @@
 ﻿* {
-    color: var(--font-color);
-    font-family: var(--font-family-montserrat);
+  color: var(--font-color);
+  font-family: var(--font-family-montserrat);
 }
 
 body {
@@ -8,68 +8,85 @@ body {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-m);
   font-weight: bold;
 }
 
 h2 {
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-h3 {
-  font-size: 1.1rem;
+  font-size: var(--font-size-xs);
   font-weight: bold;
 }
 
 p {
-  font-size: 16px;
+  font-size: var(--font-size-xxs);
   font-weight: 400;
 }
 
+strong {
+  font-size: var(--font-size-xxs);
+  font-weight: bold;
+}
+
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  color: var(--label-color);
+  font-size: var(--font-size-xxs);
+  font-style: normal;
+  font-weight: 700;
 }
 
-th{
-    font-weight: bold;
+th {
+  font-weight: bold;
 }
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #dddddd;
 }
 
 strong {
-  font-size: 16px;
+  font-size: var(--font-size-xxs);
   font-weight: bold;
+}
+
+span {
+  font-size: var(--font-size-xxs);
+}
+
+i {
+  font-size: var(--font-size-xs);
 }
 
 input {
   height: 1.5rem;
   width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: var(--font-size-xxs);
 }
 
 ul {
-    padding: 0;
+  padding: 0;
+  font-size: var(--font-size-xxs);
 }
 
-li {    
-    display: grid;
-    grid-template-columns: 0 1fr;
-    grid-gap: 1em;
+li {
+  display: grid;
+  grid-template-columns: 0 1fr;
+  grid-gap: 1em;
 }
 
 ul li::before {
-    content: '•';
-    font-size: 1em;
+  content: "•";
+  font-size: 1em;
 }
 
 .container {

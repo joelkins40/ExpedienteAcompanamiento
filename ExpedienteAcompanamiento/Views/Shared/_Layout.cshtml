@@ -7,9 +7,11 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/Content/components.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/details.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />    
+    @RenderSection("css", required: false)
 </head>
 <body>
     <div class="container">
@@ -243,9 +245,35 @@
             $(`#details`).attr("style", "display: none");
         }
 
+        function handleCardHeaderClick(){
+            const arrowDownElement = $(this).find(".fa-arrow-down")[0];
+            const arrowUpElement = $(this).find(".fa-arrow-up")[0];
+            const cardIsVisible = $(arrowDownElement).is(":visible");
+            if(cardIsVisible){
+                setHiddenCard(this);
+                return;
+            }
+            setVisibleCard(this);        
+
+            function setHiddenCard(instancia){
+                $(arrowDownElement).attr("style", "display: none");
+                $(arrowUpElement).attr("style", "display: block");
+                const cardBody = $(instancia).parent().find(".card-body")[0];                
+                $(cardBody).attr("style", "display: none");
+            }
+
+            function setVisibleCard(instancia){
+                $(arrowDownElement).attr("style", "display: block");
+                $(arrowUpElement).attr("style", "display: none");
+                const cardBody = $(instancia).parent().find(".card-body")[0];
+                $(cardBody).attr("style", "display: block");
+            }
+        }
+
         setActiveMenu();
         $(document).ready(domIsReady);
         $("#matricula-btn").click(setPidm);
+        $(".card-header").click(handleCardHeaderClick)
     </script>
 </body>
 </html>

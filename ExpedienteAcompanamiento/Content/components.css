@@ -31,13 +31,23 @@
 }
 
 .card .card-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
   background-color: var(--primary-color);
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
-  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .card .card-header h3 {
+  color: var(--font-secondary-color);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: bold;
+}
+
+.card .card-header i {
   color: var(--font-secondary-color);
 }
 
@@ -75,13 +85,16 @@
   margin: 0.2rem 0;
 }
 
-.column-card {
-  background-color: var(--card-background-color);
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
+.column > label {
+  color: var(--label-color);
+  font-size: var(--font-size-xxs);
+  font-style: normal;
+  font-weight: 700;
 }
 
-.column-card > strong {
-  color: var(--primary-color);
+.column-card {
+  background-color: #f8ec7c;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
 }

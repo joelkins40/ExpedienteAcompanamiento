@@ -212,6 +212,7 @@
   <ItemGroup>
     <Content Include="Content\components.css" />
     <Content Include="Content\details.css" />
+    <Content Include="Content\personal.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\tabs.css" />
     <Content Include="Content\variables.css" />

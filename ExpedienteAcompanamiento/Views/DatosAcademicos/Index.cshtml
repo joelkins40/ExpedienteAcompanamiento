@@ -2,6 +2,10 @@
     ViewBag.Title = "Home Page";
 }
 
+@section css {
+    <link rel="stylesheet" href="~/Content/academicos.css" type="text/css" />
+}
+
 @section scripts {
     <script src="~/Scripts/services/academicos.service.js"></script>
     <script>
@@ -23,10 +27,10 @@
                     urlHorarios                
                 } = academicResponse;
 
-                auxuUrlHorarios = urlHorarios;
+                auxuUrlHorarios = urlHorarios;                
 
                 for (let key in datosAcademicos){
-                    if(key === "toeflTestScore" || key === "toeflTestDate"){
+                    if(key === "toeflTestScore" || key === "toeflTestDate" || key === "creditosRequeridos" || key === "creditosAprobados" || key === "programa"){
                         $(`#academicos-${key}`).val(datosAcademicos[key]);
                         continue;
                     }
@@ -64,7 +68,7 @@
 
 <div id="academicos">
     
-    <div class="row">      
+    <div class="row sub-header">      
         <div class="column-card" id="academicos-mapaCurricular">
             <strong>Mapa Curricular</strong>
         </div>
@@ -76,20 +80,22 @@
     <div class="card">
         <div class="card-header">
             <h3>Avance académico</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <strong>Créditos académicos requeridos</strong>                    
-                    <span id="academicos-creditosRequeridos"></span>
+                    <strong>Créditos académicos requeridos</strong>                                        
+                    <input type="text" id="academicos-creditosRequeridos" disabled />
                 </div>
                 <div class="column">
-                    <strong>Créditos académicos aprobados</strong>                    
-                    <span id="academicos-creditosAprobados"></span>
+                    <strong>Créditos académicos aprobados</strong>                                        
+                    <input type="text" id="academicos-creditosAprobados" disabled />
                 </div>
                 <div class="column">
-                    <strong>Programa</strong>                    
-                    <span id="academicos-programa"></span>
+                    <strong>Programa</strong>                                        
+                    <input type="text" id="academicos-programa" disabled />                    
                 </div>
             </div>
         </div>
@@ -98,6 +104,8 @@
     <div class="card">
         <div class="card-header">
             <h3>Estatus Académico</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
         <div class="card-body">
             <div class="row">
@@ -115,6 +123,8 @@
     <div class="card">
         <div class="card-header">
             <h3>Servicio Social</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
         <div class="card-body">     
         <div class="row">                               
@@ -128,6 +138,8 @@
     <div class="card">
         <div class="card-header">
             <h3>TOEFL</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
         <div class="card-body">     
         <div class="row">

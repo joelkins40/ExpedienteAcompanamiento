@@ -1,0 +1,15 @@
+.personal > .row {
+  margin: 1.5rem 0.5rem;
+}
+
+.personal > .row > .column:first-child {
+  border-right: 1px solid var(--border-color);
+}
+
+.personal > .row > .column > div {
+  margin-top: 1rem;
+}
+
+.personal_talento {
+  margin-top: 2rem;
+}
