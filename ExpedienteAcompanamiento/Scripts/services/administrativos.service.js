@@ -11,7 +11,7 @@ const getAdministrativeInformation = async () => {
     } = response.data.Value;
 
     const dateAux = datosAdministrativos[0].TERMINOS_FECHA
-      ? moment(datosAdministrativos[0].TERMINOS_FECHA).format("DD/MMMM/YYYY")
+        ? moment(datosAdministrativos[0].TERMINOS_FECHA, "YYYY-MM-DDTHH:mm:ssZ").format("DD/MMMM/YYYY")
       : "";
 
     return {

@@ -26,11 +26,13 @@
             }
             <div class="details" id="details">
                 <div class="details_image-container">
-                    <img id="details-imagen" alt="User" />
-                    <p id="details-imagen-noImage" style="display:none">Sin foto<p>
-                    @*<div class="details_image-container-button">
-                            <button class="btn">Cargar Imagen</button>
-                        </div>*@
+                    <div class="row">
+                        <img id="details-imagen" alt="User" style="width: 100%"/>
+                        <p id="details-imagen-noImage" style="display:none">Sin foto<p>
+                        @*<div class="details_image-container-button">
+                                <button class="btn">Cargar Imagen</button>
+                            </div>*@
+                    </div>
                 </div>
                 <div class="details_title">
                     <div class="row">
@@ -214,13 +216,14 @@
                 }
 
                 for (let key in initialSettings) {
-                    if (key === "imagen") {
+                    if (key === "imagen") {                        
                         if(initialSettings[key] === "----"){
                             $("#details-imagen").attr("style", "display:none");
                             $("#details-imagen-noImage").attr("style", "display:block");
                             continue;
                         }                        
                         $(`#details-${key}`).attr("src", initialSettings[key]);
+                        continue;
                     }
                     $(`#details-${key}`).html(initialSettings[key]);
                 }

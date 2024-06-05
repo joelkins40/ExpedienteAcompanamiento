@@ -16,7 +16,7 @@ const getPersonalInformation = async () => {
     } = response.data.Value;
 
     const dateAux = fechaNacimiento
-      ? moment(fechaNacimiento).format("DD/MMMM/YYYY")
+        ? moment(fechaNacimiento, "MM/DD/YYYYTHH:mm:ssZ").format("DD/MMMM/YYYY")
       : "";
 
     return {
