@@ -2,6 +2,10 @@
     ViewBag.Title = "Datos Administrativos Page";
 }
 
+@section css {
+    <link rel="stylesheet" href="~/Content/administrativo.css" type="text/css" />
+}
+
 @section scripts {
     <script src="~/Scripts/services/administrativos.service.js"></script>
     <script>
@@ -24,7 +28,7 @@
                 } = administrativeResponse;
 
                 for (let key in datosAdministrativos){
-                    $(`#administrativos-${key}`).val(datosAdministrativos[key]);
+                    $(`#administrativos-${key}`).text(datosAdministrativos[key]);
                 }
 
                 $("#administrativos-body-beca").empty();
@@ -78,7 +82,7 @@
 <div id="administrativos">
     <div class="card">
         <div class="card-header">
-            <h3>Seguro Gastos Medicos</h3>
+            <h3>Seguro gastos médicos</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -86,7 +90,7 @@
             <div class="row">
                 <div class="column">
                     <label>Seguro GMM UDEM:</label>
-                    <input type="text" id="administrativos-seguroUdem" disabled />
+                    <span type="text" id="administrativos-seguroUdem"></span>
                 </div>
             </div>
         </div>
@@ -94,7 +98,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Ayuda Financiera</h3>
+            <h3>Ayuda financiera</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -120,7 +124,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Programa de Talento Becario</h3>
+            <h3>Programa de talento becario</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -128,15 +132,15 @@
             <div class="row">
                 <div class="column">
                     <label>Nombre del formador:</label>
-                    <input type="text" id="administrativos-formadorNombre" disabled />
+                    <span type="text" id="administrativos-formadorNombre"></span>
                 </div>
                 <div class="column">
                     <label>Puesto:</label>
-                    <input type="text" id="administrativos-formadorPuesto" disabled />
+                    <span type="text" id="administrativos-formadorPuesto"></span>
                 </div>
                 <div class="column">
                     <label>Correo electrónico:</label>
-                    <input type="text" id="administrativos-formadorCorreo" disabled />
+                    <span type="text" id="administrativos-formadorCorreo"></span>
                 </div>
             </div>
         </div>
@@ -144,7 +148,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Términos y condiciones Firmados</h3>
+            <h3>Términos y condiciones firmados</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -152,11 +156,13 @@
             <div class="row">
                 <div class="column">
                     <label>Acepto términos y condiciones:</label>
-                    <input type="text" id="administrativos-terminosCond" disabled />
+                    <span type="text" id="administrativos-terminosCond"></span>
                 </div>
                 <div class="column">
                     <label>Fecha:</label>
-                    <input type="text" id="administrativos-terminosFecha" disabled />
+                    <span type="text" id="administrativos-terminosFecha"></span>
+                </div>
+                <div class="column">                    
                 </div>
             </div>
         </div>
@@ -180,7 +186,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Documentos entregados a Escolar</h3>
+            <h3>Estatus de documentos entregados a escolar</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -208,7 +214,7 @@
 <div id="administrativos-skeleton" style="display:none">
     <div class="card">
         <div class="card-header">
-            <h3>Seguro Gastos Medicos</h3>
+            <h3>Seguro gastos médicos</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -223,7 +229,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Ayuda Financiera</h3>
+            <h3>Ayuda financiera</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -238,7 +244,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Terminos y condiciones Firmados</h3>
+            <h3>Terminos y condiciones firmados</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -271,7 +277,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Documentos entregados a Escolar</h3>
+            <h3>Documentos entregados a escolar</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -286,7 +292,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Programa de Talento Becario</h3>
+            <h3>Programa de talento becario</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>

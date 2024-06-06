@@ -29,11 +29,7 @@
 
                 auxuUrlHorarios = urlHorarios;                
 
-                for (let key in datosAcademicos){
-                    if(key === "toeflTestScore" || key === "toeflTestDate" || key === "creditosRequeridos" || key === "creditosAprobados" || key === "programa"){
-                        $(`#academicos-${key}`).val(datosAcademicos[key]);
-                        continue;
-                    }
+                for (let key in datosAcademicos){                    
                    $(`#academicos-${key}`).text(datosAcademicos[key]);
                 }            
 
@@ -69,12 +65,15 @@
 <div id="academicos">
     
     <div class="row sub-header">      
-        <div class="column-card" id="academicos-mapaCurricular">
+        <!-- <div class="column-card" id="academicos-mapaCurricular">
             <strong>Mapa Curricular</strong>
-        </div>
+        </div> -->
         <div class="column-card" id="academicos-horario">
             <strong>Horario de Clases</strong>
         </div>
+        <!-- <div class="column-card" id="academicos-kardex">
+            <strong>Kárdex</strong>
+        </div> -->
     </div>            
 
     <div class="card">
@@ -87,15 +86,15 @@
             <div class="row">
                 <div class="column">
                     <strong>Créditos académicos requeridos</strong>                                        
-                    <input type="text" id="academicos-creditosRequeridos" disabled />
+                    <span type="text" id="academicos-creditosRequeridos"></span>
                 </div>
                 <div class="column">
                     <strong>Créditos académicos aprobados</strong>                                        
-                    <input type="text" id="academicos-creditosAprobados" disabled />
+                    <span type="text" id="academicos-creditosAprobados"></span>
                 </div>
                 <div class="column">
                     <strong>Programa</strong>                                        
-                    <input type="text" id="academicos-programa" disabled />                    
+                    <span type="text" id="academicos-programa"></span>                    
                 </div>
             </div>
         </div>
@@ -103,7 +102,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Estatus Académico</h3>
+            <h3>Estatus académico</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -122,7 +121,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3>Servicio Social</h3>
+            <h3>Servicio social</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -153,11 +152,11 @@
             <div class="row">
                 <div class="column">
                     <label>Fecha:</label>
-                    <input type="text" id="academicos-toeflTestDate" disabled />
+                    <span type="text" id="academicos-toeflTestDate"></span>
                 </div>
                  <div class="column">
                     <label>Score:</label>
-                    <input type="text" id="academicos-toeflTestScore" disabled />
+                    <span type="text" id="academicos-toeflTestScore"></span>
                 </div>
             </div>
         </div>

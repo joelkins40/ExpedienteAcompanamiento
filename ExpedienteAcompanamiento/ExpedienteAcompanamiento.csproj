@@ -210,6 +210,8 @@
     <Compile Include="Utils\ResultObject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\academicos.css" />
+    <Content Include="Content\administrativo.css" />
     <Content Include="Content\components.css" />
     <Content Include="Content\details.css" />
     <Content Include="Content\personal.css" />
