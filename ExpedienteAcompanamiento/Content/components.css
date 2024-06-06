@@ -42,7 +42,7 @@
 
 .card .card-header h3 {
   color: var(--font-secondary-color);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-m);
   font-style: normal;
   font-weight: bold;
 }
@@ -87,7 +87,7 @@
 
 .column > label {
   color: var(--label-color);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
   font-style: normal;
   font-weight: 700;
 }

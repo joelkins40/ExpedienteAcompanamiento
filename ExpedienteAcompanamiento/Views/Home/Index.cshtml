@@ -14,7 +14,7 @@
                 toggleGeneralLoader();
                 const initialSettings = await getContactosInformation();
                 for (let key in initialSettings){
-                    $(`#general-${key}`).val(initialSettings[key]);
+                    $(`#general-${key}`).text(initialSettings[key]);
                 }
                 toggleGeneralLoader();
             })();
@@ -46,26 +46,28 @@
             <div class="row">
                 <div class="column">
                     <label>Teléfono celular:</label>
-                    <input type="text" id="general-telefono" disabled/>
+                    <span type="text" id="general-telefono"></span>
                 </div>
                 <div class="column">
                     <label>Domicilio Permanente:</label>
-                    <input type="text" id="general-domicilioPermanente" disabled/>
-                </div>  
-                <div class="column">
-                    <label>Domicilio Local:</label>
-                    <input type="text" id="general-domicilioLocal" disabled/>
-                </div>          
+                    <span type="text" id="general-domicilioPermanente"></span>
+                </div>                         
             </div>        
             <div class="row">
                 <div class="column">
+                    <label>Domicilio Local:</label>
+                    <span type="text" id="general-domicilioLocal"></span>
+                </div>   
+                <div class="column">
                     <label>Correo Personal:</label>
-                    <input type="text" id="general-correo" disabled/>
-                </div>
+                    <span type="text" id="general-correo"></span>
+                </div>                         
+            </div>
+            <div class="row">
                 <div class="column">
                     <label>Correo UDEM:</label>
-                    <input type="text" id="general-correoUDEM" disabled/>
-                </div>            
+                    <span type="text" id="general-correoUDEM"></span>
+                </div>  
             </div>
         </div>
     </div>
@@ -80,47 +82,47 @@
             <div class="row">
                 <div class="column">
                     <label>Nombre padre:</label>
-                    <input type="text" id="general-nombrePadre" disabled/>
+                    <span type="text" id="general-nombrePadre"></span>
                 </div>
                 <div class="column">
                     <label>Nombre madre:</label>
-                    <input type="text" id="general-nombreMadre" disabled/>
+                    <span type="text" id="general-nombreMadre"></span>
                 </div>                 
             </div>        
             <div class="row">
                 <div class="column">
                     <label>Teléfono celular padre:</label>
-                    <input type="text" id="general-telefonoPadre" disabled/>
+                    <span type="text" id="general-telefonoPadre"></span>
                 </div>
                 <div class="column">
                     <label>Teléfono celular madre:</label>
-                    <input type="text" id="general-telefonoMadre" disabled/>
+                    <span type="text" id="general-telefonoMadre"></span>
                 </div>            
             </div>
             <div class="row">
                 <div class="column">
                     <label>Correo padre:</label>
-                    <input type="text" id="general-correoPadre" disabled/>
+                    <span type="text" id="general-correoPadre"></span>
                 </div>
                 <div class="column">
                     <label>Correo madre:</label>
-                    <input type="text" id="general-correoMadre" disabled/>
+                    <span type="text" id="general-correoMadre"></span>
                 </div>            
             </div>
             <div class="row">
                 <div class="column">
                     <label>Nombre Tutor:</label>
-                    <input type="text" id="general-nombreTutor" disabled/>
+                    <span type="text" id="general-nombreTutor"></span>
                 </div>                     
             </div>
             <div class="row">
                 <div class="column">
                     <label>Teléfono celular tutor:</label>
-                    <input type="text" id="general-telefonoTutor" disabled/>
+                    <span type="text" id="general-telefonoTutor"></span>
                 </div>
                 <div class="column">
                     <label>Correo tutor:</label>
-                    <input type="text" id="general-correoTutor" disabled/>
+                    <span type="text" id="general-correoTutor"></span>
                 </div>            
             </div>
         </div>
@@ -128,7 +130,7 @@
 
     <div class="card general-info">
         <div class="card-header">
-            <h3>Datos Contacto Emergencia</h3>
+            <h3>Datos contacto emergencia</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -136,11 +138,11 @@
             <div class="row">
                 <div class="column">
                     <label>Nombre:</label>
-                    <input type="text" id="general-emergenciaNombre" disabled/>
+                    <span type="text" id="general-emergenciaNombre"></span>
                 </div>
                 <div class="column">
                     <label>Telefono:</label>
-                    <input type="text" id="general-emergenciaTelefono" disabled/>
+                    <span type="text" id="general-emergenciaTelefono"></span>
                 </div>                   
             </div>               
         </div>
@@ -227,7 +229,7 @@
 
     <div class="card general-info">
         <div class="card-header">
-            <h3>Datos Contacto Emergencia</h3>
+            <h3>Datos contacto emergencia</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>

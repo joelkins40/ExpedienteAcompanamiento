@@ -8,22 +8,22 @@ body {
 }
 
 h1 {
-  font-size: var(--font-size-m);
+  font-size: var(--font-size-l);
   font-weight: bold;
 }
 
 h2 {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-m);
   font-weight: bold;
 }
 
 p {
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
   font-weight: 400;
 }
 
 strong {
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
   font-weight: bold;
 }
 
@@ -32,7 +32,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   color: var(--label-color);
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
   font-style: normal;
   font-weight: 700;
 }
@@ -53,16 +53,16 @@ tr:nth-child(even) {
 }
 
 strong {
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
   font-weight: bold;
 }
 
 span {
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
 }
 
 i {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-s);
 }
 
 input {
@@ -70,12 +70,12 @@ input {
   width: 100%;
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
 }
 
 ul {
   padding: 0;
-  font-size: var(--font-size-xxs);
+  font-size: var(--font-size-s);
 }
 
 li {
