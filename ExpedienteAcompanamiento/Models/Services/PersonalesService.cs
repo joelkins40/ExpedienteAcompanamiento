@@ -351,7 +351,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
                             datosAdministrativos.historico.Add(new HISTORICO()
                             {
-                                GPA = (lector2.IsDBNull(0) ? "" :lector2.GetString(0)),
+                                GPA = (lector2.IsDBNull(0) ? "" :Convert.ToString(lector2.GetDouble(0))+" %"),
                                 PERIODO = (lector2.IsDBNull(1) ? "" : lector2.GetString(1)),
                               
                             });
