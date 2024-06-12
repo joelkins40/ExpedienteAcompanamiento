@@ -173,9 +173,11 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                           datosAdministrativos.becasPeriodos.Add(new BecasPeriodos()
                             {
+                              BECA_PERIODO = lector1["BECA_PERIODO"]?.ToString(),
                               BECA_NOMBRE = lector1["BECA_NOMBRE"]?.ToString(),
                               BECA_PORCENTAJE = lector1["BECA_PORCENTAJE"]?.ToString(),
-                              BECA_PERIODO  = lector1["BECA_PERIODO"]?.ToString(),
+                              BECA_TIPO  = lector1["BECA_TIPO"]?.ToString()
+
                           });
                         }
                         OracleDataReader lector2 = ((OracleRefCursor)comando.Parameters["c_datos_administrativos"].Value).GetDataReader();
