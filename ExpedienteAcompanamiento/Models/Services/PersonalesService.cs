@@ -396,7 +396,8 @@ namespace ExpedienteAcompanamiento.Models.Services
         public static string  obtenerUrlHorarios(string token)
         {
             string server = WebConfigurationManager.AppSettings["URLHorarios"];
-            string Url = server + "/Login/Message" + "?token=HO" + token;
+            //string Url = server + "/Login/Message" + "?token=HO" + token;
+            string Url = server + "/Login/Message" + "?token=HO" + "bWF0cmljdWxhPTAwMDUxOTU3MCZwaW49NjU1MTg3";
 
             return Url;
 

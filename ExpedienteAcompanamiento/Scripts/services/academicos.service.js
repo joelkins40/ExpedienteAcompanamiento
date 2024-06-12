@@ -3,7 +3,7 @@ const getAcademicInformation = async () => {
     const response = await axios.get(
       "/DatosAcademicos/ObtenerInformacionDatosAcademicos"
     );
-    const { datosAcademicos, estatusAlumno, toefl, UrlHorarios } =
+    const { datosAcademicos, estatusAlumno, toefl, UrlHorarios, historico } =
       response.data.Value;
 
     const dateAux = toefl[0].SORTEST_TEST_DATE
@@ -16,6 +16,7 @@ const getAcademicInformation = async () => {
       datosAcademicos: {
         creditosAprobados: datosAcademicos[0].CREDITOS_APROBADOS,
         creditosRequeridos: datosAcademicos[0].CREDITOS_REQUERIDOS,
+        porcentaje: datosAcademicos[0].CREDITOS_PORCENTAJE,
         materiasBajas: datosAcademicos[0].MATERIAS_BAJA,
         programa: datosAcademicos[0].PROGRAMA,
         servicioSocial: datosAcademicos[0].SERV_SOCIAL,
@@ -27,6 +28,7 @@ const getAcademicInformation = async () => {
       },
       estatusAlumno: estatusAlumno,
       urlHorarios: UrlHorarios,
+      porcentajes: historico
     };
   } catch (err) {
     console.error(err);

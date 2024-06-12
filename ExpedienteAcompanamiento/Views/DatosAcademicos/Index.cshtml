@@ -23,15 +23,25 @@
 
                 const {
                     datosAcademicos,
-                    estatusAlumno,   
-                    urlHorarios                
+                    porcentajes,   
+                    urlHorarios
                 } = academicResponse;
 
                 auxuUrlHorarios = urlHorarios;                
 
                 for (let key in datosAcademicos){                    
                    $(`#academicos-${key}`).text(datosAcademicos[key]);
-                }            
+                }         
+
+                $("#administrativos-porcentajes").empty();
+                for (let row of porcentajes) {
+                    $("#administrativos-porcentajes").append(`
+                     <tr>
+                         <td>${row.PERIODO}</td>
+                         <td>${row.GPA}</td>                                                 
+                     </tr>
+                     `)
+                }
 
                 toggleAcademicLoader();
             })();
@@ -63,8 +73,8 @@
 }
 
 <div id="academicos">
-    
-    <div class="row sub-header">      
+
+    <div class="row sub-header">
         <!-- <div class="column-card" id="academicos-mapaCurricular">
             <strong>Mapa Curricular</strong>
         </div> -->
@@ -74,7 +84,7 @@
         <!-- <div class="column-card" id="academicos-kardex">
             <strong>Kárdex</strong>
         </div> -->
-    </div>            
+    </div>
 
     <div class="card">
         <div class="card-header">
@@ -85,16 +95,22 @@
         <div class="card-body">
             <div class="row">
                 <div class="column">
-                    <strong>Créditos académicos requeridos</strong>                                        
+                    <strong>Créditos académicos requeridos</strong>
                     <span type="text" id="academicos-creditosRequeridos"></span>
                 </div>
                 <div class="column">
-                    <strong>Créditos académicos aprobados</strong>                                        
+                    <strong>Créditos académicos aprobados</strong>
                     <span type="text" id="academicos-creditosAprobados"></span>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
-                    <strong>Programa</strong>                                        
-                    <span type="text" id="academicos-programa"></span>                    
+                    <strong>Programa</strong>
+                    <span type="text" id="academicos-programa"></span>
+                </div>
+                <div class="column">
+                    <strong>Porcentaje</strong>
+                    <span type="text" id="academicos-porcentaje"></span>
                 </div>
             </div>
         </div>
@@ -125,12 +141,12 @@
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
-        <div class="card-body">     
-        <div class="row">                               
+        <div class="card-body">
+            <div class="row">
                 <div class="column">
                     <span id="academicos-servicioSocial"></span>
                 </div>
-            </div>                 
+            </div>
         </div>
     </div>
 
@@ -140,25 +156,49 @@
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
-        <div class="card-body">     
-        <div class="row">
+        <div class="card-body">
+            <div class="row">
                 <div class="column">
                     <strong>Manejo del idioma Inglés</strong>
                 </div>
                 <div class="column">
                     <span id="academicos-toeflInd"></span>
-                </div>               
-            </div>       
+                </div>
+            </div>
             <div class="row">
                 <div class="column">
                     <label>Fecha:</label>
                     <span type="text" id="academicos-toeflTestDate"></span>
                 </div>
-                 <div class="column">
+                <div class="column">
                     <label>Score:</label>
                     <span type="text" id="academicos-toeflTestScore"></span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Promedios</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Período</th>
+                                <th>Promedio</th>                                
+                            </tr>
+                        </thead>
+                        <tbody id="administrativos-porcentajes">
+                        <tbody>
+                    </table>
+                </div>               
+            </div>            
         </div>
     </div>
 </div>
