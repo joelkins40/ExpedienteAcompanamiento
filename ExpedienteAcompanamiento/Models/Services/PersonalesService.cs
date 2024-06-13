@@ -328,8 +328,14 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 MATERIAS_BAJA = lector1["MATERIAS_BAJA"]?.ToString(),
                                 PROM_INTEGRADO = lector1["PROM_INTEGRADO"]?.ToString(),
                                 ESTATUS = lector1["ESTATUS"]?.ToString(),
+                                MATERIAS_REP_1ER_PARCIAL = Convert.ToInt32(lector1["MATERIAS_REP_1ER_PARCIAL"]?.ToString()),
+                                MATERIAS_REP_2DO_PARCIAL = Convert.ToInt32(lector1["MATERIAS_REP_2DO_PARCIAL"]?.ToString()),
+                                FALTAS_1ER_PARCIAL = Convert.ToInt32(lector1["FALTAS_1ER_PARCIAL"]?.ToString()),
+                                FALTAS_2DO_PARCIAL = Convert.ToInt32(lector1["FALTAS_2DO_PARCIAL"]?.ToString()),
+                                PORCEN_MAT_REP_1ER_PARCIAL = lector1["PORCEN_MAT_REP_1ER_PARCIAL"]?.ToString(),
+                                PORCEN_MAT_REP_2DO_PARCIAL = lector1["PORCEN_MAT_REP_2DO_PARCIAL"]?.ToString(),
 
-                                
+
                             });
                         }
                     

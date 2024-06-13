@@ -23,7 +23,15 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string MATERIAS_BAJA { get; set; }
         public string PROM_INTEGRADO { get; set; }
         public string ESTATUS { get; set; }
+        public int MATERIAS_REP_1ER_PARCIAL { get; set; }
+        public int MATERIAS_REP_2DO_PARCIAL { get; set; }
+        public int FALTAS_1ER_PARCIAL { get; set; }
+        public int FALTAS_2DO_PARCIAL { get; set; }
+        public string PORCEN_MAT_REP_1ER_PARCIAL { get; set; }
+        public string PORCEN_MAT_REP_2DO_PARCIAL { get; set; }
 
+
+     
     }
 
   
