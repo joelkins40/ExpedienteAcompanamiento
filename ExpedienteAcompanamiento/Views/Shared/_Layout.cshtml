@@ -1,39 +1,41 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")    
+    @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" href="~/Content/components.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/details.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />    
+    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />
     @RenderSection("css", required: false)
 </head>
 <body>
     <div class="container">
         <section class="container_left">
-            @if (ViewBag.Server == "TEST") {
-            <div class="details">
-                <div class="row">
-                    <div class="horizontal-column">
-                        <input id="matricula" placeholder="Matricula" />
-                        <button class="btn btn-small" id="matricula-btn">Buscar</button>
+            @if (ViewBag.Server == "TEST")
+            {
+                <div class="details">
+                    <div class="row">
+                        <div class="horizontal-column">
+                            <input id="matricula" placeholder="Matricula" />
+                            <button class="btn btn-small" id="matricula-btn">Buscar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             }
             <div class="details" id="details">
                 <div class="details_image-container">
                     <div class="row" style="justify-content: center;">
-                        <img id="details-imagen" alt="User" style="width: 70%"/>
+                        <img id="details-imagen" alt="User" style="width: 70%" />
                         <p id="details-imagen-noImage" style="display:none">Sin foto<p>
-                        @*<div class="details_image-container-button">
-                                <button class="btn">Cargar Imagen</button>
-                            </div>*@
+                            @*<div class="details_image-container-button">
+                                    <button class="btn">Cargar Imagen</button>
+                                </div>*@
                     </div>
                 </div>
                 <div class="details_title">
@@ -52,7 +54,7 @@
                             <p id="details-otraCarrera"></p>
                         </div>
                     </div>
-                </div>               
+                </div>
                 <div class="details_details">
                     <div class="row">
                         <div class="horizontal-column">
@@ -148,6 +150,7 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/services/personal.service.js"></script>
     <script>
@@ -159,7 +162,7 @@
             weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
             weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
         });
-        
+
 
         function setActiveMenu() {
             const controller = window.location.pathname;
@@ -218,12 +221,12 @@
                 }
 
                 for (let key in initialSettings) {
-                    if (key === "imagen") {                        
-                        if(initialSettings[key] === "----"){
+                    if (key === "imagen") {
+                        if (initialSettings[key] === "----") {
                             $("#details-imagen").attr("style", "display:none");
                             $("#details-imagen-noImage").attr("style", "display:block");
                             continue;
-                        }                        
+                        }
                         $(`#details-${key}`).attr("src", initialSettings[key]);
                         continue;
                     }
@@ -245,24 +248,24 @@
             $(`#details`).attr("style", "display: none");
         }
 
-        function handleCardHeaderClick(){
+        function handleCardHeaderClick() {
             const arrowDownElement = $(this).find(".fa-arrow-down")[0];
             const arrowUpElement = $(this).find(".fa-arrow-up")[0];
             const cardIsVisible = $(arrowDownElement).is(":visible");
-            if(cardIsVisible){
+            if (cardIsVisible) {
                 setHiddenCard(this);
                 return;
             }
-            setVisibleCard(this);        
+            setVisibleCard(this);
 
-            function setHiddenCard(instancia){
+            function setHiddenCard(instancia) {
                 $(arrowDownElement).attr("style", "display: none");
                 $(arrowUpElement).attr("style", "display: block");
-                const cardBody = $(instancia).parent().find(".card-body")[0];                
+                const cardBody = $(instancia).parent().find(".card-body")[0];
                 $(cardBody).attr("style", "display: none");
             }
 
-            function setVisibleCard(instancia){
+            function setVisibleCard(instancia) {
                 $(arrowDownElement).attr("style", "display: block");
                 $(arrowUpElement).attr("style", "display: none");
                 const cardBody = $(instancia).parent().find(".card-body")[0];
