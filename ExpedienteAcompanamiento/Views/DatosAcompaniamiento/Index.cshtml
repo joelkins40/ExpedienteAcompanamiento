@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "Datos Acompañamiento Page";
+}
+
+@section css {
+    <link rel="stylesheet" href="~/Content/administrativo.css" type="text/css" />
+}
+
+@section scripts {
+    <script src="~/Scripts/services/acompaniamiento.service.js"></script>
+    <script>
+        function domIsReadyAccompanimentInfo(){
+            (async function () {
+                toggleAccompanimentLoader();
+                const accompanimentResponse = await getAccompanimentInformation();
+
+                if (!accompanimentResponse) {        
+                    toggleAccompanimentLoader();
+                    console.error("Ocurrio un error inesperado")
+                    return;
+                }
+
+                const {
+                    alertas
+                } = accompanimentResponse;
+
+                $("#acompaniamiento-body-alertas").empty();
+                for (let row of alertas) {
+                    $("#acompaniamiento-body-alertas").append(`
+                    <tr>
+                        <td>${row.IdReporte}</td>
+                        <td>${row.NombreMaestro}</td>
+                        <td>${row.GeneroReporte}</td>
+                        <td>${moment(row.FechaRegistro).format("MMM Do YYYY") }</td>
+                        <td>${row.Estatus.length > 0 ? row.Estatus[0].Area + " - " + row.Estatus[0].EstatusDesc : ''}</td>
+                        <td>${row.Estatus.length > 0 ? moment(row.Estatus[0].FechaEstatus).format("MMM Do YYYY") : ''}</td>
+                    </tr>
+                    `)
+                }
+
+                toggleAccompanimentLoader();
+            })();
+        }
+
+        function toggleAccompanimentLoader(){  
+            if ($("#acompaniamiento:hidden").length === 1) {
+                $(`#acompaniamiento`).attr("style", "display: block");
+                $(`#acompaniamiento-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#acompaniamiento-skeleton`).attr("style", "display: block");
+            $(`#acompaniamiento`).attr("style", "display: none");
+        }
+        
+        $(document).ready(domIsReadyAccompanimentInfo);
+    </script>
+}
+
+<div id="acompaniamiento">
+    <div class="card">
+        <div class="card-header">
+            <h3>Alertas</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reporte</th>
+                                <th>Nombre maestro</th>
+                                <th>Genero reporte</th>
+                                <th>Fecha de registro</th>
+                                <th>Ultino estatus</th>
+                                <th>Fecha de último estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="acompaniamiento-body-alertas">
+                        <tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="acompaniamiento-skeleton" style="display:none">
+       <div class="card">
+        <div class="card-header">
+            <h3>Alertas</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="horizontal-column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="column">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
