@@ -39,6 +39,13 @@ namespace ExpedienteAcompanamiento.Controllers
         {
             int valor = Convert.ToInt32(Session["pidm"]);
             ResultObject response = PersonalesService.ObtenerInformacionPersonal(valor);
+            
+            if(response.Success && Session["term"] == null)
+            {
+                var data = (DatosInicio)response.Value;
+                Session["term"] = data.periodoActual;
+            }
+
             return JsonConvert.SerializeObject(response);
         }
 

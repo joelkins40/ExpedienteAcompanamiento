@@ -22,8 +22,9 @@ namespace ExpedienteAcompanamiento.Controllers
         [ActionName("ObtenerInformacionAcompaniamiento")]
         public string Get(string id)
         {
-            int PDIM = Convert.ToInt32(Session["pidm"]);
-            ResultObject response = ReportesService.ObtenerAlertas(PDIM);
+            int pidm = Convert.ToInt32(Session["pidm"]);
+            string term = Session["term"].ToString();
+            ResultObject response = ReportesService.ObtenerAlertas(pidm, term);
             return JsonConvert.SerializeObject(response);
         }
     }

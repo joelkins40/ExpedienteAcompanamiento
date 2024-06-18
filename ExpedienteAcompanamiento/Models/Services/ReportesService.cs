@@ -12,6 +12,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,20 +26,25 @@ namespace ExpedienteAcompanamiento.Models.Services
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["SIAT"].ConnectionString;
         private static readonly string _conStringBanner = ConfigurationManager.ConnectionStrings["BANNER"].ConnectionString;
 
-        public static ResultObject ObtenerAlertas(int pidm)
+        public static ResultObject ObtenerAlertas(int pidm, string term)
         {
             try
             {
+                pidm = 778111;
                 var alerts = ObtenerReportes(pidm);
+
+                var becas = ObtenerBecas(pidm, term);
+                var becasLinde = ObtenerBecasLinde(pidm, term);
 
                 // TODO: Becas
                 foreach (var alert in alerts)
                 {
-                    alert.Beca = "No";
+                    alert.Beca = becas.Count > 0 ? "Si" : "No";
                     alert.Canalizacion = ObtenerAsignacion(alert.IdReporte);
                     alert.GeneroReporte = ObtenerTipoRegistro(alert.TipoRegistro).RegistroDesc;
                     alert.Estatus = ObtenerEstatus(alert.IdReporte);
                     alert.Comentarios = ObtenerComentarios(alert.IdReporte);
+                    alert.ApoyoLINDE = becasLinde != null && becasLinde.ToUpper().Contains("LINDE") ? "Y" : "N";
                 }
 
                 return new ResultObject() { Success = true, Value = alerts };
@@ -57,12 +63,13 @@ namespace ExpedienteAcompanamiento.Models.Services
 
         public static List<ReportResult> ObtenerReportes(int pidm)
         {
-            //pidm = 778111;
-
             string query = "SELECT IDENTIFICADOR, IDBN_ALUMNO, NOMBRE_ALUMNO, " +
-                "CARRERA_ALUMNO,ESCUELA_ALUMNO, CORREO_ALUMNO, CELULAR_ALUMNO, " +
+                "CARRERA_ALUMNO, ESCUELA_ALUMNO, CORREO_ALUMNO, CELULAR_ALUMNO, " +
                 "SEMESTRE_ALUMNO, FECHA_REGISTRO, CRN, MATERIA, IDBN_PROF, " +
                 "NOMBRE_PROF, CORREO_PROF, PREGUNTA3, PREGUNTA2, CORREO_DPA, TIPO_REGISTRO " +
+                "PREGUNTA1_RESP1, PREGUNTA1_RESP2, PREGUNTA1_RESP3, PREGUNTA1_RESP4, PREGUNTA1_RESP5, " +
+                "PREGUNTA1_RESP6, PREGUNTA1_RESP7, PREGUNTA1_RESP8, PREGUNTA1_RESP9, PREGUNTA1_RESP10, " +
+                "PREGUNTA1_RESP10_2 " +
                 "FROM TBL_SIAT_RESPUESTAS WHERE PIDM_ALUMNO = " + pidm;
             List<ReportResult> list = new List<ReportResult>();
 
@@ -105,6 +112,30 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 ComentariosMaestro = lector.IsDBNull(15) ? string.Empty : lector.GetString(15),
                                 CorreoDPA = lector.IsDBNull(16) ? string.Empty : lector.GetString(16),
                                 TipoRegistro = lector.GetString(17),
+                                Motivos = Regex.Replace((!lector.IsDBNull(18) && lector.GetString(18).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Ausencias a clase"
+                                    : "") + "," + (!lector.IsDBNull(19) && lector.GetString(19).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Bajo desempeño académico"
+                                    : "") + "," + (!lector.IsDBNull(20) && lector.GetString(20).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Presenta comportamiento atípico"
+                                    : "") + "," + (!lector.IsDBNull(21) && lector.GetString(21).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Requiere habilidades y métodos de estudio - organización del tiempo"
+                                    : "") + "," + (!lector.IsDBNull(22) && lector.GetString(22).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Dificultad para adaptarse"
+                                    : "") + "," + (!lector.IsDBNull(23) && lector.GetString(23).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Reporta situaciones de salud que dificultan la realización de actividades diarias"
+                                    : "") + "," + (!lector.IsDBNull(24) && lector.GetString(24).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Dificultades económicas"
+                                    : "") + "," + (!lector.IsDBNull(25) && lector.GetString(25).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Dudas de carrera y/o requiere orientación vocacional"
+                                    : "") + "," + (!lector.IsDBNull(26) && lector.GetString(26).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Presión por mantener la beca"
+                                    : "") + "," + (!lector.IsDBNull(27) && lector.GetString(27).Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                                    ? "Otra: " + (lector.IsDBNull(28) ? string.Empty : lector.GetString(28))
+                                    : ""), ",{2,}", ",")
+                                .Trim(',')
+                                .Split(',')
+                                .ToList(),
                             });
                         }
                         conn.Close();
@@ -360,6 +391,62 @@ namespace ExpedienteAcompanamiento.Models.Services
                 };
             }
             return list;
+        }
+
+        public static string ObtenerBecasLinde(int pidm, string term)
+        {
+            string retorno = string.Empty;
+
+            try
+            {
+                using (var connection = new OracleConnection(_conString))
+                {
+                    OracleCommand command = new OracleCommand("F_UDEM_STU_BECAS", connection)
+                    {
+                        CommandType = System.Data.CommandType.StoredProcedure,
+                        BindByName = true
+                    };
+
+                    command.Parameters.Add(new OracleParameter("V_TODAS_BECAS", OracleDbType.Varchar2, 500)
+                    {
+                        Direction = ParameterDirection.ReturnValue
+                    });
+                    command.Parameters.Add(new OracleParameter("P_TERM", OracleDbType.Varchar2)
+                    {
+                        Value = term,
+                        Direction = ParameterDirection.Input
+                    });
+                    command.Parameters.Add(new OracleParameter("P_PIDM", OracleDbType.Int32)
+                    {
+                        Value = pidm,
+                        Direction = ParameterDirection.Input
+                    });
+                    command.Parameters.Add(new OracleParameter("P_REGRESA", OracleDbType.Int32)
+                    {
+                        Value = 3,
+                        Direction = ParameterDirection.Input
+                    });
+
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+
+                    try
+                    {
+                        retorno = command.Parameters["V_TODAS_BECAS"].Value.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex;
+            }
+
+            return retorno;
         }
     }
 }
