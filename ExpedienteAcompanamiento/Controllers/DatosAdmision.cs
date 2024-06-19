@@ -22,7 +22,7 @@ namespace ExpedienteAcompanamiento.Controllers
 
         [HttpGet]
         [ActionName("ObtenerInformacionAdmision")]
-        public string Get(string id)
+        public string Get()
         {
             int PDIM = Convert.ToInt32(Session["pidm"]);
             ResultObject response = PersonalesService.ObtenerInformacionDatosAdmision(PDIM);
