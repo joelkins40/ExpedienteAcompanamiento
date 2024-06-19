@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="Models\Entity\Acompanamiento.cs" />
     <Compile Include="Models\Entity\Admisiones.cs" />
+    <Compile Include="Models\Entity\Catalog.cs" />
     <Compile Include="Models\Entity\ReporteArea.cs" />
     <Compile Include="Models\Entity\ReportResult.cs" />
     <Compile Include="Models\Entity\Beca.cs" />
@@ -235,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\academicos.css" />
+    <Content Include="Content\acompaniamiento.css" />
     <Content Include="Content\administrativo.css" />
     <Content Include="Content\components.css" />
     <Content Include="Content\details.css" />

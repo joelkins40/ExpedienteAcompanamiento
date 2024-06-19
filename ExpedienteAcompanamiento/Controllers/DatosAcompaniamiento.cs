@@ -24,6 +24,7 @@ namespace ExpedienteAcompanamiento.Controllers
         {
             int pidm = Convert.ToInt32(Session["pidm"]);
             string term = Session["term"].ToString();
+            //string term = "";
             ResultObject response = ReportesService.ObtenerAlertas(pidm, term);
             return JsonConvert.SerializeObject(response);
         }

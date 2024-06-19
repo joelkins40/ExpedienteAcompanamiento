@@ -3,12 +3,110 @@
 }
 
 @section css {
-    <link rel="stylesheet" href="~/Content/administrativo.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/acompaniamiento.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/tabs.css" type="text/css" />
 }
 
 @section scripts {
     <script src="~/Scripts/services/acompaniamiento.service.js"></script>
     <script>
+        function changeTab(tabId) {
+            // Remove active-tab class from all tabs and content
+            $('.tabbtn').removeClass('active');
+            $('.tab-content-report').removeClass('active');
+
+            // Add active-tab class to the clicked tab and its content
+            $('#' + tabId).addClass('active');
+            $('#' + tabId + '-view').addClass('active');
+        }
+
+        function showModal(data, areasMap) {
+            console.log(data);
+            console.log(areasMap);
+            // Asigna los datos al modal
+            $("#tab-reporte-view p[data-field='estudiante']").text(data.Matricula + " - " + data.NombreAlumno);
+            $("#tab-reporte-view p[data-field='materia']").text(data.Materia);
+            $("#tab-reporte-view p[data-field='correo']").text(data.CorreoAlumno);
+            $("#tab-reporte-view p[data-field='maestro']").text(data.MatriculaMaestro + " - " + data.NombreMaestro);
+            $("#tab-reporte-view p[data-field='telefono']").text(data.Telefono);
+            $("#tab-reporte-view p[data-field='correo-maestro']").text(data.CorreoMaestro);
+            $("#tab-reporte-view p[data-field='carrera']").text(data.Carrera);
+            $("#tab-reporte-view p[data-field='semestre']").text(data.Grado);
+            $("#tab-reporte-view p[data-field='beca']").text(data.Beca);
+            $("#tab-reporte-view p[data-field='genero']").text(data.GeneroReporte);
+            $("#tab-reporte-view p[data-field='fecha']").text(data.FechaRegistro);
+            $("#tab-reporte-view p[data-field='comentarios']").text(data.ComentariosMaestro);
+
+            // Limpiar y poblar la lista de motivos
+            const motivosList = $("#tab-reporte-view ul[data-field='motivos']");
+            motivosList.empty();
+            data.Motivos.forEach(function (motivo) {
+                motivosList.append(`<li>${motivo}</li>`);
+            });
+
+            // Desmarcar todos los checkboxes
+            $(".checkbox-area").prop("checked", false);
+
+            // Marcar los checkboxes correspondientes a las áreas asignadas
+            data.Canalizacion.forEach(function (canalizacion) {
+                $(`.checkbox-area[data-field="check-${canalizacion.AreaAsig}"]`).prop("checked", true);
+            });
+
+            // Agrupar los estatus por área y mostrarlos
+            const estatusGroupedByArea = {};
+            data.Estatus.forEach(function (estatus) {
+                if (!estatusGroupedByArea[estatus.Area]) {
+                    estatusGroupedByArea[estatus.Area] = [];
+                }
+                estatusGroupedByArea[estatus.Area].push(estatus);
+            });
+
+            const estatusContainer = $("#div-estatus-view");
+            estatusContainer.empty();
+            for (const area in estatusGroupedByArea) {
+                let cont = estatusGroupedByArea[area].length;
+
+                estatusContainer.append(`<h6>${areasMap[area]}</h6>`);
+                estatusContainer.append(`<br />`);
+                const ol = $('<ol style="padding-left: 40px;"></ol>');
+                estatusGroupedByArea[area].forEach(function (estatus) {
+                    let dtaeStr = estatus.FechaEstatus != null ? "(" + moment(estatus.FechaEstatus).format('MMM Do YYYY') + ")" : '';
+
+                    ol.append(`<li style="display: list-item;">${cont}.- ${estatus.EstatusDesc}${dtaeStr} | ${estatus.UserFullName} | ${estatus.UserIDBN}</li>`);
+                    cont--;
+                });
+                estatusContainer.append(ol);
+            }
+
+            // Agrupar los comentarios por área y mostrarlos
+            const comentariosGroupedByArea = {};
+            data.Comentarios.forEach(function (comentario) {
+                if (!comentariosGroupedByArea[comentario.AreaId]) {
+                    comentariosGroupedByArea[comentario.AreaId] = [];
+                }
+                comentariosGroupedByArea[comentario.AreaId].push(comentario);
+            });
+
+            const comentariosContainer = $("#div-comentario-view");
+            comentariosContainer.empty();
+            for (const area in comentariosGroupedByArea) {
+                let cont = comentariosGroupedByArea[area].length;
+
+                comentariosContainer.append(`<h6>${areasMap[area]}</h6>`);
+                comentariosContainer.append(`<br />`);
+                const ol = $('<ol style="padding-left: 40px;"></ol>');
+                comentariosGroupedByArea[area].forEach(function (comentario) {
+                    let dtaeStr = comentario.FechaComentario != null ? "(" + moment(comentario.FechaComentario).format('MMM Do YYYY') + ")" : '';
+
+                    ol.append(`<li style="display: list-item;">${cont}.- ${comentario.Comentario}${dtaeStr} | ${comentario.UserFullName || ''} | ${comentario.UserIDBN || ''}</li>`);
+                    cont--;
+                });
+                comentariosContainer.append(ol);
+            }
+
+            $("#reporte-seguimiento").modal();
+        }
+
         function domIsReadyAccompanimentInfo(){
             (async function () {
                 toggleAccompanimentLoader();
@@ -19,15 +117,30 @@
                     console.error("Ocurrio un error inesperado")
                     return;
                 }
-
+                
                 const {
-                    alertas
+                    alertas,
+                    areas
                 } = accompanimentResponse;
+
+                // Generar un objeto a partir del arreglo areas
+                const areasMap = areas.reduce((acc, area) => {
+                    acc[area.Id] = area.Value;
+                    return acc;
+                }, {});
+
+                const areasMapString = JSON.stringify(areasMap);
 
                 $("#acompaniamiento-body-alertas").empty();
                 for (let row of alertas) {
+                    const rawData = JSON.stringify(row);
                     $("#acompaniamiento-body-alertas").append(`
                     <tr>
+                        <td>
+                            <button class="show-modal" onclick='showModal(${rawData}, ${areasMapString})'>
+                                <i class="fas fa-pen" style="font-size: 24px;"></i>
+                            </button>
+                        </td>
                         <td>${row.IdReporte}</td>
                         <td>${row.NombreMaestro}</td>
                         <td>${row.GeneroReporte}</td>
@@ -37,6 +150,24 @@
                     </tr>
                     `)
                 }
+
+                // Limpiar y poblar la lista de motivos
+                const areasList = $("#tab-area-view ul[data-field='areas']");
+                areasList.empty();
+                areas.forEach(function (area) {
+                    areasList.append(`<li class="area-item">
+                                            <label>
+                                                <input class="checkbox-area" type="checkbox" value="${area.Value}" data-field="check-${area.Id}">
+                                                ${area.Value}
+                                            </label>
+                                        </li>`);
+                });
+
+                $('.tabbtn').on('click', function (event) {
+                    event.preventDefault();
+                    var tabId = $(this).attr('id');
+                    changeTab(tabId);
+                });
 
                 toggleAccompanimentLoader();
             })();
@@ -70,6 +201,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Reporte</th>
                                 <th>Nombre maestro</th>
                                 <th>Genero reporte</th>
@@ -112,6 +244,138 @@
                     <div class="skeleton skeleton-text"></div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="reporte-seguimiento" class="modal" style=" max-width: 800px !important;">
+    <h1>Detalle del reporte:</h1>
+    <hr class="linea-completa" />
+    <br />
+    <div class="tabs">
+        <a class="tabbtn active" href="#" id="tab-reporte">Reporte</a>
+        <a class="tabbtn" href="#" id="tab-area">Areas de canalización</a>
+        <a class="tabbtn" href="#" id="tab-estatus">Estatus</a>
+        <a class="tabbtn" href="#" id="tab-comentario">Comentarios</a>
+    </div>
+    <div>
+        <div id="tab-reporte-view" class="tab-content-report active">
+            <div class="row">
+                <div class="column">
+                    <h2>Datos del Estudiante</h2>
+                </div>
+                <div class="column">
+                    <h2>Datos de la materia</h2>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="row">
+                    <div class="column">
+                        <label>Estudiante: </label>
+                        <p data-field="estudiante"></p>
+                    </div>
+                    <div class="column">
+                        <label>Materia: </label>
+                        <p data-field="materia"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Correo: </label>
+                        <p data-field="correo"></p>
+                    </div>
+                    <div class="column">
+                        <label>Maestro: </label>
+                        <p data-field="maestro"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Teléfono: </label>
+                        <p data-field="telefono"></p>
+                    </div>
+                    <div class="column">
+                        <label>Correo: </label>
+                        <p data-field="correo-maestro"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Carrera: </label>
+                        <p data-field="carrera"></p>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Semestre: </label>
+                        <p data-field="semestre"></p>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Beca: </label>
+                        <p data-field="beca"></p>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div class="row">
+                    <div class="column">
+                        <h2>Reporte</h2>
+                    </div>
+                    <div class="column">
+                        <h2></h2>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="column row">
+                        <label>Generó reporte: </label>
+                        <p data-field="genero"></p>
+                    </div>
+                    <div class="column row">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column row">
+                        <label>Fecha: </label>
+                        <p data-field="fecha"></p>
+                    </div>
+                    <div class="column row">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column row">
+                        <label>Motivos seleccionados: </label>
+                        <ul data-field="motivos"></ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column row">
+                        <label>Comentarios: </label>
+                        <p data-field="comentarios"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-area-view" class="tab-content-report">
+            <div>
+                <ul data-field="areas"></ul>
+            </div>
+        </div>
+        <div id="tab-estatus-view" class="tab-content-report">
+            <div id="div-estatus-view"></div>
+        </div>
+        <div id="tab-comentario-view" class="tab-content-report">
+            <div id="div-comentario-view"></div>
         </div>
     </div>
 </div>

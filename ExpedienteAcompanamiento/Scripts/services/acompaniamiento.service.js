@@ -4,8 +4,14 @@ const getAccompanimentInformation = async () => {
         "/DatosAcompaniamiento/ObtenerInformacionAcompaniamiento"
     );
 
+    const {
+        alerts,
+        areas,
+    } = response.data.Value;
+
     return {
-        alertas: response.data.Value
+        alertas: alerts,
+        areas: areas
     };
   } catch (err) {
     console.error(err);
