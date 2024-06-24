@@ -30,7 +30,7 @@ namespace ExpedienteAcompanamiento.Models.Services
         {
             try
             {
-                pidm = 778111;
+                //pidm = 778111;
                 var alerts = ObtenerReportes(pidm);
 
                 var becas = ObtenerBecas(pidm, term);
@@ -108,13 +108,13 @@ namespace ExpedienteAcompanamiento.Models.Services
                 {
                     alert.Beca = becas.Count > 0 ? "Si" : "No";
                     //alert.Beca = "No";
-                    alert.Canalizacion = ObtenerAsignacion(alert.IdReporte);
-                    //alert.Canalizacion = canalizaciones;
+                    //alert.Canalizacion = ObtenerAsignacion(alert.IdReporte);
+                    alert.Canalizacion = canalizaciones;
                     alert.GeneroReporte = ObtenerTipoRegistro(alert.TipoRegistro).RegistroDesc;
-                    alert.Estatus = ObtenerEstatus(alert.IdReporte).OrderByDescending(x => x.FechaEstatus).ToList();
-                    //alert.Estatus = estatusList.OrderByDescending(x => x.FechaEstatus).ToList();
-                    alert.Comentarios = ObtenerComentarios(alert.IdReporte).OrderByDescending(x => x.FechaComentario).ToList();
-                    //alert.Comentarios = comentarios.OrderByDescending(x => x.FechaComentario).ToList();
+                    //alert.Estatus = ObtenerEstatus(alert.IdReporte).OrderByDescending(x => x.FechaEstatus).ToList();
+                    alert.Estatus = estatusList.OrderByDescending(x => x.FechaEstatus).ToList();
+                    //alert.Comentarios = ObtenerComentarios(alert.IdReporte).OrderByDescending(x => x.FechaComentario).ToList();
+                    alert.Comentarios = comentarios.OrderByDescending(x => x.FechaComentario).ToList();
                     alert.ApoyoLINDE = becasLinde != null && becasLinde.ToUpper().Contains("LINDE") ? "Y" : "No";
                     //alert.ApoyoLINDE = "No";
                 }

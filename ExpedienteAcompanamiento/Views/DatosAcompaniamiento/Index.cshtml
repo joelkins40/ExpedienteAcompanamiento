@@ -20,6 +20,10 @@
             $('#' + tabId + '-view').addClass('active');
         }
 
+        function showDefaultTab() {
+
+        }
+
         function showModal(data, areasMap) {
             console.log(data);
             console.log(areasMap);
@@ -102,6 +106,7 @@
                     cont--;
                 });
                 comentariosContainer.append(ol);
+                comentariosContainer.append(`<br />`);
             }
 
             $("#reporte-seguimiento").modal();
@@ -143,13 +148,13 @@
                         </td>
                         <td>${row.IdReporte}</td>
                         <td>${row.NombreMaestro}</td>
-                        <td>${row.GeneroReporte}</td>
                         <td>${moment(row.FechaRegistro).format("MMM Do YYYY") }</td>
                         <td>${row.Estatus.length > 0 ? row.Estatus[0].Area + " - " + row.Estatus[0].EstatusDesc : ''}</td>
                         <td>${row.Estatus.length > 0 ? moment(row.Estatus[0].FechaEstatus).format("MMM Do YYYY") : ''}</td>
                     </tr>
                     `)
                 }
+                //<td>${row.GeneroReporte}</td>
 
                 // Limpiar y poblar la lista de motivos
                 const areasList = $("#tab-area-view ul[data-field='areas']");
@@ -157,7 +162,7 @@
                 areas.forEach(function (area) {
                     areasList.append(`<li class="area-item">
                                             <label>
-                                                <input class="checkbox-area" type="checkbox" value="${area.Value}" data-field="check-${area.Id}">
+                                                <input class="checkbox-area" type="checkbox" disabled value="${area.Value}" data-field="check-${area.Id}">
                                                 ${area.Value}
                                             </label>
                                         </li>`);
@@ -202,10 +207,10 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Reporte</th>
-                                <th>Nombre maestro</th>
-                                <th>Genero reporte</th>
-                                <th>Fecha de registro</th>
+                                <th>Número de Reporte</th>
+                                <th>Nombre quien levantó</th>
+                                @*<th>Genero reporte</th>*@
+                                <th>Fecha de registrode reporte</th>
                                 <th>Ultino estatus</th>
                                 <th>Fecha de último estatus</th>
                             </tr>
@@ -249,133 +254,137 @@
 </div>
 
 <div id="reporte-seguimiento" class="modal" style=" max-width: 800px !important;">
-    <h1>Detalle del reporte:</h1>
-    <hr class="linea-completa" />
-    <br />
-    <div class="tabs">
-        <a class="tabbtn active" href="#" id="tab-reporte">Reporte</a>
-        <a class="tabbtn" href="#" id="tab-area">Areas de canalización</a>
-        <a class="tabbtn" href="#" id="tab-estatus">Estatus</a>
-        <a class="tabbtn" href="#" id="tab-comentario">Comentarios</a>
-    </div>
-    <div>
-        <div id="tab-reporte-view" class="tab-content-report active">
-            <div class="row">
-                <div class="column">
-                    <h2>Datos del Estudiante</h2>
-                </div>
-                <div class="column">
-                    <h2>Datos de la materia</h2>
-                </div>
-            </div>
-            <br />
-            <div>
+    <div style="height: 700px; overflow-y: scroll;">
+        <h1>Detalle del reporte:</h1>
+        <hr class="linea-completa" />
+        <br />
+        <div class="tabs">
+            <a class="tabbtn active" href="#" id="tab-reporte">Reporte</a>
+            <a class="tabbtn" href="#" id="tab-area">Areas de canalización</a>
+            <a class="tabbtn" href="#" id="tab-estatus">Estatus</a>
+            <a class="tabbtn" href="#" id="tab-comentario">Comentarios</a>
+        </div>
+        <div>
+            <div id="tab-reporte-view" class="tab-content-report active">
                 <div class="row">
                     <div class="column">
-                        <label>Estudiante: </label>
-                        <p data-field="estudiante"></p>
+                        <h2>Datos del Estudiante</h2>
                     </div>
                     <div class="column">
-                        <label>Materia: </label>
-                        <p data-field="materia"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label>Correo: </label>
-                        <p data-field="correo"></p>
-                    </div>
-                    <div class="column">
-                        <label>Maestro: </label>
-                        <p data-field="maestro"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label>Teléfono: </label>
-                        <p data-field="telefono"></p>
-                    </div>
-                    <div class="column">
-                        <label>Correo: </label>
-                        <p data-field="correo-maestro"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label>Carrera: </label>
-                        <p data-field="carrera"></p>
-                    </div>
-                    <div class="column">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label>Semestre: </label>
-                        <p data-field="semestre"></p>
-                    </div>
-                    <div class="column">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column">
-                        <label>Beca: </label>
-                        <p data-field="beca"></p>
-                    </div>
-                    <div class="column">
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div>
-                <div class="row">
-                    <div class="column">
-                        <h2>Reporte</h2>
-                    </div>
-                    <div class="column">
-                        <h2></h2>
+                        <h2>Datos de la materia</h2>
                     </div>
                 </div>
                 <br />
-                <div class="row">
-                    <div class="column row">
-                        <label>Generó reporte: </label>
-                        <p data-field="genero"></p>
+                <div>
+                    <div class="row">
+                        <div class="column">
+                            <label>Estudiante: </label>
+                            <p data-field="estudiante"></p>
+                        </div>
+                        <div class="column">
+                            <label>Materia: </label>
+                            <p data-field="materia"></p>
+                        </div>
                     </div>
-                    <div class="column row">
+                    <div class="row">
+                        <div class="column">
+                            <label>Correo: </label>
+                            <p data-field="correo"></p>
+                        </div>
+                        <div class="column">
+                            <label>Maestro: </label>
+                            <p data-field="maestro"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <label>Teléfono: </label>
+                            <p data-field="telefono"></p>
+                        </div>
+                        <div class="column">
+                            <label>Correo: </label>
+                            <p data-field="correo-maestro"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <label>Carrera: </label>
+                            <p data-field="carrera"></p>
+                        </div>
+                        <div class="column">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <label>Semestre: </label>
+                            <p data-field="semestre"></p>
+                        </div>
+                        <div class="column">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <label>Beca: </label>
+                            <p data-field="beca"></p>
+                        </div>
+                        <div class="column">
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column row">
-                        <label>Fecha: </label>
-                        <p data-field="fecha"></p>
+                <br />
+                <div>
+                    <div class="row">
+                        <div class="column">
+                            <h2>Reporte</h2>
+                        </div>
+                        <div class="column">
+                            <h2></h2>
+                        </div>
                     </div>
-                    <div class="column row">
+                    <br />
+                    <div class="row">
+                        <div class="column row">
+                            <label>Generó reporte: </label>
+                            <p data-field="genero"></p>
+                        </div>
+                        <div class="column row">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="column row">
-                        <label>Motivos seleccionados: </label>
-                        <ul data-field="motivos"></ul>
+                    <div class="row">
+                        <div class="column row">
+                            <label>Fecha: </label>
+                            <p data-field="fecha"></p>
+                        </div>
+                        <div class="column row">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="column row">
-                        <label>Comentarios: </label>
-                        <p data-field="comentarios"></p>
+                    <div class="row">
+                        <div class="column row">
+                            <label>Motivos seleccionados: </label>
+                            <ul data-field="motivos"></ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column row">
+                            <label>Comentarios: </label>
+                            <p data-field="comentarios"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="tab-area-view" class="tab-content-report">
-            <div>
-                <ul data-field="areas"></ul>
+            <div id="tab-area-view" class="tab-content-report">
+                <div>
+                    <ul data-field="areas"></ul>
+                </div>
             </div>
-        </div>
-        <div id="tab-estatus-view" class="tab-content-report">
-            <div id="div-estatus-view"></div>
-        </div>
-        <div id="tab-comentario-view" class="tab-content-report">
-            <div id="div-comentario-view"></div>
+            <div id="tab-estatus-view" class="tab-content-report">
+                <div id="div-estatus-view"></div>
+            </div>
+            <div id="tab-comentario-view" class="tab-content-report">
+                <div id="div-comentario-view"></div>
+            </div>
         </div>
     </div>
+    <br />
+    <br />
 </div>
