@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@section scripts {
+    <script src="~/Scripts/services/admision.service.js"></script>
+    <script>
+        let auxuUrlHorarios= "";
+        function domIsReadyAdmision(){
+            (async function () {
+                toggleAdmisionLoader();
+                const admisionResponse = await getAdmisionInformation();
+
+                if (!admisionResponse) {
+                    toggleAcademicLoader();
+                    console.error("Ocurrio un error inesperado")
+                    return;
+                }
+
+                for (let key in admisionResponse){                    
+                    $(`#admision-${key}`).text(admisionResponse[key]);
+                }                       
+
+                toggleAdmisionLoader();
+            })();
+        }
+
+        function toggleAdmisionLoader(){
+            if ($("#admision:hidden").length === 1) {
+                $(`#admision`).attr("style", "display: block");
+                $(`#admision-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#admision-skeleton`).attr("style", "display: block");
+            $(`#admision`).attr("style", "display: none");
+        }
+
+        $(document).ready(domIsReadyAdmision);
+    </script>
+}
+
+<div id="admision">
+    <div class="card">
+        <div class="card-header">
+            <h3>Datos de admisión</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <strong>Admisión condicionada (Si/No)</strong>
+                    <span type="text" id="admision-admisionCondicionada"></span>
+                </div>
+                <div class="column">
+                    <strong>PAA</strong>
+                    <span type="text" id="admision-PAA"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <strong>Período en el que inició sus estudios</strong>
+                    <span type="text" id="admision-promedioInicio"></span>
+                </div>
+                <div class="column">
+                    <strong>Promedio de ingreso (certificado de prepa)</strong>
+                    <span type="text" id="admision-promedioIngresoPrepa"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <strong>Puntaje matemáticas</strong>
+                    <span type="text" id="admision-puntajeMatematicas"></span>
+                </div>
+                <div class="column">
+                    <strong>Puntaje verbal</strong>
+                    <span type="text" id="admision-puntajeVerbal"></span>
+                </div>
+            </div>           
+        </div>  
+</div>

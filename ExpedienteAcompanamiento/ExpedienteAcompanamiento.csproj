@@ -184,6 +184,7 @@
     <Compile Include="Controllers\DatosAcademicos.cs" />
     <Compile Include="Controllers\DatosAdministrativos.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ResidenciasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,6 +205,7 @@
     <Compile Include="Models\Entity\DatosInicio.cs" />
     <Compile Include="Models\Entity\InformacionGeneral.cs" />
     <Compile Include="Models\Entity\ReporteEstatus.cs" />
+    <Compile Include="Models\Entity\ResidenciasAlertas.cs" />
     <Compile Include="Models\Entity\ResidenciasGeneral.cs" />
     <Compile Include="Models\Entity\ResidenciasSalud.cs" />
     <Compile Include="Models\Entity\SIAT\TblSiatAsignacion.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Models\Services\ExpedienteCentroSaludIntegralService.cs" />
     <Compile Include="Models\Services\InternacionalizacionService.cs" />
     <Compile Include="Models\Services\PersonalesService.cs" />
+    <Compile Include="Models\Services\ResidenciasAlertasService.cs" />
     <Compile Include="Models\Services\ResidenciasGeneralService.cs" />
     <Compile Include="Models\Services\ResidenciasSaludService.cs" />
     <Compile Include="Models\Services\TutoresService.cs" />
@@ -259,6 +262,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\services\admision.service.js" />
     <Content Include="Scripts\services\academicos.service.js" />
     <Content Include="Scripts\services\acompaniamiento.service.js" />
     <Content Include="Scripts\services\administrativos.service.js" />
@@ -279,9 +283,11 @@
     <Content Include="Views\DatosAdministrativos\Index.cshtml" />
     <Content Include="Views\DatosAcademicos\Index.cshtml" />
     <Content Include="Views\DatosAcompaniamiento\Index.cshtml" />
+    <Content Include="Views\DatosAdmision\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Residencias\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
