@@ -37,86 +37,14 @@ namespace ExpedienteAcompanamiento.Models.Services
                 var becasLinde = ObtenerBecasLinde(pidm, term);
                 var areas = ObtenerAreas();
 
-                var canalizaciones = new List<ReporteArea>();
-                var estatusList = new List<ReporteEstatus>();
-                var comentarios = new List<TblSiatComentario>();
-
-                //Canalizaciones pruebas
-                canalizaciones.Add(new ReporteArea
-                {
-                    AreaAsig = "AP",
-                    AreaDesc = "Aprendizaje",
-                    FechaAsig = DateTime.Parse("2024-01-03T10:32:14.483")
-                });
-                canalizaciones.Add(new ReporteArea
-                {
-                    AreaAsig = "CO",
-                    AreaDesc = "Consejería",
-                    FechaAsig = DateTime.Parse("2024-01-03T10:33:36.917")
-                });
-                canalizaciones.Add(new ReporteArea
-                {
-                    AreaAsig = "CE",
-                    AreaDesc = "Coord. estudiantil",
-                    FechaAsig = DateTime.Parse("2024-01-10T10:25:18.733")
-                });
-
-                //Estatus pruebas
-                estatusList.Add(new ReporteEstatus
-                {
-                    Area = "CE",
-                    EstatusDesc = "Cita agendada",
-                    EstatusId = 109,
-                    FechaEstatus = DateTime.Parse("2024-01-05T13:54:17.48"),
-                    UserFullName = "María Isabel Fuente  Martínez",
-                    UserIDBN = "000508613",
-                    UserId = "maria.fuente"
-                });
-                estatusList.Add(new ReporteEstatus
-                {
-                    Area = "CE",
-                    EstatusDesc = "Se envió correo al alumno",
-                    EstatusId = 108,
-                    FechaEstatus = DateTime.Parse("2024-01-03T11:08:02.92"),
-                    UserFullName = "",
-                    UserIDBN = "",
-                    UserId = "maria.fuente"
-                });
-
-                //Comentarios pruebas
-                comentarios.Add(new TblSiatComentario
-                {
-                    AreaId = "CE",
-                    Comentario = "agenda de cita prueba",
-                    FechaComentario = DateTime.Parse("2024-01-05T13:54:17.477"),
-                    UserFullName = "María Isabel Fuente  Martínez",
-                    UserIDBN = "000508613",
-                    UserId = "maria.fuente"
-                });
-                comentarios.Add(new TblSiatComentario
-                {
-                    AreaId = "CE",
-                    Comentario = "Prueba",
-                    FechaComentario = DateTime.Parse("2024-01-03T11:08:02.92"),
-                    UserFullName = null,
-                    UserIDBN = null,
-                    UserId = "maria.fuente"
-                });
-
-                // TODO: Becas
                 foreach (var alert in alerts)
                 {
                     alert.Beca = becas.Count > 0 ? "Si" : "No";
-                    //alert.Beca = "No";
-                    //alert.Canalizacion = ObtenerAsignacion(alert.IdReporte);
-                    alert.Canalizacion = canalizaciones;
+                    alert.Canalizacion = ObtenerAsignacion(alert.IdReporte);
                     alert.GeneroReporte = ObtenerTipoRegistro(alert.TipoRegistro).RegistroDesc;
-                    //alert.Estatus = ObtenerEstatus(alert.IdReporte).OrderByDescending(x => x.FechaEstatus).ToList();
-                    alert.Estatus = estatusList.OrderByDescending(x => x.FechaEstatus).ToList();
-                    //alert.Comentarios = ObtenerComentarios(alert.IdReporte).OrderByDescending(x => x.FechaComentario).ToList();
-                    alert.Comentarios = comentarios.OrderByDescending(x => x.FechaComentario).ToList();
+                    alert.Estatus = ObtenerEstatus(alert.IdReporte).OrderByDescending(x => x.FechaEstatus).ToList();
+                    alert.Comentarios = ObtenerComentarios(alert.IdReporte).OrderByDescending(x => x.FechaComentario).ToList();
                     alert.ApoyoLINDE = becasLinde != null && becasLinde.ToUpper().Contains("LINDE") ? "Y" : "No";
-                    //alert.ApoyoLINDE = "No";
                 }
 
                 return new ResultObject() { Success = true, Value = new { alerts, areas } };
