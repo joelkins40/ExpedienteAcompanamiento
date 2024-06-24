@@ -17,7 +17,7 @@ namespace ExpedienteAcompanamiento.Models.Services
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["AlertaResidencias"].ConnectionString;
 
 
-        public static ResultObject ObtenerInformacionDatosAdmision(int pidm)
+        public static ResultObject ObtenerInformacionDatosAdmision(string pidm)
         {
             ResultObject result = new ResultObject();
             ResidenciasAlertas datosResidenciasAlertas = new ResidenciasAlertas();
@@ -43,7 +43,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
 
                     // 3. add parameter to command, which will be passed to the stored procedure
-                    //cmd.Parameters.Add(new SqlParameter("@CustomerID", custId));
+                    cmd.Parameters.Add(new SqlParameter("@Matricula", pidm));
 
                     // execute the command
                     using (SqlDataReader rdr = cmd.ExecuteReader())
