@@ -142,6 +142,7 @@
                 <a class="tablinks" href="@Url.Action("Index", "DatosAcademicos")" id="tab-academicos">Datos académicos</a>
                 <a class="tablinks" href="@Url.Action("Index", "DatosAcompaniamiento")" id="tab-acompaniamiento">Datos acompañamiento</a>
                 <a class="tablinks" href="@Url.Action("Index", "DatosAdmision")" id="tab-admision">Datos de admisión</a>
+                <a class="tablinks" href="@Url.Action("Index", "Residencias")" id="tab-residencias">Residencias</a>
             </div>
             <div>
                 @RenderBody()
@@ -189,7 +190,12 @@
             }
 
             if (controller === "/DatosAdmision") {
-                $("#tab-acompaniamiento").addClass("active");
+                $("#tab-admision").addClass("active");
+                return;
+            }
+
+            if (controller === "/Residencias") {
+                $("#tab-residencias").addClass("active");
                 return;
             }
         }

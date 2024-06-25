@@ -28,6 +28,7 @@ const getAdministrativeInformation = async () => {
         numPeriodo: datosAdministrativos[0].NUM_PERIODO,
         progBecario: datosAdministrativos[0].PROG_BECARIO,
         seguroUdem: datosAdministrativos[0].SEGURO_UDEM,
+        seguroParticular: datosAdministrativos[0].SEGURO_PART,
         terminosCond: datosAdministrativos[0].TERMINOS_COND,
         terminosFecha: dateAux,
       },
