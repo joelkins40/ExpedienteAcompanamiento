@@ -17,7 +17,7 @@ namespace ExpedienteAcompanamiento.Models.Services
         private static readonly string _conString = ConfigurationManager.ConnectionStrings["AlertaResidencias"].ConnectionString;
 
 
-        public static ResultObject ObtenerInformacionDatosAdmision(string matricula)
+        public static ResultObject obtenerInformacionAlertas(string matricula)
         {
             ResultObject result = new ResultObject();
             ResidenciasAlertas datosResidenciasAlertas = new ResidenciasAlertas();
@@ -64,7 +64,8 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 Estatus = rdr["Estatus"]?.ToString(),
                                 Comentario = rdr["Comentario"]?.ToString(),
                                 Proceso = rdr["Proceso"]?.ToString(),
-                                FechaDeFinalizacion = rdr["FechaDeFinalizacion"]?.ToString()
+                                FechaDeFinalizacion = rdr["FechaDeFinalizacion"]?.ToString(),
+                                Estatus_Desc = rdr["Descripcion_Estatus"]?.ToString()                                
                             });
 
                            

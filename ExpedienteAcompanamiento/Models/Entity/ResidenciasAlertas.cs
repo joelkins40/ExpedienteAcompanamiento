@@ -19,6 +19,7 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string FechaCreacion { get; set; }
         public string Nombre { get; set; }
         public string Estatus { get; set; }
+        public string Estatus_Desc { get; set; }
         public string Comentario { get; set; }
         public string Proceso { get; set; }
         public string FechaDeFinalizacion { get; set; }

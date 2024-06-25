@@ -18,12 +18,12 @@ namespace ExpedienteAcompanamiento.Controllers
         }
 
         [HttpGet]
-        [ActionName("ObtenerAlertas")]
+        [ActionName("obtenerInformacionResidencias")]
         public string Get()
         {;
             string pidm = Convert.ToString(Session["pidm"]);
             string matricula = Convert.ToString(Session["matricula"]);
-            ResultObject response = ResidenciasAlertasService.ObtenerInformacionDatosAdmision(matricula);
+            ResultObject response = ResidenciasAlertasService.obtenerInformacionAlertas(matricula);
             return JsonConvert.SerializeObject(response);
         }
     }
