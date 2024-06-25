@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@section scripts {
+    <script src="~/Scripts/services/residencias.service.js"></script>
+    <script>        
+        function domIsReadyResidencias(){
+            (async function () {
+                toggleResidenciasLoader();
+                const residenciasResponse = await getResidenciasInformation();
+
+                if (!residenciasResponse) {
+                    toggleResidenciasLoader();
+                    console.error("Ocurrio un error inesperado")
+                    return;
+                }
+
+                //for (let key in residenciasResponse){                    
+                //    $(`#residencias-${key}`).text(residenciasResponse[key]);
+                //}  
+
+                $("#residencias-alerta").empty();
+                for (let row of residenciasResponse) {
+                    $("#residencias-alerta").append(`
+                     <tr>
+                         <td>${row.fechaSalida}</td>
+                         <td>${row.fechaEntrada}</td>
+                         <td>${row.motivo}</td>
+                         <td>${row.estatus}</td>
+                         <td>${row.comentario}</td>
+                     </tr>
+                    `)
+                }
+
+                toggleResidenciasLoader();
+            })();
+        }
+
+        function toggleResidenciasLoader(){
+            if ($("#residencias:hidden").length === 1) {
+                $(`#residencias`).attr("style", "display: block");
+                $(`#residencias-skeleton`).attr("style", "display: none");
+                return;
+            }
+
+            $(`#residencias-skeleton`).attr("style", "display: block");
+            $(`#residencias`).attr("style", "display: none");
+        }
+
+        $(document).ready(domIsReadyResidencias);
+    </script>
+}
+
+<div id="residencias">
+    <div class="card">
+        <div class="card-header">
+            <h3>Alertas</h3>
+            <i class="fa-solid fa-arrow-down"></i>
+            <i class="fa-solid fa-arrow-up" style="display:none"></i>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="column">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha salida</th>
+                                <th>Fecha entrada</th>
+                                <th>Motivo</th>
+                                <th>Estatus</th>
+                                <th>Comentario</th>                                
+                            </tr>
+                        </thead>
+                        <tbody id="residencias-alerta">
+                        <tbody>
+                    </table>
+                </div>
+            </div>                           
+        </div>  
+    </div>
+</div>
