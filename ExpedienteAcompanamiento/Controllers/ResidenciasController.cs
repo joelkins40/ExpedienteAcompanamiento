@@ -20,11 +20,10 @@ namespace ExpedienteAcompanamiento.Controllers
         [HttpGet]
         [ActionName("ObtenerAlertas")]
         public string Get()
-        {
+        {;
             string pidm = Convert.ToString(Session["pidm"]);
-            //string term = Session["term"].ToString();
-            //string term = "";
-            ResultObject response = ResidenciasAlertasService.ObtenerInformacionDatosAdmision(pidm);
+            string matricula = Convert.ToString(Session["matricula"]);
+            ResultObject response = ResidenciasAlertasService.ObtenerInformacionDatosAdmision(matricula);
             return JsonConvert.SerializeObject(response);
         }
     }

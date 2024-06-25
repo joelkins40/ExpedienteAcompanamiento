@@ -94,7 +94,6 @@ namespace ExpedienteAcompanamiento.Models.Services
             }
             return validas;
         }
-
         public static string ObtenerPIDM(string matricula)
         {
             string pidm = "";
@@ -139,6 +138,7 @@ namespace ExpedienteAcompanamiento.Models.Services
 
             return pidm;
         }
+
 
     }
 }

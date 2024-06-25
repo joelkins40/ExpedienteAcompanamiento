@@ -55,7 +55,9 @@ namespace ExpedienteAcompanamiento.Controllers
         {
 
             string pidm =  AccesoService.ObtenerPIDM(matricula);
-            Session["pidm"] = pidm;            
+            Session["pidm"] = pidm;
+            Session["matricula"] = matricula;
+
             return JsonConvert.SerializeObject(new {success = Convert.ToInt32(pidm) > 0 ? true : false});
         }
     }    
