@@ -187,6 +187,7 @@ namespace ExpedienteAcompanamiento.Models.Services
                             {
 
                                 SEGURO_UDEM = lector2["SGMM"]?.ToString(),
+                                SEGURO_PART = lector2["SGM_PARTICULAR"]?.ToString(),
                                 BLOQUEO = lector2["BLOQUEO"]?.ToString(),
                                 TERMINOS_COND = lector2["TERMINOS_COND"]?.ToString(),
                                 TERMINOS_FECHA = lector2["TERMINOS_FECHA"]?.ToString(),
