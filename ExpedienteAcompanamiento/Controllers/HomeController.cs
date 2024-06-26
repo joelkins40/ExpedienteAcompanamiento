@@ -30,6 +30,7 @@ namespace ExpedienteAcompanamiento.Controllers
             }
           
             ViewBag.Server = WebConfigurationManager.AppSettings["SERVER"];
+            //ViewBag.Visible1 = false;
             return View();
         }
 
