@@ -189,6 +189,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Acompanamiento.cs" />
+    <Compile Include="Models\Entity\EstadoCuenta.cs" />
+    <Compile Include="Models\Entity\Recidencias.cs" />
     <Compile Include="Models\Entity\Admisiones.cs" />
     <Compile Include="Models\Entity\Catalog.cs" />
     <Compile Include="Models\Entity\ReporteArea.cs" />
