@@ -16,6 +16,8 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string Fecha_Entrada { get; set; }
         public string Comentario { get; set; }
         public string EstatusAviso { get; set; }
-        public string Motivo { get; set; }          
+        public string Motivo { get; set; }
+        public string Fecha_Alta { get; set; }
+
     }
 }

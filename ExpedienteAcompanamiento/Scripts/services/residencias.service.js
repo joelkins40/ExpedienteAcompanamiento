@@ -5,7 +5,7 @@ const getResidenciasInformation = async () => {
         );
         function formato_fecha(fecha) {
             var FechaIni = fecha ? moment(fecha, "DD-MM-YYYYTHH:mm:ssZ").format(
-                "DD/MMMM/YYYY"
+                "MMMM/DD/YYYY"
             )
                 : "";
             return FechaIni;
@@ -15,7 +15,9 @@ const getResidenciasInformation = async () => {
             fechaSalida: formato_fecha(a.Fecha_Salida),
             fechaEntrada: formato_fecha(a.Fecha_Entrada),
             motivo: a.Motivo,
-            estatus: a.EstatusAviso,            
+            estatus: a.EstatusAviso,           
+            fechaAlta: formato_fecha(a.Fecha_Alta)
+
         }));
     } catch (err) {
         console.error(err);

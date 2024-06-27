@@ -25,10 +25,11 @@
                 for (let row of residenciasResponse) {
                     $("#residencias-alerta").append(`
                      <tr>
+                     <td>${row.motivo}</td>
+                         <td>${row.estatus}</td>
                          <td>${row.fechaSalida}</td>
                          <td>${row.fechaEntrada}</td>
-                         <td>${row.motivo}</td>
-                         <td>${row.estatus}</td>
+                         <td>${row.fechaAlta}</td>
                      </tr>
                     `)
                 }
@@ -66,10 +67,12 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>Motivo</th>
+                                <th>Estatus</th>
                                 <th>Fecha salida</th>
                                 <th>Fecha entrada</th>
-                                <th>Motivo</th>
-                                <th>Estatus</th>                                                     
+                                <th>Fecha alta</th>
+
                             </tr>
                         </thead>
                         <tbody id="residencias-alerta">
@@ -101,9 +104,9 @@
                 <div class="column">
                     <div class="skeleton skeleton-text"></div>
                 </div>
-                @*<div class="column">
+                <div class="column">
                     <div class="skeleton skeleton-text"></div>
-                </div>*@
+                </div>
             </div>
         </div>
     </div>

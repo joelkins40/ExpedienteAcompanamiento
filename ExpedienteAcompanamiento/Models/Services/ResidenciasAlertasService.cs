@@ -58,7 +58,9 @@ namespace ExpedienteAcompanamiento.Models.Services
                                 Fecha_Entrada = rdr["Fecha_Entrada"]?.ToString(),
                                 Motivo = rdr["Motivo"]?.ToString(),
                                 EstatusAviso = rdr["EstatusAviso"]?.ToString(),
-                                Comentario = rdr["Comentario"]?.ToString()                         
+                                Comentario = rdr["Comentario"]?.ToString(),
+                                Fecha_Alta = rdr["Fecha_Alta"]?.ToString()
+
                             });
 
                            
