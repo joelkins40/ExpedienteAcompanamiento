@@ -10,7 +10,10 @@ const getAcademicInformation = async () => {
       ? moment(toefl[0].SORTEST_TEST_DATE, "YYYY-MM-DDTHH:mm:ssZ").format(
           "DD/MMMM/YYYY"
         )
-      : "";
+          : "";
+
+      const mas50PrimerParcial = Number((datosAcademicos[0].PORCEN_MAT_REP_1ER_PARCIAL).substring(0, datosAcademicos[0].PORCEN_MAT_REP_1ER_PARCIAL.length - 1));
+      const mas50SegundoParcial = Number((datosAcademicos[0].PORCEN_MAT_REP_2DO_PARCIAL).substring(0, datosAcademicos[0].PORCEN_MAT_REP_1ER_PARCIAL.length - 1));;
 
     return {
       datosAcademicos: {
@@ -25,12 +28,14 @@ const getAcademicInformation = async () => {
         toeflTestDate: dateAux,
         toeflTestScore: toefl[0].SORTEST_TEST_SCORE,
         toeflTestDesc: toefl[0].STVTESC_DESC,
-        materiasReprobadas1erParcial: datosAcademicos[0].MATERIAS_REP_1ER_PARCIAL,
-        materiasReprobadas2erParcial: datosAcademicos[0].MATERIAS_REP_2DO_PARCIAL,
-        porcentajeReprobadas1erParcial: datosAcademicos[0].PORCEN_MAT_REP_1ER_PARCIAL,
+        materiasReprobadas1erParcial: mas50PrimerParcial > 50 ? "SI" : "NO",
+        materiasReprobadas2erParcial: mas50SegundoParcial > 50 ? "SI" : "NO",
+        porcentajeReprobadas1erParcial: datosAcademicos[0].PORCEN_MAT_REP_1ER_PARCIAL ,
         porcentajeReprobadas2erParcial: datosAcademicos[0].PORCEN_MAT_REP_2DO_PARCIAL,
         faltasReprobadas1erParcial: datosAcademicos[0].FALTAS_1ER_PARCIAL,
         faltasReprobadas2erParcial: datosAcademicos[0].FALTAS_2DO_PARCIAL,
+        porcentajeReprobadas1erParcialNumber: mas50PrimerParcial,
+        porcentajeReprobadas2erParcialNumber: mas50SegundoParcial,
       },
       estatusAlumno: estatusAlumno,
       urlHorarios: UrlHorarios,

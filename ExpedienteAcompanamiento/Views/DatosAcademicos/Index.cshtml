@@ -41,8 +41,18 @@
                          <td>${row.GPA}</td>                                                 
                      </tr>
                      `)
-                }                
+                }    
 
+
+                const { porcentajeReprobadas1erParcialNumber, porcentajeReprobadas2erParcialNumber } = datosAcademicos;
+                if (porcentajeReprobadas1erParcialNumber > 50) {
+                    $("#academicos-porcentajeReprobadas1erParcial").attr("style", "color:red");
+                }
+
+                if (porcentajeReprobadas2erParcialNumber > 50) {
+                    $("#academicos-porcentajeReprobadas2erParcial").attr("style", "color:red");
+                }                
+                
                 toggleAcademicLoader();
             })();
         }
@@ -115,11 +125,11 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <strong>Materias reprobadas primer parcial</strong>
+                    <strong>50% ó más de sus materias reprobadas</strong>
                     <span type="text" id="academicos-materiasReprobadas1erParcial"></span>
                 </div>
                 <div class="column">
-                    <strong>Materias reprobadas segundo parcial</strong>
+                    <strong>50% ó más de sus materias reprobadas</strong>
                     <span type="text" id="academicos-materiasReprobadas2erParcial"></span>
                 </div>
             </div>
