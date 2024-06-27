@@ -28,7 +28,6 @@
                          <td>${row.fechaSalida}</td>
                          <td>${row.fechaEntrada}</td>
                          <td>${row.motivo}</td>
-                         <td>${row.estatus}</td>
                          <td>${row.comentario}</td>
                      </tr>
                     `)
@@ -57,7 +56,7 @@
 <div id="residencias">
     <div class="card">
         <div class="card-header">
-            <h3>Alertas</h3>
+            <h3>Avisos de Ausencia</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -71,7 +70,7 @@
                                 <th>Fecha entrada</th>
                                 <th>Motivo</th>
                                 <th>Estatus</th>
-                                <th>Comentario</th>                                
+                                @*<th>Comentario</th>*@                                
                             </tr>
                         </thead>
                         <tbody id="residencias-alerta">
@@ -85,7 +84,7 @@
 <div id="residencias-skeleton">
     <div class="card">
         <div class="card-header">
-            <h3>Alertas</h3>
+            <h3>Avisos de Ausencia</h3>
             <i class="fa-solid fa-arrow-down"></i>
             <i class="fa-solid fa-arrow-up" style="display:none"></i>
         </div>
@@ -103,9 +102,9 @@
                 <div class="column">
                     <div class="skeleton skeleton-text"></div>
                 </div>
-                <div class="column">
+                @*<div class="column">
                     <div class="skeleton skeleton-text"></div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
