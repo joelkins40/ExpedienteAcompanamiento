@@ -10,13 +10,12 @@ const getResidenciasInformation = async () => {
                 : "";
             return FechaIni;
         };
-
+        
         return (response?.data?.Value || []).map(a => ({
             fechaSalida: formato_fecha(a.Fecha_Salida),
             fechaEntrada: formato_fecha(a.Fecha_Entrada),
             motivo: a.Motivo,
-            estatus: a.Estatus,
-            comentario: a.Comentario,
+            estatus: a.EstatusAviso,            
         }));
     } catch (err) {
         console.error(err);

@@ -53,19 +53,12 @@ namespace ExpedienteAcompanamiento.Models.Services
                         {
                             //Console.WriteLine("Product: {0,-35} Total: {1,2}", rdr["Matricula"], rdr["Total"]);
                             residenciasAlertasList.Add(new ResidenciasAlertas
-                            {
-                                Id_Aviso = rdr["Id_Aviso"]?.ToString(),
-                                Matricula = rdr["Matricula"]?.ToString(),
+                            {                                
                                 Fecha_Salida = rdr["Fecha_Salida"]?.ToString(),
                                 Fecha_Entrada = rdr["Fecha_Entrada"]?.ToString(),
                                 Motivo = rdr["Motivo"]?.ToString(),
-                                FechaCreacion = rdr["FechaCreacion"]?.ToString(),
-                                Nombre = rdr["Nombre"]?.ToString(),
-                                Estatus = rdr["Estatus"]?.ToString(),
-                                Comentario = rdr["Comentario"]?.ToString(),
-                                Proceso = rdr["Proceso"]?.ToString(),
-                                FechaDeFinalizacion = rdr["FechaDeFinalizacion"]?.ToString(),
-                                Estatus_Desc = rdr["Descripcion_Estatus"]?.ToString()                                
+                                EstatusAviso = rdr["EstatusAviso"]?.ToString(),
+                                Comentario = rdr["Comentario"]?.ToString()                         
                             });
 
                            
