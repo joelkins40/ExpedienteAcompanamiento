@@ -1,7 +1,7 @@
 const getResidenciasInformation = async () => {
   try {
     const response = await axios.get(
-      "/Residencias/ObtenerAlertas"
+      "/Residencias/obtenerInformacionResidencias"
       );
     
       return (response?.data?.Value || []).map(a => ({
