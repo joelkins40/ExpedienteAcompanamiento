@@ -23,7 +23,7 @@ namespace ExpedienteAcompanamiento.Controllers
         {;
             string pidm = Convert.ToString(Session["pidm"]);
             string matricula = Convert.ToString(Session["matricula"]);
-            ResultObject response = ResidenciasAlertasService.obtenerInformacionAlertas(matricula);
+            ResultObject response = ResidenciasAlertasService.obtenerInformacionAlertas(matricula, pidm);
             return JsonConvert.SerializeObject(response);
         }
     }

@@ -19,5 +19,7 @@ namespace ExpedienteAcompanamiento.Models.Entity
         public string Descuentos { get; set; }
         public string Esquema_Pagos { get; set; }
         public List<EstadoCuenta> EstadoCuentas { get; set; }
+        public List<ReporteConducta> ReportesConducta { get; set; }
+        public List<Quejas> Quejas { get; set; }
     }
 }
